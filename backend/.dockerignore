@@ -1,0 +1,12 @@
+# Docker build context cho backend Master JP — loai bo thu khong can thiet
+# de image gon va build nhanh.
+target/
+.env
+.env.local
+*.log
+.git/
+.gitignore
+.idea/
+.vscode/
+*.iml
+.DS_Store
