@@ -1,20 +1,45 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { answerProgress, generateQuiz, recordSession } from '../api/study.js';
+import { generateQuickQuiz } from '../api/quickPractice.js';
 import { getErrorMessage } from '../api/client.js';
 import { playAudio, resolveAssetUrl, QUIZ_MODE_LABELS } from '../utils.js';
 import './pages.css';
 
 // US-006 (F-021/022/023, F-027): quiz 20 câu, chấm tại chỗ, PATCH progress mỗi câu.
 // mode listening: phát audio thay vì hiện chữ, preload câu kế (NFR-001).
+// F-C: chế độ luyện nhanh (?quick=1) — nhận wordIds/mode từ sessionStorage
+// (trang /luyen-tap-nhanh lưu trước khi chuyển sang), gọi POST /api/quiz/quick,
+// ghi session với scopeType 'QUICK' / scopeId 'quick', kết quả có 3 nút
+// (luyện lại từ sai / luyện lại toàn bộ / chọn lại từ). KHÔNG tạo bộ thẻ.
 const MODE_MAP = { jp_vi: 'JP_VI', vi_jp: 'VI_JP', listening: 'LISTENING' };
 const SESSION_MODE = { JP_VI: 'QUIZ_JP_VI', VI_JP: 'QUIZ_VI_JP', LISTENING: 'LISTENING' };
+const QUICK_KEY = 'mjp_quick_quiz';
 
 export default function Quiz() {
   const [params] = useSearchParams();
-  const mode = MODE_MAP[params.get('mode')] || 'JP_VI';
-  const scopeType = params.get('scopeType');
-  const scopeId = params.get('scopeId');
+  const navigate = useNavigate();
+  const isQuick = params.get('quick') === '1';
+
+  const urlMode = MODE_MAP[params.get('mode')] || 'JP_VI';
+  const scopeType = isQuick ? 'QUICK' : params.get('scopeType');
+  const scopeId = isQuick ? 'quick' : params.get('scopeId');
+
+  // F-C: đọc payload luyện nhanh (do QuickPractice lưu vào sessionStorage).
+  const [quick, setQuick] = useState(() => {
+    if (!isQuick) return null;
+    try {
+      const p = JSON.parse(sessionStorage.getItem(QUICK_KEY) || 'null');
+      if (p?.wordIds?.length && p?.mode) {
+        return { allWordIds: p.wordIds, wordIds: p.wordIds, mode: p.mode };
+      }
+    } catch { /* bỏ qua */ }
+    return { error: true };
+  });
+  const [runKey, setRunKey] = useState(0);
+
+  const mode = isQuick ? (quick?.mode || 'JP_VI') : urlMode;
+  const wordIds = isQuick ? quick?.wordIds : null;
 
   const [questions, setQuestions] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -26,13 +51,21 @@ export default function Quiz() {
   const [result, setResult] = useState(null);
   const [saving, setSaving] = useState(false);
   const [qStart, setQStart] = useState(Date.now());
-  const startedAt = useMemo(() => new Date().toISOString(), []);
+  const [startedAt, setStartedAt] = useState(() => new Date().toISOString());
   const audioCache = useRef({});
 
   useEffect(() => {
+    if (isQuick && (!wordIds || wordIds.length === 0)) {
+      setLoading(false);
+      setError('Không tìm thấy danh sách từ để luyện nhanh. Hãy chọn lại từ trang Luyện tập nhanh.');
+      return;
+    }
     setLoading(true);
     setError('');
-    generateQuiz({ mode, scopeType, scopeId, limit: 20 })
+    const promise = isQuick
+      ? generateQuickQuiz({ wordIds, mode })
+      : generateQuiz({ mode, scopeType, scopeId, limit: 20 });
+    promise
       .then((data) => {
         const qs = data.questions || [];
         if (qs.length < 4) throw new Error('Phạm vi này không đủ từ để tạo quiz (cần ít nhất 4 từ). Hãy mở rộng phạm vi nhé.');
@@ -41,7 +74,7 @@ export default function Quiz() {
       })
       .catch((e) => setError(getErrorMessage(e, 'Không tạo được bộ câu hỏi.')))
       .finally(() => setLoading(false));
-  }, [mode, scopeType, scopeId]);
+  }, [mode, scopeType, scopeId, isQuick, wordIds, runKey]);
 
   // Phát audio câu hiện tại; preload câu kế (NFR-001).
   useEffect(() => {
@@ -97,13 +130,29 @@ export default function Quiz() {
         startedAt,
         finishedAt: new Date().toISOString(),
       });
-      setResult({ correctCount, total: allItems.length, streakDays: res.streakDays, wrong });
+      setResult({ correctCount, total: allItems.length, streakDays: res.streakDays, wrong, items: allItems });
     } catch {
-      setResult({ correctCount, total: allItems.length, streakDays: null, wrong });
+      setResult({ correctCount, total: allItems.length, streakDays: null, wrong, items: allItems });
     } finally {
       setSaving(false);
       setFinished(true);
     }
+  };
+
+  // F-C: chạy lại quiz với tập từ mới (từ sai hoặc toàn bộ), ở nguyên trang.
+  const restartQuick = (newWordIds) => {
+    setQuick((prev) => ({ ...prev, wordIds: newWordIds }));
+    setQuestions([]);
+    setIdx(0);
+    setSelectedId(null);
+    setItems([]);
+    setFinished(false);
+    setResult(null);
+    setSaving(false);
+    setError('');
+    setStartedAt(new Date().toISOString());
+    audioCache.current = {};
+    setRunKey((k) => k + 1);
   };
 
   if (loading) return <div className="page"><p className="muted">Đang tạo bộ câu hỏi…</p></div>;
@@ -111,6 +160,7 @@ export default function Quiz() {
 
   if (finished && result) {
     const pctScore = Math.round((result.correctCount / result.total) * 100);
+    const wrongIds = result.wrong.map((q) => q.wordId);
     return (
       <div className="page result-page">
         <h1>Kết quả Quiz</h1>
@@ -140,10 +190,26 @@ export default function Quiz() {
             </div>
           </>
         )}
-        <div className="result-actions">
-          <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
-          <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
-        </div>
+        {isQuick ? (
+          <div className="result-actions">
+            {wrongIds.length > 0 && (
+              <button type="button" className="btn btn-primary" onClick={() => restartQuick(wrongIds)}>
+                🔁 Luyện lại từ sai ({wrongIds.length})
+              </button>
+            )}
+            <button type="button" className="btn btn-outline" onClick={() => restartQuick(quick.allWordIds)}>
+              🔁 Luyện lại toàn bộ
+            </button>
+            <button type="button" className="btn btn-outline" onClick={() => navigate('/luyen-tap-nhanh')}>
+              ✏️ Chọn lại từ
+            </button>
+          </div>
+        ) : (
+          <div className="result-actions">
+            <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
+            <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
+          </div>
+        )}
       </div>
     );
   }
@@ -154,7 +220,7 @@ export default function Quiz() {
   return (
     <div className="page practice-page">
       <div className="practice-top">
-        <span className="muted">Câu {idx + 1}/{questions.length} · {QUIZ_MODE_LABELS[mode]}</span>
+        <span className="muted">Câu {idx + 1}/{questions.length} · {QUIZ_MODE_LABELS[mode]}{isQuick && ' · Luyện nhanh'}</span>
         <div className="progress-bar slim"><div className="progress-fill" style={{ width: `${(idx / questions.length) * 100}%` }} /></div>
       </div>
 

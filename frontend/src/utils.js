@@ -36,6 +36,47 @@ export const STATUS_COLORS = {
   MASTERED: 'status-mastered',
 };
 
+// F-A: bảng cụm chủ đề (22 cụm + 'khac'). Backend là nguồn label chính thức cho
+// GET /api/lessons/{id}/clusters; bảng này chỉ để admin gợi ý (datalist) và
+// lookup dự phòng khi BE trả mã lạ. Sửa ở đây khi backend thêm cụm mới.
+export const CLUSTER_LIST = [
+  { value: 'gia-dinh', label: 'Gia đình' },
+  { value: 'con-nguoi', label: 'Con người' },
+  { value: 'nghe-nghiep', label: 'Nghề nghiệp' },
+  { value: 'hoc-tap', label: 'Học tập' },
+  { value: 'cong-viec', label: 'Công việc' },
+  { value: 'do-dung', label: 'Đồ dùng' },
+  { value: 'an-uong', label: 'Ăn uống' },
+  { value: 'mua-sam', label: 'Mua sắm' },
+  { value: 'tien-bac', label: 'Tiền bạc' },
+  { value: 'dia-diem', label: 'Địa điểm' },
+  { value: 'du-lich', label: 'Du lịch' },
+  { value: 'giao-thong', label: 'Giao thông' },
+  { value: 'thoi-gian', label: 'Thời gian' },
+  { value: 'thien-nhien', label: 'Thiên nhiên & thời tiết' },
+  { value: 'dong-vat', label: 'Động vật' },
+  { value: 'co-the', label: 'Cơ thể' },
+  { value: 'suc-khoe', label: 'Sức khỏe' },
+  { value: 'quan-ao', label: 'Quần áo' },
+  { value: 'mau-sac', label: 'Màu sắc' },
+  { value: 'so-dem', label: 'Số đếm' },
+  { value: 'vi-tri', label: 'Vị trí & hướng' },
+  { value: 'giao-tiep', label: 'Giao tiếp' },
+  { value: 'cam-xuc', label: 'Cảm xúc & tính cách' },
+  { value: 'tinh-chat', label: 'Tính chất' },
+  { value: 'hanh-dong', label: 'Hành động' },
+  { value: 'the-thao', label: 'Thể thao' },
+  { value: 'giai-tri', label: 'Giải trí' },
+  { value: 'khoa-hoc', label: 'Khoa học' },
+  { value: 'khac', label: 'Khác' },
+];
+
+export function clusterLabel(code) {
+  if (!code) return 'Khác';
+  const found = CLUSTER_LIST.find((c) => c.value === code);
+  return found ? found.label : code;
+}
+
 export function formatDate(iso) {
   if (!iso) return '—';
   const d = new Date(iso);

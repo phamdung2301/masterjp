@@ -19,7 +19,9 @@ export default function Header() {
         </Link>
         <nav className="main-nav">
           <NavLink to="/bai-hoc">Bài học</NavLink>
+          <NavLink to="/kanji">Kanji</NavLink>
           <NavLink to="/tu-dien">Từ điển</NavLink>
+          <NavLink to="/luyen-tap-nhanh">Luyện nhanh</NavLink>
           <NavLink to="/on-tap">Ôn tập</NavLink>
           <NavLink to="/bo-the">Bộ thẻ</NavLink>
           <NavLink to="/kham-pha">Khám phá</NavLink>
