@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { addWordsToSet, createSet, fetchMySets } from '../api/sets.js';
 import { getErrorMessage } from '../api/client.js';
 
@@ -10,12 +11,14 @@ export default function AddToSetModal({ open, onClose, words, onDone }) {
   const [newName, setNewName] = useState('');
   const [error, setError] = useState('');
   const [result, setResult] = useState('');
+  const [doneSetId, setDoneSetId] = useState(null);
 
   useEffect(() => {
     if (!open) return;
     setError('');
     setResult('');
     setNewName('');
+    setDoneSetId(null);
     setLoading(true);
     fetchMySets()
       .then(setSets)
@@ -31,6 +34,7 @@ export default function AddToSetModal({ open, onClose, words, onDone }) {
     try {
       const { added, skipped } = await addWordsToSet(setId, words.map((w) => w.id));
       setResult(`Đã thêm ${added} từ${skipped > 0 ? ` (${skipped} từ đã có sẵn)` : ''}.`);
+      setDoneSetId(setId);
       onDone && onDone();
     } catch (e) {
       setError(getErrorMessage(e));
@@ -47,6 +51,7 @@ export default function AddToSetModal({ open, onClose, words, onDone }) {
       const created = await createSet({ name: newName.trim() });
       const { added, skipped } = await addWordsToSet(created.id, words.map((w) => w.id));
       setResult(`Đã tạo bộ "${created.name}" và thêm ${added} từ${skipped > 0 ? ` (${skipped} từ đã có sẵn)` : ''}.`);
+      setDoneSetId(created.id);
       setNewName('');
       onDone && onDone();
     } catch (e) {
@@ -86,6 +91,9 @@ export default function AddToSetModal({ open, onClose, words, onDone }) {
           </>
         )}
         <div className="modal-actions">
+          {result && doneSetId && (
+            <Link to={`/bo-the/${doneSetId}`} className="btn btn-primary btn-sm">Xem bộ thẻ</Link>
+          )}
           <button type="button" className="btn btn-ghost" onClick={onClose}>Đóng</button>
         </div>
       </div>

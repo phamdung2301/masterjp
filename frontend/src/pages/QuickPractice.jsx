@@ -3,11 +3,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchLessonClusters, fetchLessonWords, fetchLessons } from '../api/lessons.js';
 import { getErrorMessage } from '../api/client.js';
 import { QUIZ_MODES, clusterLabel } from '../utils.js';
+import AddToSetModal from '../components/AddToSetModal.jsx';
 import './pages.css';
 
 // F-C: luyện tập nhanh — chọn nhiều bài (checkbox, nhóm N5/N4) + chọn cụm trong
 // từng bài đã chọn. Hiện tổng số từ realtime. Bắt đầu → POST /api/quiz/quick
 // {wordIds, mode} qua trang Quiz tái dùng (quick=1). KHÔNG tạo bộ thẻ.
+// F-C+: nút "Thêm vào bộ thẻ" — lưu tập từ đang chọn vào bộ thẻ (tạo mới hoặc
+// thêm vào bộ có sẵn) qua AddToSetModal; luồng luyện nhanh giữ nguyên.
 const QUICK_KEY = 'mjp_quick_quiz';
 const MIN_WORDS = 4;
 const MAX_WORDS = 100;
@@ -25,6 +28,10 @@ export default function QuickPractice() {
   const [mode, setMode] = useState('JP_VI');
   const [starting, setStarting] = useState(false);
   const [startError, setStartError] = useState('');
+  const [addOpen, setAddOpen] = useState(false);
+  const [addWords, setAddWords] = useState([]); // [{ id }] cho AddToSetModal
+  const [adding, setAdding] = useState(false);
+  const [addError, setAddError] = useState('');
 
   // Load danh sách 50 bài (API yêu cầu level bắt buộc → gọi cả N5 và N4).
   useEffect(() => {
@@ -127,6 +134,28 @@ export default function QuickPractice() {
 
   const selectedLessonIds = Object.keys(selectedLessons);
   const canStart = totalWords >= MIN_WORDS && totalWords <= MAX_WORDS && !starting;
+  const canAddToSet = totalWords >= 1 && !adding && !starting;
+
+  // Lấy wordIds thật của tập đang chọn: 1 request / bài rồi lọc theo cụm
+  // đã chọn (field cluster của WordDto). Dùng chung cho luyện nhanh và thêm vào bộ thẻ.
+  const collectWordIds = async () => {
+    const perLesson = await Promise.all(
+      selectedLessonIds.map(async (lessonId) => {
+        const codes = new Set(
+          Object.keys(selectedClusters)
+            .filter((k) => k.startsWith(`${lessonId}:`))
+            .map((k) => k.slice(lessonId.length + 1))
+        );
+        if (codes.size === 0) return [];
+        const ws = await fetchLessonWords(lessonId);
+        return ws
+          .filter((w) => codes.has(w.cluster || 'khac'))
+          .sort((a, b) => (a.orderInLesson ?? 0) - (b.orderInLesson ?? 0))
+          .map((w) => w.id);
+      })
+    );
+    return [...new Set(perLesson.flat())];
+  };
 
   const handleStart = async () => {
     setStartError('');
@@ -140,23 +169,7 @@ export default function QuickPractice() {
     }
     setStarting(true);
     try {
-      // Lấy wordIds thật: 1 request / bài rồi lọc theo cụm đã chọn (field cluster của WordDto).
-      const perLesson = await Promise.all(
-        selectedLessonIds.map(async (lessonId) => {
-          const codes = new Set(
-            Object.keys(selectedClusters)
-              .filter((k) => k.startsWith(`${lessonId}:`))
-              .map((k) => k.slice(lessonId.length + 1))
-          );
-          if (codes.size === 0) return [];
-          const ws = await fetchLessonWords(lessonId);
-          return ws
-            .filter((w) => codes.has(w.cluster || 'khac'))
-            .sort((a, b) => (a.orderInLesson ?? 0) - (b.orderInLesson ?? 0))
-            .map((w) => w.id);
-        })
-      );
-      const wordIds = [...new Set(perLesson.flat())];
+      const wordIds = await collectWordIds();
       if (wordIds.length < MIN_WORDS) {
         throw new Error('Không đủ từ sau khi lọc. Hãy chọn thêm.');
       }
@@ -173,6 +186,24 @@ export default function QuickPractice() {
       setStartError(getErrorMessage(e, 'Không bắt đầu được buổi luyện.'));
     } finally {
       setStarting(false);
+    }
+  };
+
+  const handleAddToSet = async () => {
+    setAddError('');
+    if (totalWords < 1) return;
+    setAdding(true);
+    try {
+      const wordIds = await collectWordIds();
+      if (wordIds.length === 0) {
+        throw new Error('Không có từ nào trong lựa chọn hiện tại.');
+      }
+      setAddWords(wordIds.map((id) => ({ id })));
+      setAddOpen(true);
+    } catch (e) {
+      setAddError(getErrorMessage(e, 'Không lấy được danh sách từ.'));
+    } finally {
+      setAdding(false);
     }
   };
 
@@ -261,12 +292,17 @@ export default function QuickPractice() {
           <select className="select-inline" value={mode} onChange={(e) => setMode(e.target.value)} aria-label="Dạng quiz">
             {QUIZ_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
           </select>
+          <button type="button" className="btn btn-outline btn-lg" disabled={!canAddToSet} onClick={handleAddToSet}>
+            {adding ? 'Đang lấy từ…' : '＋ Thêm vào bộ thẻ'}
+          </button>
           <button type="button" className="btn btn-primary btn-lg" disabled={!canStart} onClick={handleStart}>
             {starting ? 'Đang chuẩn bị…' : '🚀 Bắt đầu luyện'}
           </button>
         </div>
       </div>
       {startError && <div className="alert alert-error">{startError}</div>}
+      {addError && <div className="alert alert-error">{addError}</div>}
+      <AddToSetModal open={addOpen} onClose={() => setAddOpen(false)} words={addWords} />
     </div>
   );
 }

@@ -8,9 +8,14 @@ import './pages.css';
 // F-B: flashcard kanji (v1) — mặt trước chữ kanji lớn, mặt sau âm đọc + nghĩa.
 // v1 KHÔNG lưu SM-2 và không ghi StudySession (backend chưa có progress cho kanji);
 // chỉ đếm Nhớ/Chưa nhớ trên màn hình kết quả.
+// F-B+: thêm chế độ ?pick=1 — đọc tập chữ đã chọn từ sessionStorage `mjp_kanji_pick`
+// (trang /kanji lưu trước khi chuyển sang), theo mẫu quick mode của Quiz.jsx.
+const KANJI_PICK_KEY = 'mjp_kanji_pick';
+
 export default function KanjiFlashcard() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const pick = params.get('pick');
   const lessonNo = params.get('lessonNo');
   const jlpt = params.get('jlpt');
 
@@ -23,20 +28,36 @@ export default function KanjiFlashcard() {
   const [finished, setFinished] = useState(false);
 
   const scopeName = useMemo(() => {
+    if (pick === '1') return 'tập đã chọn';
     const parts = [];
     if (lessonNo) parts.push(`bài ${lessonNo}`);
     if (jlpt) parts.push(jlpt);
     return parts.join(' · ');
-  }, [lessonNo, jlpt]);
+  }, [pick, lessonNo, jlpt]);
 
   useEffect(() => {
     setLoading(true);
     setError('');
+    if (pick === '1') {
+      let arr = null;
+      try {
+        arr = JSON.parse(sessionStorage.getItem(KANJI_PICK_KEY) || 'null');
+      } catch {
+        arr = null;
+      }
+      if (Array.isArray(arr) && arr.length > 0) {
+        setCards(shuffle(arr.filter((k) => k && k.character)));
+      } else {
+        setError('Không tìm thấy danh sách chữ đã chọn. Hãy chọn lại từ trang Kanji.');
+      }
+      setLoading(false);
+      return;
+    }
     fetchKanji({ lessonNo: lessonNo || undefined, jlpt: jlpt || undefined })
       .then((data) => setCards(shuffle(Array.isArray(data) ? data : [])))
       .catch((e) => setError(getErrorMessage(e, 'Không tải được thẻ kanji.')))
       .finally(() => setLoading(false));
-  }, [lessonNo, jlpt]);
+  }, [pick, lessonNo, jlpt]);
 
   const answer = (ok) => {
     if (ok) setRemembered((n) => n + 1);
@@ -49,7 +70,12 @@ export default function KanjiFlashcard() {
   };
 
   if (loading) return <div className="page"><p className="muted">Đang chuẩn bị thẻ…</p></div>;
-  if (error) return <div className="page"><div className="alert alert-error">{error}</div></div>;
+  if (error) return (
+    <div className="page">
+      <div className="alert alert-error">{error}</div>
+      <button type="button" className="btn btn-outline" onClick={() => navigate('/kanji')}>Về trang Kanji</button>
+    </div>
+  );
 
   if (cards.length === 0) {
     return (
