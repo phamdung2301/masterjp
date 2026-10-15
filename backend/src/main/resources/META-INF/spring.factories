@@ -1,0 +1,3 @@
+# Tu dong nap file backend/.env (neu co) truoc khi Spring doc cau hinh.
+# Bien moi truong OS that van co do uu tien cao hon (override .env).
+org.springframework.context.ApplicationListener=com.masterjp.config.DotenvEnvironmentListener

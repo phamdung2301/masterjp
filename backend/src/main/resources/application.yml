@@ -1,0 +1,48 @@
+spring:
+  data:
+    mongodb:
+      # URI ket noi MongoDB (Atlas hoac local). Co the chua ten DB trong path,
+      # nhung KHONG bat buoc — ten DB luon duoc giai quyet EXPLICIT trong MongoConfig.
+      uri: ${MONGODB_URI:mongodb://localhost:27017}
+      # Ten database EXPLICIT. Driver se lang le dung DB "test" neu thieu —
+      # MongoConfig se fail-fast thay vi de dieu do xay ra.
+      database: ${MONGODB_DATABASE:masterjp}
+      auto-index-creation: true
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    # PHAI dat qua ENV khi deploy (toi thieu 32 ky tu). Thieu -> app tu choi khoi dong.
+    secret: ${JWT_SECRET:}
+    expiration-hours: 24
+  # CORS khoa theo domain deploy (NFR-002). Nhieu domain cach nhau dau phay.
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  # Role/plan duoc chia se bo the cong khai (FR-035). Khong hard-code.
+  sharing-allowed-plans: ${SHARING_ALLOWED_PLANS:PREMIUM,ADMIN}
+  # Mui gio tinh streak/ngay hoc (mac dinh gio Viet Nam).
+  timezone: ${APP_TIMEZONE:Asia/Ho_Chi_Minh}
+  admin:
+    email: ${ADMIN_EMAIL:}
+    password: ${ADMIN_PASSWORD:}
+    name: ${ADMIN_NAME:Master JP Admin}
+  mail:
+    # Dev-only: in ma OTP ra console thay vi gui mail that. LUON false o production.
+    dev-log-code: ${MAIL_DEV_LOG_CODE:false}
+
+logging:
+  level:
+    com.masterjp: INFO

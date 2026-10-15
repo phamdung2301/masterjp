@@ -1,0 +1,57 @@
+# ============================================================
+# Master JP — .gitignore (dat o thu muc goc, ngang voi README.md)
+# ============================================================
+
+# --- Secrets: KHONG BAO GIO commit ---
+.env
+.env.local
+*.env
+!.env.example
+backend/.env
+backend/.env.local
+
+# --- Java / Maven (backend) ---
+backend/target/
+*.class
+*.jar
+*.war
+!**/src/main/resources/**/*.jar
+
+# --- Node / Vite (frontend) ---
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+*.local
+
+# --- Python (scripts) ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# --- Logs ---
+*.log
+logs/
+npm-debug.log*
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- IDE ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.iml
+.classpath
+.project
+.settings/
+
+# --- Tam thoi ---
+*.tmp
+*.bak
+*.swp
+*~

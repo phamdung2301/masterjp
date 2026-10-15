@@ -1,0 +1,4 @@
+# Thu muc chua file MP3 phat am: static/audio/{wordId}.mp3
+# Duoc serve tu dong tai /audio/{wordId}.mp3 (Spring Boot static resources).
+# Audio pre-generate bang edge-tts (giong ja-JP-NanamiNeural) truoc khi deploy.
+# DB chi luu audioUrl, khong luu binary.
