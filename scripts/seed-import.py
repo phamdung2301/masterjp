@@ -19,6 +19,8 @@ Yêu cầu: pip install pymongo
 import json
 import os
 import sys
+import argparse
+import unicodedata
 
 try:
     from pymongo import MongoClient, UpdateOne
@@ -50,7 +52,40 @@ def load_seeds():
     return data
 
 
+def parse_args():
+    p = argparse.ArgumentParser(description='Import seed lessons 1-50 vao MongoDB')
+    p.add_argument('--reset-words', action='store_true',
+                   help='Xoa sach collection vocab_words truoc khi import. '
+                        'DUNG khi du lieu cu sai format (vd. lessonId dang ObjectId '
+                        'thay vi string, thieu active/searchNorm) de tranh trùng lặp.')
+    return p.parse_args()
+
+
+def normalize_vi(s):
+    """Port cua VietnameseUtils.normalize (backend): bo dau tieng Viet, đ->d,
+    lowercase, gon khoang trang. Dung de build searchNorm."""
+    if not s:
+        return ''
+    n = unicodedata.normalize('NFD', s)
+    n = ''.join(c for c in n if not unicodedata.combining(c))
+    n = n.replace('đ', 'd').replace('Đ', 'd')
+    return ' '.join(n.lower().strip().split())
+
+
+def build_search_norm(w):
+    """Port cua VietnameseUtils.buildSearchNorm: kana + kanji + romaji +
+    nghia Viet (bo dau) + loai tu."""
+    return normalize_vi(' '.join([
+        w.get('kana') or '',
+        w.get('kanji') or '',
+        w.get('romaji') or '',
+        w.get('meaningVi') or '',
+        w.get('pos') or '',
+    ]))
+
+
 def main():
+    args = parse_args()
     data = load_seeds()
 
     client = MongoClient(MONGODB_URI, serverSelectionTimeoutMS=5000)
@@ -91,8 +126,14 @@ def main():
         )
         doc = lessons.find_one({'level': L['level'], 'lessonNo': L['lessonNo']},
                                projection={'_id': 1})
-        lesson_ids[L['lessonNo']] = doc['_id']
+        # LUU Y: lessonId trong VocabWord cua backend la String (hex), KHONG
+        # phai ObjectId — Spring query bang string nen phai luu string.
+        lesson_ids[L['lessonNo']] = str(doc['_id'])
     print(f'lessons: upsert {len(lesson_ids)} bài vào DB "{MONGODB_DATABASE}"')
+
+    if args.reset_words:
+        n = words.delete_many({}).deleted_count
+        print(f'vocab_words: da xoa {n} documents cu (do --reset-words)')
 
     # 2) Upsert vocab_words — dung bulk_write theo lo (nhanh gap ~100 lan
     # so voi tung update_one: 2692 round-trip -> vai batch).
@@ -101,7 +142,8 @@ def main():
     for w in data['words']:
         lid = lesson_ids[w['lessonNo']]
         doc = {
-            'lessonId': lid,
+            'lessonId': lid,  # string hex — khop String lessonId cua backend
+            'active': True,   # backend query ...AndActiveTrue... (FR-031)
             'section': w['section'],
             'kana': w['kana'],
             'kanji': w['kanji'] or None,          # "" -> null (theo ERD)
@@ -112,6 +154,7 @@ def main():
             'exampleVi': w.get('exampleVi'),
             'audioUrl': '/audio/' + w['audioFile'],
             'orderInLesson': w['orderInLesson'],
+            'searchNorm': build_search_norm(w),   # tim kiem khong dau (F-012)
         }
         ops.append(UpdateOne(
             {'lessonId': lid, 'kana': w['kana'], 'section': w['section']},
