@@ -14,7 +14,7 @@ public final class WordMapper {
                 w.getId(), w.getLessonId(), w.getSection().name(),
                 w.getKana(), w.getKanji(), w.getRomaji(), w.getMeaningVi(),
                 w.getPos(), w.getExampleJa(), w.getExampleVi(),
-                w.getAudioUrl(), w.getOrderInLesson(), studyStatus);
+                w.getAudioUrl(), w.getOrderInLesson(), studyStatus, w.getCluster());
     }
 
     public static WordDtos.WordSearchDto toSearchDto(VocabWord w, int lessonNo) {

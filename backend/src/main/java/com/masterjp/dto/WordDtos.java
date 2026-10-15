@@ -22,7 +22,7 @@ public final class WordDtos {
     public record WordDto(String id, String lessonId, String section, String kana, String kanji,
                           String romaji, String meaningVi, String pos, String exampleJa,
                           String exampleVi, String audioUrl, int orderInLesson,
-                          String studyStatus) {
+                          String studyStatus, String cluster) {
     }
 
     public record WordSearchDto(String id, String lessonId, int lessonNo, String section,
@@ -41,7 +41,8 @@ public final class WordDtos {
             String pos,
             String exampleJa,
             String exampleVi,
-            int orderInLesson
+            int orderInLesson,
+            String cluster // F-A: cum chu de (optional, mac dinh "khac")
     ) {
     }
 
@@ -54,7 +55,8 @@ public final class WordDtos {
             String pos,
             String exampleJa,
             String exampleVi,
-            Integer orderInLesson
+            Integer orderInLesson,
+            String cluster // F-A: admin sua cum chu de cua tu (vd. "do-dung", "khac")
     ) {
     }
 
@@ -95,6 +97,6 @@ public final class WordDtos {
                                String kana, String kanji, String romaji, String meaningVi,
                                String pos, String exampleJa, String exampleVi,
                                String audioUrl, int orderInLesson, boolean active,
-                               Date updatedAt) {
+                               Date updatedAt, String cluster) {
     }
 }

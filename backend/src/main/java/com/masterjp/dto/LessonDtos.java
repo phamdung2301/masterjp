@@ -20,6 +20,10 @@ public final class LessonDtos {
                                   String titleVi, int order) {
     }
 
+    /** F-A (Feature Pack 2): GET /api/lessons/{id}/clusters -> [{cluster, label, count}] */
+    public record ClusterDto(String cluster, String label, long count) {
+    }
+
     public record CreateLessonRequest(
             @NotNull(message = "level không được để trống.") String level, // N5 | N4
             @Min(value = 1, message = "lessonNo phải từ 1 đến 50.")

@@ -64,6 +64,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/lessons", "/api/lessons/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/words/search").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/kanji", "/api/kanji/**").permitAll() // F-B
                         .requestMatchers(HttpMethod.GET, "/api/sets/public", "/api/sets/*").permitAll()
                         .requestMatchers("/audio/**").permitAll()
                         // Admin
