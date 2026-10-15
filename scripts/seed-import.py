@@ -21,7 +21,7 @@ import os
 import sys
 
 try:
-    from pymongo import MongoClient
+    from pymongo import MongoClient, UpdateOne
 except ImportError:
     sys.exit('LỖI: chưa cài pymongo. Chạy: pip install pymongo')
 
@@ -94,8 +94,10 @@ def main():
         lesson_ids[L['lessonNo']] = doc['_id']
     print(f'lessons: upsert {len(lesson_ids)} bài vào DB "{MONGODB_DATABASE}"')
 
-    # 2) Upsert vocab_words
-    inserted = updated = 0
+    # 2) Upsert vocab_words — dung bulk_write theo lo (nhanh gap ~100 lan
+    # so voi tung update_one: 2692 round-trip -> vai batch).
+    print('vocab_words: dang import ...', flush=True)
+    ops = []
     for w in data['words']:
         lid = lesson_ids[w['lessonNo']]
         doc = {
@@ -111,16 +113,19 @@ def main():
             'audioUrl': '/audio/' + w['audioFile'],
             'orderInLesson': w['orderInLesson'],
         }
-        r = words.update_one(
+        ops.append(UpdateOne(
             {'lessonId': lid, 'kana': w['kana'], 'section': w['section']},
             {'$set': doc},
             upsert=True,
-        )
-        if r.upserted_id is not None:
-            inserted += 1
-        elif r.modified_count:
-            updated += 1
-
+        ))
+    inserted = updated = 0
+    BATCH = 500
+    for i in range(0, len(ops), BATCH):
+        batch = ops[i:i + BATCH]
+        res = words.bulk_write(batch, ordered=False)
+        inserted += res.upserted_count
+        updated += res.modified_count
+        print(f'  ... {min(i + BATCH, len(ops))}/{len(ops)} từ', flush=True)
     print(f'vocab_words: {inserted} thêm mới, {updated} cập nhật, '
           f'tổng {words.count_documents({})} documents')
 
