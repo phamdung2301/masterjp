@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { adminAudioJob, adminCreateWord, adminDeleteWord, adminFetchWords, adminRegenerateAudio, adminUpdateWord } from '../../api/admin.js';
 import { getErrorMessage } from '../../api/client.js';
-import { SECTION_LABELS } from '../../utils.js';
+import { SECTION_LABELS, CLUSTER_LIST, clusterLabel } from '../../utils.js';
 
-const EMPTY = { id: null, lessonId: '', section: 'VOCAB', kana: '', kanji: '', romaji: '', meaningVi: '', pos: '', exampleJa: '', exampleVi: '', orderInLesson: '' };
+const EMPTY = { id: null, lessonId: '', section: 'VOCAB', kana: '', kanji: '', romaji: '', meaningVi: '', pos: '', exampleJa: '', exampleVi: '', orderInLesson: '', cluster: '' };
 
 // US-010 (F-031, F-033): admin CRUD từ vựng + tìm kiếm + tạo lại audio (job nền, poll 5s).
+// F-A: quản trị cụm chủ đề — xem/sửa field `cluster` từng từ (datalist gợi ý).
 export default function AdminWords() {
   const [words, setWords] = useState([]);
   const [q, setQ] = useState('');
@@ -47,6 +48,8 @@ export default function AdminWords() {
       exampleJa: form.exampleJa.trim() || null,
       exampleVi: form.exampleVi.trim() || null,
       orderInLesson: form.orderInLesson === '' ? undefined : Number(form.orderInLesson),
+      // F-A: cụm chuẩn hoá về slug lowercase; để trống → null (BE gom vào 'khac').
+      cluster: form.cluster.trim().toLowerCase() || null,
     };
     if (!payload.kana || !payload.romaji || !payload.meaningVi || !payload.lessonId) {
       setError('Kana, romaji, nghĩa tiếng Việt và ID bài học là bắt buộc.');
@@ -78,7 +81,7 @@ export default function AdminWords() {
       kana: w.kana || '', kanji: w.kanji || '', romaji: w.romaji || '',
       meaningVi: w.meaningVi || '', pos: w.pos || '',
       exampleJa: w.exampleJa || '', exampleVi: w.exampleVi || '',
-      orderInLesson: w.orderInLesson ?? '',
+      orderInLesson: w.orderInLesson ?? '', cluster: w.cluster || '',
     });
     setShowForm(true);
   };
@@ -169,6 +172,13 @@ export default function AdminWords() {
             <label>Nghĩa tiếng Việt*<input type="text" value={form.meaningVi} onChange={(e) => setF('meaningVi', e.target.value)} required /></label>
             <label>Loại từ<input type="text" value={form.pos} onChange={(e) => setF('pos', e.target.value)} placeholder="danh từ, động từ nhóm 1…" /></label>
             <label>Thứ tự trong bài<input type="number" value={form.orderInLesson} onChange={(e) => setF('orderInLesson', e.target.value)} /></label>
+            <label>Cụm chủ đề
+              <input type="text" value={form.cluster} onChange={(e) => setF('cluster', e.target.value)}
+                list="cluster-suggestions" placeholder="vd. do-dung — để trống = Khác" />
+              <datalist id="cluster-suggestions">
+                {CLUSTER_LIST.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
+              </datalist>
+            </label>
             <label className="span-2">Câu ví dụ (tiếng Nhật)<input type="text" value={form.exampleJa} onChange={(e) => setF('exampleJa', e.target.value)} /></label>
             <label className="span-2">Dịch câu ví dụ<input type="text" value={form.exampleVi} onChange={(e) => setF('exampleVi', e.target.value)} /></label>
           </div>
@@ -182,13 +192,14 @@ export default function AdminWords() {
       {loading ? <p className="muted">Đang tải…</p> : (
         <div className="admin-table-wrap">
           <table className="admin-table">
-            <thead><tr><th>Từ</th><th>Nghĩa</th><th>Phần</th><th>Bài</th><th>Audio</th><th></th></tr></thead>
+            <thead><tr><th>Từ</th><th>Nghĩa</th><th>Phần</th><th>Cụm</th><th>Bài</th><th>Audio</th><th></th></tr></thead>
             <tbody>
               {words.map((w) => (
                 <tr key={w.id}>
                   <td>{w.kanji || w.kana} <span className="muted">({w.kana})</span></td>
                   <td>{w.meaningVi}</td>
                   <td>{SECTION_LABELS[w.section] || w.section}</td>
+                  <td>{clusterLabel(w.cluster)}</td>
                   <td>{w.lessonNo ?? ''}</td>
                   <td>{w.audioUrl ? '✅' : '❌'}</td>
                   <td className="row-actions">

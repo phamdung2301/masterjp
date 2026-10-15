@@ -14,6 +14,10 @@ import Typing from './pages/Typing.jsx';
 import ReviewDue from './pages/ReviewDue.jsx';
 import Sets from './pages/Sets.jsx';
 import SetDetail from './pages/SetDetail.jsx';
+import Kanji from './pages/Kanji.jsx';
+import KanjiDetail from './pages/KanjiDetail.jsx';
+import KanjiFlashcard from './pages/KanjiFlashcard.jsx';
+import QuickPractice from './pages/QuickPractice.jsx';
 import Explore from './pages/Explore.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Login from './pages/Login.jsx';
@@ -42,6 +46,10 @@ export default function App() {
               <Route path="/tu-dien" element={<Dictionary />} />
               <Route path="/kham-pha" element={<Explore />} />
 
+              {/* F-B: kanji — public, xem read-only */}
+              <Route path="/kanji" element={<Kanji />} />
+              <Route path="/kanji/:char" element={<KanjiDetail />} />
+
               {/* Auth */}
               <Route path="/dang-nhap" element={<Login />} />
               <Route path="/dang-ky" element={<Register />} />
@@ -51,6 +59,9 @@ export default function App() {
               <Route path="/luyen-tap/flashcard" element={<ProtectedRoute><Flashcard /></ProtectedRoute>} />
               <Route path="/luyen-tap/quiz" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
               <Route path="/luyen-tap/go-phien-am" element={<ProtectedRoute><Typing /></ProtectedRoute>} />
+              {/* F-B: flashcard kanji · F-C: luyện tập nhanh */}
+              <Route path="/luyen-tap/kanji" element={<ProtectedRoute><KanjiFlashcard /></ProtectedRoute>} />
+              <Route path="/luyen-tap-nhanh" element={<ProtectedRoute><QuickPractice /></ProtectedRoute>} />
               <Route path="/on-tap" element={<ProtectedRoute><ReviewDue /></ProtectedRoute>} />
               <Route path="/bo-the" element={<ProtectedRoute><Sets /></ProtectedRoute>} />
               <Route path="/bo-the/:id" element={<ProtectedRoute><SetDetail /></ProtectedRoute>} />
