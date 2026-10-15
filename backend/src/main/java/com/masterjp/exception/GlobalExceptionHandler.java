@@ -12,6 +12,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.stream.Collectors;
 
@@ -56,6 +57,19 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CommonDtos.ErrorResponse> handleAccessDenied(AccessDeniedException e) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(new CommonDtos.ErrorResponse("FORBIDDEN", "Bạn không có quyền thực hiện thao tác này."));
+    }
+
+    /**
+     * Request vao path khong ton tai (vd. mo backend URL truc tiep tren browser,
+     * bot quet /wp-admin...). Backend la API-only nen khong co static resource —
+     * day la 404 binh thuong: tra NOT_FOUND, log WARN thay vi ERROR de khoi
+     * lam nhieu log loi that.
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<CommonDtos.ErrorResponse> handleNoResource(NoResourceFoundException e) {
+        log.warn("No static resource for request '{}'", e.getResourcePath());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new CommonDtos.ErrorResponse("NOT_FOUND", "Không tìm thấy tài nguyên."));
     }
 
     @ExceptionHandler(Exception.class)
