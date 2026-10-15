@@ -63,10 +63,17 @@ def main():
     lessons = db['lessons']
     words = db['vocab_words']
 
-    # Index theo ERD + khóa idempotent
-    lessons.create_index([('level', 1), ('lessonNo', 1)], unique=True)
-    words.create_index([('lessonId', 1), ('kana', 1), ('section', 1)], unique=True)
-    words.create_index([('lessonId', 1), ('orderInLesson', 1)])
+    # Index theo ERD — PHẢI dùng đúng tên như @CompoundIndex trong backend
+    # (Lesson.uq_level_lessonNo, VocabWord.idx_lesson_order,
+    # VocabWord.idx_lesson_section_kana). Spring auto-index đã tạo chúng khi
+    # backend khởi động; tạo lại cùng tên+keys+options là no-op (idempotent).
+    # Tên khác mà keys giống → Atlas báo IndexOptionsConflict (code 85).
+    lessons.create_index([('level', 1), ('lessonNo', 1)],
+                         name='uq_level_lessonNo', unique=True)
+    words.create_index([('lessonId', 1), ('section', 1), ('kana', 1)],
+                       name='idx_lesson_section_kana')
+    words.create_index([('lessonId', 1), ('orderInLesson', 1)],
+                       name='idx_lesson_order')
 
     # 1) Upsert lessons
     lesson_ids = {}
