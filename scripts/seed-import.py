@@ -5,10 +5,12 @@ Import seed lessons 1-50 (Master JP) vào MongoDB.
 
 Đọc:  data/seed/seed-lessons-1-3.json
       data/seed/seed-lessons-4-50.json
+      data/seed/clusters.json        (F-A: gán cụm chủ đề cho từ)
 Ghi:  lessons      — upsert theo (level, lessonNo)
       vocab_words  — upsert theo (lessonId, kana, section)
 
 Chạy lại an toàn (idempotent): chạy N lần cũng không tạo trùng.
+Chạy lại trên DB cũ sẽ $set thêm field cluster (không cần --reset-words).
 
 ENV:
   MONGODB_URI       (default: mongodb://localhost:27017)
@@ -35,6 +37,7 @@ SEED_FILES = [
     os.path.join(ROOT, 'data', 'seed', 'seed-lessons-1-3.json'),
     os.path.join(ROOT, 'data', 'seed', 'seed-lessons-4-50.json'),
 ]
+CLUSTERS_FILE = os.path.join(ROOT, 'data', 'seed', 'clusters.json')
 
 
 def load_seeds():
@@ -50,6 +53,17 @@ def load_seeds():
     if not data['lessons']:
         sys.exit('LỖI: không có file seed nào. Kiểm tra data/seed/.')
     return data
+
+
+def load_clusters():
+    """F-A: đọc data/seed/clusters.json một lần -> map 'kana|lessonNo' -> mã cụm.
+    Từ nào không có trong map -> 'khac' (backend cũng normalize null -> 'khac')."""
+    if not os.path.exists(CLUSTERS_FILE):
+        print(f'CẢNH BÁO: không tìm thấy {CLUSTERS_FILE} — mọi từ sẽ vào cụm "khac".')
+        return {}
+    with open(CLUSTERS_FILE, encoding='utf-8') as f:
+        d = json.load(f)
+    return d.get('assignments', {})
 
 
 def parse_args():
@@ -87,6 +101,9 @@ def build_search_norm(w):
 def main():
     args = parse_args()
     data = load_seeds()
+    cluster_map = load_clusters()
+    if cluster_map:
+        print(f'clusters: đã load {len(cluster_map)} gán cụm từ clusters.json')
 
     client = MongoClient(MONGODB_URI, serverSelectionTimeoutMS=5000)
     try:
@@ -155,6 +172,8 @@ def main():
             'audioUrl': '/audio/' + w['audioFile'],
             'orderInLesson': w['orderInLesson'],
             'searchNorm': build_search_norm(w),   # tim kiem khong dau (F-012)
+            # F-A: cụm chủ đề (key '<kana>|<lessonNo>' đã verify unique 2692/2692)
+            'cluster': cluster_map.get(f"{w['kana']}|{w['lessonNo']}", 'khac'),
         }
         ops.append(UpdateOne(
             {'lessonId': lid, 'kana': w['kana'], 'section': w['section']},
