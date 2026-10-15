@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { answerProgress, generateQuiz, recordSession } from '../api/study.js';
 import { getErrorMessage } from '../api/client.js';
-import { playAudio, QUIZ_MODE_LABELS } from '../utils.js';
+import { playAudio, resolveAssetUrl, QUIZ_MODE_LABELS } from '../utils.js';
 import './pages.css';
 
 // US-006 (F-021/022/023, F-027): quiz 20 câu, chấm tại chỗ, PATCH progress mỗi câu.
@@ -48,13 +48,17 @@ export default function Quiz() {
     if (mode !== 'LISTENING' || questions.length === 0 || finished) return;
     const cur = questions[idx];
     if (cur?.promptAudioUrl) {
-      if (!audioCache.current[cur.promptAudioUrl]) audioCache.current[cur.promptAudioUrl] = new Audio(cur.promptAudioUrl);
-      audioCache.current[cur.promptAudioUrl].play().catch(() => {});
+      const url = resolveAssetUrl(cur.promptAudioUrl);
+      if (!audioCache.current[url]) audioCache.current[url] = new Audio(url);
+      audioCache.current[url].play().catch(() => {});
     }
     const next = questions[idx + 1];
-    if (next?.promptAudioUrl && !audioCache.current[next.promptAudioUrl]) {
-      audioCache.current[next.promptAudioUrl] = new Audio(next.promptAudioUrl);
-      audioCache.current[next.promptAudioUrl].load();
+    if (next?.promptAudioUrl) {
+      const nextUrl = resolveAssetUrl(next.promptAudioUrl);
+      if (!audioCache.current[nextUrl]) {
+        audioCache.current[nextUrl] = new Audio(nextUrl);
+        audioCache.current[nextUrl].load();
+      }
     }
   }, [idx, mode, questions, finished]);
 

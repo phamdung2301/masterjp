@@ -59,5 +59,19 @@ export function shuffle(arr) {
 
 export function playAudio(url) {
   if (!url) return Promise.resolve();
-  return new Audio(url).play().catch(() => {});
+  return new Audio(resolveAssetUrl(url)).play().catch(() => {});
+}
+
+/**
+ * Giai quyet URL tai nguyen (audio...) luu trong DB dang relative ("/audio/...")
+ * Dev: VITE_API_BASE_URL rong -> giu nguyen de di qua Vite proxy (/audio -> BE).
+ * Production: FE va BE khac origin -> prefix voi origin cua BE suy tu
+ * VITE_API_BASE_URL (vd. "https://xxx.onrender.com/api" -> "https://xxx.onrender.com").
+ */
+export function resolveAssetUrl(url) {
+  if (!url || /^https?:\/\//i.test(url)) return url;
+  if (!url.startsWith('/')) return url;
+  const apiBase = import.meta.env.VITE_API_BASE_URL || '';
+  const beOrigin = apiBase.replace(/\/api\/?$/, '').replace(/\/$/, '');
+  return beOrigin ? beOrigin + url : url;
 }
