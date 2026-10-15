@@ -6,18 +6,22 @@ import com.masterjp.domain.Level;
 import com.masterjp.domain.QuizMode;
 import com.masterjp.domain.ScopeType;
 import com.masterjp.domain.VocabWord;
+import com.masterjp.domain.WordProgress;
 import com.masterjp.domain.WordSection;
 import com.masterjp.dto.QuizDtos;
 import com.masterjp.exception.ApiException;
 import com.masterjp.repository.CustomSetRepository;
 import com.masterjp.repository.LessonRepository;
 import com.masterjp.repository.VocabWordRepository;
+import com.masterjp.repository.WordProgressRepository;
 import com.masterjp.util.EnumUtils;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -37,13 +41,16 @@ public class QuizService {
     private final VocabWordRepository vocabWordRepository;
     private final LessonRepository lessonRepository;
     private final CustomSetRepository customSetRepository;
+    private final WordProgressRepository wordProgressRepository;
 
     public QuizService(VocabWordRepository vocabWordRepository,
                        LessonRepository lessonRepository,
-                       CustomSetRepository customSetRepository) {
+                       CustomSetRepository customSetRepository,
+                       WordProgressRepository wordProgressRepository) {
         this.vocabWordRepository = vocabWordRepository;
         this.lessonRepository = lessonRepository;
         this.customSetRepository = customSetRepository;
+        this.wordProgressRepository = wordProgressRepository;
     }
 
     public QuizDtos.QuizResponse generate(String userId, QuizDtos.QuizGenerateRequest req) {
@@ -209,6 +216,18 @@ public class QuizService {
                     yield List.of();
                 }
                 yield vocabWordRepository.findByIdInAndActiveTrue(set.getWordIds());
+            }
+            case REVIEW -> {
+                // F-026: tu den han on cua user (gom tu nhieu bai, scopeId khong dung).
+                // Qua han lau xep truoc — cung thu tu voi GET /api/progress/due.
+                List<WordProgress> progresses = wordProgressRepository
+                        .findByUserIdAndNextReviewAtLessThanEqualOrderByNextReviewAtAsc(
+                                userId, new Date(), PageRequest.of(0, 100));
+                if (progresses.isEmpty()) {
+                    yield List.of();
+                }
+                yield vocabWordRepository.findByIdInAndActiveTrue(
+                        progresses.stream().map(WordProgress::getWordId).toList());
             }
         };
     }
