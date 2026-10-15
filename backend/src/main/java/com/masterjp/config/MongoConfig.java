@@ -2,6 +2,7 @@ package com.masterjp.config;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,22 @@ public class MongoConfig {
 
     @Value("${spring.data.mongodb.database:}")
     private String configuredDatabase;
+
+    /**
+     * Tao MongoClient EXPLICIT tu URI — khong phu thuoc vao auto-config cua
+     * Boot (trai nghiem Render 2026-10-15: bean MongoClient tu auto-config
+     * khong ton tai trong context dan toi UnsatisfiedDependencyException
+     * khi khoi dong). Dinh nghia o day thi Boot tu back-off nho
+     * @ConditionalOnMissingBean.
+     */
+    @Bean
+    public MongoClient mongoClient() {
+        if (uri == null || uri.isBlank()) {
+            throw new IllegalStateException(
+                    "MONGODB_URI chua duoc cau hinh. Tu choi khoi dong.");
+        }
+        return MongoClients.create(uri);
+    }
 
     @Bean
     public MongoDatabaseFactory mongoDatabaseFactory(MongoClient mongoClient) {
