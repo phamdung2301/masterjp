@@ -25,4 +25,11 @@ public class QuizController {
                                          @AuthenticationPrincipal UserPrincipal principal) {
         return quizService.generate(principal.getId(), req);
     }
+
+    /** F-C (Feature Pack 2): luyen nhanh tu danh sach tu chon tay. Can dang nhap. */
+    @PostMapping("/quick")
+    public QuizDtos.QuizResponse quick(@Valid @RequestBody QuizDtos.QuickQuizRequest req,
+                                       @AuthenticationPrincipal UserPrincipal principal) {
+        return quizService.generateQuick(principal.getId(), req);
+    }
 }

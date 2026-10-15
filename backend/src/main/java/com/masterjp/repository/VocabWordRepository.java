@@ -3,6 +3,7 @@ package com.masterjp.repository;
 import com.masterjp.domain.VocabWord;
 import com.masterjp.domain.WordSection;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +14,20 @@ public interface VocabWordRepository extends MongoRepository<VocabWord, String> 
     List<VocabWord> findByLessonIdAndActiveTrueOrderByOrderInLessonAsc(String lessonId);
 
     List<VocabWord> findByLessonIdAndSectionAndActiveTrueOrderByOrderInLessonAsc(String lessonId, WordSection section);
+
+    /** F-A: loc tu theo cum chu de (co the ket hop section). */
+    List<VocabWord> findByLessonIdAndClusterAndActiveTrueOrderByOrderInLessonAsc(String lessonId, String cluster);
+
+    List<VocabWord> findByLessonIdAndSectionAndClusterAndActiveTrueOrderByOrderInLessonAsc(
+            String lessonId, WordSection section, String cluster);
+
+    /**
+     * F-B: tu chua chu kanji (tim chuoi con) — phuc vu trang chi tiet kanji.
+     * Pattern da duoc Pattern.quote o service de tranh regex injection
+     * (defense-in-depth; flow hien tai chi truyen ky tu CJK tu DB).
+     */
+    @Query("{ 'kanji': { $regex: ?0 }, 'active': true }")
+    List<VocabWord> findByKanjiSubstringAndActiveTrue(String quotedPattern);
 
     Optional<VocabWord> findByIdAndActiveTrue(String id);
 

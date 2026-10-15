@@ -12,10 +12,12 @@ import com.masterjp.exception.ApiException;
 import com.masterjp.repository.LessonRepository;
 import com.masterjp.repository.VocabWordRepository;
 import com.masterjp.repository.WordProgressRepository;
+import com.masterjp.util.ClusterLabels;
 import com.masterjp.util.EnumUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -80,17 +82,29 @@ public class LessonService {
     }
 
     /**
-     * GET /api/lessons/{id}/words?section= — moi tu kem studyStatus
+     * GET /api/lessons/{id}/words?section=&cluster= — moi tu kem studyStatus
      * (NEW/LEARNING/MASTERED); guest -> null.
+     * F-A: cluster optional — loc theo cum chu de, ket hop voi section neu co.
      */
-    public List<WordDtos.WordDto> getWords(String lessonId, String sectionStr, String userId) {
+    public List<WordDtos.WordDto> getWords(String lessonId, String sectionStr,
+                                           String clusterStr, String userId) {
         if (!lessonRepository.existsById(lessonId)) {
             throw new ApiException("LESSON_NOT_FOUND", "Bài học không tồn tại.", HttpStatus.NOT_FOUND);
         }
         WordSection section = EnumUtils.parseOrNull(WordSection.class, sectionStr, "section");
-        List<VocabWord> words = section == null
-                ? vocabWordRepository.findByLessonIdAndActiveTrueOrderByOrderInLessonAsc(lessonId)
-                : vocabWordRepository.findByLessonIdAndSectionAndActiveTrueOrderByOrderInLessonAsc(lessonId, section);
+        String cluster = clusterStr == null || clusterStr.isBlank() ? null : ClusterLabels.normalize(clusterStr);
+
+        List<VocabWord> words;
+        if (section != null && cluster != null) {
+            words = vocabWordRepository.findByLessonIdAndSectionAndClusterAndActiveTrueOrderByOrderInLessonAsc(
+                    lessonId, section, cluster);
+        } else if (section != null) {
+            words = vocabWordRepository.findByLessonIdAndSectionAndActiveTrueOrderByOrderInLessonAsc(lessonId, section);
+        } else if (cluster != null) {
+            words = vocabWordRepository.findByLessonIdAndClusterAndActiveTrueOrderByOrderInLessonAsc(lessonId, cluster);
+        } else {
+            words = vocabWordRepository.findByLessonIdAndActiveTrueOrderByOrderInLessonAsc(lessonId);
+        }
 
         Map<String, String> statusByWord = Map.of();
         if (userId != null && !words.isEmpty()) {
@@ -104,6 +118,31 @@ public class LessonService {
                 .map(w -> WordMapper.toDto(w, userId == null
                         ? null
                         : statusFinal.getOrDefault(w.getId(), ProgressStatus.NEW.name())))
+                .toList();
+    }
+
+    /**
+     * F-A: GET /api/lessons/{id}/clusters?section= -> [{cluster, label, count}]
+     * nhom tu theo cum (null/blank -> "khac"), sap xep theo so tu giam dan.
+     */
+    public List<LessonDtos.ClusterDto> getClusters(String lessonId, String sectionStr) {
+        if (!lessonRepository.existsById(lessonId)) {
+            throw new ApiException("LESSON_NOT_FOUND", "Bài học không tồn tại.", HttpStatus.NOT_FOUND);
+        }
+        WordSection section = EnumUtils.parseOrNull(WordSection.class, sectionStr, "section");
+        List<VocabWord> words = section == null
+                ? vocabWordRepository.findByLessonIdAndActiveTrueOrderByOrderInLessonAsc(lessonId)
+                : vocabWordRepository.findByLessonIdAndSectionAndActiveTrueOrderByOrderInLessonAsc(lessonId, section);
+
+        Map<String, Long> countByCluster = words.stream()
+                .collect(Collectors.groupingBy(
+                        w -> ClusterLabels.normalize(w.getCluster()), Collectors.counting()));
+
+        return countByCluster.entrySet().stream()
+                .map(e -> new LessonDtos.ClusterDto(
+                        e.getKey(), ClusterLabels.labelOf(e.getKey()), e.getValue()))
+                .sorted(Comparator.comparingLong(LessonDtos.ClusterDto::count).reversed()
+                        .thenComparing(LessonDtos.ClusterDto::cluster))
                 .toList();
     }
 }

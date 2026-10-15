@@ -58,23 +58,57 @@ public class QuizService {
         ScopeType scopeType = EnumUtils.parse(ScopeType.class, req.scopeType(), "scopeType");
 
         List<VocabWord> scopeWords = resolveScope(scopeType, req.scopeId(), userId);
+        return buildQuestions(scopeWords, mode, req.limit());
+    }
+
+    /**
+     * F-C (Feature Pack 2): luyen nhanh tu danh sach wordIds chon tay.
+     * Validate: 1–100 tu; LISTENING can >= 4 tu (dap an nhieu) — thieu thi
+     * QUIZ_NOT_ENOUGH_WORDS. ids khong ton tai / inactive -> bo qua.
+     * KHONG tao CustomSet. KHONG tao StudySession o day — FE ghi lich su sau
+     * khi lam bai xong qua POST /api/sessions (scopeType=QUICK, scopeId="quick")
+     * dung luong quiz thuong; SM-2 cap nhat qua PATCH /api/progress/answer.
+     * Response dung shape QuizResponse (FE tai dung component Quiz).
+     */
+    public QuizDtos.QuizResponse generateQuick(String userId, QuizDtos.QuickQuizRequest req) {
+        QuizMode mode = EnumUtils.parse(QuizMode.class, req.mode(), "mode");
+        List<String> ids = req.wordIds() == null ? List.of()
+                : req.wordIds().stream().filter(Objects::nonNull).distinct().toList();
+        List<VocabWord> words = ids.isEmpty() ? List.of()
+                : vocabWordRepository.findByIdInAndActiveTrue(ids);
+        if (words.isEmpty()) {
+            throw new ApiException("QUIZ_NOT_ENOUGH_WORDS",
+                    "Không tìm thấy từ nào hợp lệ trong danh sách đã chọn.",
+                    HttpStatus.BAD_REQUEST);
+        }
+        return buildQuestions(words, mode, words.size());
+    }
+
+    /**
+     * Logic sinh cau hoi chung tu danh sach tu -> QuizResponse.
+     * Dung chung cho POST /api/quiz/generate (scope-based) va
+     * POST /api/quiz/quick (danh sach tu chon tay) — F-C.
+     */
+    private QuizDtos.QuizResponse buildQuestions(List<VocabWord> words, QuizMode mode,
+                                                  Integer limitReq) {
+        List<VocabWord> candidates = new ArrayList<>(words);
         if (mode == QuizMode.LISTENING) {
-            scopeWords = scopeWords.stream()
+            candidates = candidates.stream()
                     .filter(w -> w.getAudioUrl() != null && !w.getAudioUrl().isBlank())
                     .toList();
         }
         if (mode == QuizMode.TYPING) {
-            return generateTyping(scopeWords, req.limit());
+            return generateTyping(candidates, limitReq);
         }
-        if (scopeWords.size() < 4) {
+        if (candidates.size() < 4) {
             throw new ApiException("QUIZ_NOT_ENOUGH_WORDS",
                     "Không đủ từ để tạo quiz (cần ít nhất 4 từ). Hãy mở rộng phạm vi học.",
                     HttpStatus.BAD_REQUEST);
         }
 
-        int limit = (req.limit() == null || req.limit() <= 0) ? 20
-                : Math.min(req.limit(), scopeWords.size());
-        List<VocabWord> picked = new ArrayList<>(scopeWords);
+        int limit = (limitReq == null || limitReq <= 0) ? 20
+                : Math.min(limitReq, candidates.size());
+        List<VocabWord> picked = new ArrayList<>(candidates);
         Collections.shuffle(picked);
         picked = picked.subList(0, limit);
 
@@ -229,6 +263,9 @@ public class QuizService {
                 yield vocabWordRepository.findByIdInAndActiveTrue(
                         progresses.stream().map(WordProgress::getWordId).toList());
             }
+            case QUICK -> throw new ApiException("VALIDATION_ERROR",
+                    "Luyện nhanh dùng POST /api/quiz/quick, không dùng scope này.",
+                    HttpStatus.BAD_REQUEST);
         };
     }
 }

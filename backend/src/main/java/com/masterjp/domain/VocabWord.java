@@ -10,7 +10,8 @@ import org.springframework.data.mongodb.core.index.TextIndexed;
 @Document("vocab_words")
 @CompoundIndexes({
         @CompoundIndex(name = "idx_lesson_order", def = "{'lessonId': 1, 'orderInLesson': 1}"),
-        @CompoundIndex(name = "idx_lesson_section_kana", def = "{'lessonId': 1, 'section': 1, 'kana': 1}")
+        @CompoundIndex(name = "idx_lesson_section_kana", def = "{'lessonId': 1, 'section': 1, 'kana': 1}"),
+        @CompoundIndex(name = "idx_lesson_cluster", def = "{'lessonId': 1, 'cluster': 1}")
 })
 public class VocabWord {
 
@@ -35,6 +36,13 @@ public class VocabWord {
     private String exampleVi;
     private String audioUrl; // /audio/{audioFile}.mp3 (deterministic: b{lessonNo}-{order}.mp3) — DB chi luu URL
     private int orderInLesson;
+
+    /**
+     * Cum chu de cua tu (F-A, Feature Pack 2): ma cum slug, vd. "do-dung".
+     * Tu khong xep duoc vao cum nao -> "khac". Null tren du lieu cu duoc
+     * xu ly nhu "khac" o tang service.
+     */
+    private String cluster;
 
     /** Xoa mem (FR-031): false = an khoi moi truy van cong khai, giu word_progress. */
     private boolean active = true;
@@ -140,6 +148,14 @@ public class VocabWord {
 
     public void setOrderInLesson(int orderInLesson) {
         this.orderInLesson = orderInLesson;
+    }
+
+    public String getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(String cluster) {
+        this.cluster = cluster;
     }
 
     public boolean isActive() {

@@ -41,7 +41,15 @@ public class LessonController {
     @GetMapping("/{id}/words")
     public List<WordDtos.WordDto> words(@PathVariable String id,
                                         @RequestParam(required = false) String section,
+                                        @RequestParam(required = false) String cluster,
                                         @AuthenticationPrincipal UserPrincipal principal) {
-        return lessonService.getWords(id, section, principal == null ? null : principal.getId());
+        return lessonService.getWords(id, section, cluster, principal == null ? null : principal.getId());
+    }
+
+    /** F-A: cum chu de cua bai (kèm so tu moi cum). Public read-only. */
+    @GetMapping("/{id}/clusters")
+    public List<LessonDtos.ClusterDto> clusters(@PathVariable String id,
+                                                @RequestParam(required = false) String section) {
+        return lessonService.getClusters(id, section);
     }
 }

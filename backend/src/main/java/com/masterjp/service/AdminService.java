@@ -22,6 +22,7 @@ import com.masterjp.repository.VocabWordRepository;
 import com.masterjp.repository.WordProgressRepository;
 import com.masterjp.util.AppTime;
 import com.masterjp.util.AudioFileUtils;
+import com.masterjp.util.ClusterLabels;
 import com.masterjp.util.EnumUtils;
 import com.masterjp.util.VietnameseUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -221,7 +222,7 @@ public class AdminService {
                         lessonNoById.getOrDefault(w.getLessonId(), 0),
                         w.getSection().name(), w.getKana(), w.getKanji(), w.getRomaji(),
                         w.getMeaningVi(), w.getPos(), w.getExampleJa(), w.getExampleVi(),
-                        w.getAudioUrl(), w.getOrderInLesson(), w.isActive(), null))
+                        w.getAudioUrl(), w.getOrderInLesson(), w.isActive(), null, w.getCluster()))
                 .toList();
         return new CommonDtos.PageResponse<>(items, total, Math.max(page, 0), PAGE_SIZE);
     }
@@ -243,6 +244,14 @@ public class AdminService {
         word.setExampleJa(blankToNull(req.exampleJa()));
         word.setExampleVi(blankToNull(req.exampleVi()));
         word.setOrderInLesson(req.orderInLesson());
+        // F-A: admin co the gan cum ngay khi tao; khong nhap -> "khac".
+        String reqCluster = req.cluster() == null ? null : ClusterLabels.normalize(req.cluster());
+        if (reqCluster != null && !ClusterLabels.isKnown(reqCluster)) {
+            throw new ApiException("CLUSTER_INVALID",
+                    "Mã cụm không hợp lệ: \"" + req.cluster().trim() + "\".",
+                    HttpStatus.BAD_REQUEST);
+        }
+        word.setCluster(reqCluster == null ? ClusterLabels.FALLBACK_CLUSTER : reqCluster);
         // Ten file audio deterministic (b{lessonNo:02d}-{order:03d}.mp3) — khop seed + script sinh audio.
         word.setAudioUrl(AudioFileUtils.audioUrl(lesson.getLessonNo(), req.orderInLesson()));
         word.setSearchNorm(VietnameseUtils.buildSearchNorm(word));
@@ -296,6 +305,19 @@ public class AdminService {
         }
         if (req.orderInLesson() != null) {
             word.setOrderInLesson(req.orderInLesson());
+        }
+        // F-A: admin sua cum chu de cua tu (du lieu cu chua co cluster -> nhap moi duoc).
+        if (req.cluster() != null) {
+            String normalized = ClusterLabels.normalize(req.cluster());
+            if (!ClusterLabels.isKnown(normalized)) {
+                throw new ApiException("CLUSTER_INVALID",
+                        "Mã cụm không hợp lệ: \"" + req.cluster().trim() + "\".",
+                        HttpStatus.BAD_REQUEST);
+            }
+            if (!Objects.equals(normalized, word.getCluster())) {
+                changes.put("cluster", word.getCluster() + " -> " + normalized);
+                word.setCluster(normalized);
+            }
         }
         // Doi orderInLesson -> ten file audio deterministic doi theo -> cap nhat audioUrl.
         if (req.orderInLesson() != null && req.orderInLesson() != beforeOrder) {
@@ -483,6 +505,9 @@ public class AdminService {
                 word.setExampleJa(blankToNull(row.exampleJa()));
                 word.setExampleVi(blankToNull(row.exampleVi()));
                 word.setActive(true);
+                if (isNew) {
+                    word.setCluster(ClusterLabels.FALLBACK_CLUSTER); // F-A: tu import moi mac dinh cum "khac"
+                }
                 word.setSearchNorm(VietnameseUtils.buildSearchNorm(word));
                 vocabWordRepository.save(word);
                 imported++;
