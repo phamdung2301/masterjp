@@ -97,6 +97,17 @@ public class AdminService {
 
     // ==================== Lessons (F-030) ====================
 
+    /**
+     * R1: strip prefix "Bài N — " nếu admin nhập thừa vào ô tiêu đề.
+     * titleVi trong DB KHÔNG bao giờ chứa prefix (frontend tự render "Bài {lessonNo} — {titleVi}").
+     */
+    private static String stripLessonPrefix(String titleVi) {
+        if (titleVi == null) {
+            return null;
+        }
+        return titleVi.replaceFirst("^Bài \\d+ — ", "");
+    }
+
     public List<LessonDtos.LessonDetailDto> listLessons() {
         List<Lesson> lessons = lessonRepository.findAll();
         lessons.sort((a, b) -> {
@@ -124,7 +135,8 @@ public class AdminService {
         lesson.setLevel(level);
         lesson.setLessonNo(req.lessonNo());
         lesson.setTitleJa(req.titleJa().trim());
-        lesson.setTitleVi(req.titleVi().trim());
+        // R1: strip server-side — phòng admin nhập thừa "Bài 3 — ..." vào ô tiêu đề.
+        lesson.setTitleVi(stripLessonPrefix(req.titleVi().trim()));
         lesson.setOrder(req.order());
         lessonRepository.save(lesson);
         auditService.log(adminId, "CREATE_LESSON", "lessons", lesson.getId(),
@@ -158,7 +170,8 @@ public class AdminService {
             lesson.setTitleJa(req.titleJa().trim());
         }
         if (req.titleVi() != null && !req.titleVi().isBlank()) {
-            lesson.setTitleVi(req.titleVi().trim());
+            // R1: strip server-side — phòng admin nhập thừa "Bài 3 — ..." vào ô tiêu đề.
+            lesson.setTitleVi(stripLessonPrefix(req.titleVi().trim()));
         }
         if (req.order() != null) {
             lesson.setOrder(req.order());

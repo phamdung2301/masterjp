@@ -14,7 +14,13 @@ public class Lesson {
     private Level level; // N5 / N4
     private int lessonNo; // 1-25 (N5), 26-50 (N4)
     private String titleJa; // vd. 第1課
-    private String titleVi; // vd. Bài 1 — Chào hỏi, giới thiệu
+    /**
+     * R1 contract: titleVi KHÔNG chứa prefix "Bài N — " — chỉ là tên bài,
+     * vd. "Chào hỏi, giới thiệu". Prefix "Bài {lessonNo} — " được frontend
+     * thêm lúc hiển thị. AdminService.createLesson/updateLesson strip mọi
+     * prefix bị nhập thừa để không bao giờ lưu "Bài 1 — Bài 1 — ..." vào DB.
+     */
+    private String titleVi;
     private int order; // thu tu hien thi
 
     public String getId() {
