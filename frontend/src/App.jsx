@@ -17,6 +17,7 @@ import SetDetail from './pages/SetDetail.jsx';
 import Kanji from './pages/Kanji.jsx';
 import KanjiDetail from './pages/KanjiDetail.jsx';
 import KanjiFlashcard from './pages/KanjiFlashcard.jsx';
+import KanjiQuiz from './pages/KanjiQuiz.jsx';
 import QuickPractice from './pages/QuickPractice.jsx';
 import Explore from './pages/Explore.jsx';
 import Dashboard from './pages/Dashboard.jsx';
@@ -59,8 +60,9 @@ export default function App() {
               <Route path="/luyen-tap/flashcard" element={<ProtectedRoute><Flashcard /></ProtectedRoute>} />
               <Route path="/luyen-tap/quiz" element={<ProtectedRoute><Quiz /></ProtectedRoute>} />
               <Route path="/luyen-tap/go-phien-am" element={<ProtectedRoute><Typing /></ProtectedRoute>} />
-              {/* F-B: flashcard kanji · F-C: luyện tập nhanh */}
+              {/* F-B: flashcard kanji · F-C: luyện tập nhanh · R3: quiz kanji */}
               <Route path="/luyen-tap/kanji" element={<ProtectedRoute><KanjiFlashcard /></ProtectedRoute>} />
+              <Route path="/luyen-tap/kanji-quiz" element={<ProtectedRoute><KanjiQuiz /></ProtectedRoute>} />
               <Route path="/luyen-tap-nhanh" element={<ProtectedRoute><QuickPractice /></ProtectedRoute>} />
               <Route path="/on-tap" element={<ProtectedRoute><ReviewDue /></ProtectedRoute>} />
               <Route path="/bo-the" element={<ProtectedRoute><Sets /></ProtectedRoute>} />

@@ -5,17 +5,23 @@ import { fetchSet } from '../api/sets.js';
 import { answerProgress, recordSession } from '../api/study.js';
 import { getErrorMessage } from '../api/client.js';
 import AudioButton from '../components/AudioButton.jsx';
-import { shuffle } from '../utils.js';
+import { SECTION_LABELS, shuffle } from '../utils.js';
 import './pages.css';
 
 // US-005 (F-020, F-027): flashcard — lật thẻ, Nhớ/Chưa nhớ.
 // PATCH /api/progress/answer NGAY sau mỗi thẻ (không dồn cuối phiên).
 // Hết thẻ → POST /api/sessions → màn kết quả.
+// R2: chế độ luyện tập đã chọn (?quick=1) — mirror pattern Quiz.jsx: lấy danh
+// sách full word objects từ sessionStorage (trang chi tiết bài lưu trước khi
+// chuyển sang, key chung 'mjp_quick_quiz'), KHÔNG gọi API.
+const QUICK_KEY = 'mjp_quick_quiz';
+
 export default function Flashcard() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const scopeType = params.get('scopeType');
-  const scopeId = params.get('scopeId');
+  const isQuick = params.get('quick') === '1';
+  const scopeType = isQuick ? 'QUICK' : params.get('scopeType');
+  const scopeId = isQuick ? 'quick' : params.get('scopeId');
 
   const [words, setWords] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -27,6 +33,7 @@ export default function Flashcard() {
   const [result, setResult] = useState(null);
   const [saving, setSaving] = useState(false);
   const [scopeName, setScopeName] = useState('');
+  const [returnTo, setReturnTo] = useState(null);
   const [cardStart, setCardStart] = useState(Date.now());
   const startedAt = useMemo(() => new Date().toISOString(), []);
 
@@ -35,7 +42,18 @@ export default function Flashcard() {
       setLoading(true);
       setError('');
       try {
-        if (scopeType === 'LESSON') {
+        if (isQuick) {
+          // R2: lấy full word objects đã lưu (không gọi API).
+          let p = null;
+          try { p = JSON.parse(sessionStorage.getItem(QUICK_KEY) || 'null'); } catch { /* bỏ qua */ }
+          if (p?.words?.length) {
+            setWords(shuffle(p.words));
+            setScopeName(`${p.words.length} từ đã chọn`);
+            setReturnTo(p.returnTo || null);
+          } else {
+            throw new Error('Không tìm thấy danh sách từ đã chọn. Hãy quay lại và chọn từ nhé.');
+          }
+        } else if (scopeType === 'LESSON') {
           const ws = await fetchLessonWords(scopeId);
           setWords(shuffle(ws));
           setScopeName(`Bài học`);
@@ -43,7 +61,7 @@ export default function Flashcard() {
           const [lessonId, section] = scopeId.split(':');
           const ws = await fetchLessonWords(lessonId, section);
           setWords(shuffle(ws));
-          setScopeName('Một phần của bài');
+          setScopeName(SECTION_LABELS[section] || 'Một phần của bài');
         } else if (scopeType === 'SET') {
           const s = await fetchSet(scopeId);
           setWords(shuffle(s.words || []));
@@ -59,7 +77,7 @@ export default function Flashcard() {
       }
     };
     load();
-  }, [scopeType, scopeId]);
+  }, [scopeType, scopeId, isQuick]);
 
   const answer = async (correct) => {
     const word = words[idx];
@@ -102,14 +120,33 @@ export default function Flashcard() {
   };
 
   if (loading) return <div className="page"><p className="muted">Đang chuẩn bị thẻ…</p></div>;
-  if (error) return <div className="page"><div className="alert alert-error">{error}</div></div>;
+  if (error) return (
+    <div className="page">
+      <div className="alert alert-error">{error}</div>
+      {isQuick ? (
+        <button type="button" className="btn btn-outline" onClick={() => navigate(returnTo || -1)}>
+          ✏️ Chọn lại từ
+        </button>
+      ) : (
+        <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>
+          ← Quay lại
+        </button>
+      )}
+    </div>
+  );
 
   if (words.length === 0) {
     return (
       <div className="page">
         <h1>Flashcard</h1>
         <p className="muted">Phạm vi này chưa có từ nào để luyện.</p>
-        <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>Quay lại</button>
+        {isQuick ? (
+          <button type="button" className="btn btn-outline" onClick={() => navigate(returnTo || -1)}>
+            ✏️ Chọn lại từ
+          </button>
+        ) : (
+          <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>Quay lại</button>
+        )}
       </div>
     );
   }
@@ -124,8 +161,16 @@ export default function Flashcard() {
           {result.streakDays != null && <div className="streak-line">🔥 Chuỗi ngày học: {result.streakDays} ngày</div>}
         </div>
         <div className="result-actions">
-          <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
-          <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
+          {isQuick ? (
+            <button type="button" className="btn btn-outline" onClick={() => navigate(returnTo || -1)}>
+              ✏️ Chọn lại từ
+            </button>
+          ) : (
+            <>
+              <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
+              <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
+            </>
+          )}
         </div>
       </div>
     );
