@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toHiragana } from 'wanakana';
 import { answerProgress, generateQuiz, recordSession } from '../api/study.js';
@@ -33,11 +33,14 @@ export default function Typing() {
     if (!isQuick) return null;
     try {
       const p = JSON.parse(sessionStorage.getItem(QUICK_KEY) || 'null');
-      if (p?.wordIds?.length) return { wordIds: p.wordIds, returnTo: p.returnTo };
+      if (p?.wordIds?.length) return { wordIds: p.wordIds, allWordIds: p.wordIds, returnTo: p.returnTo };
     } catch { /* bỏ qua */ }
     return { error: true };
   });
   const wordIds = isQuick ? quick?.wordIds : null;
+  // Non-quick: vòng luyện lại từ gõ sai dùng API quick với wordIds (ghi session QUICK).
+  const [retryIds, setRetryIds] = useState(null);
+  const [runKey, setRunKey] = useState(0);
 
   const [questions, setQuestions] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -50,7 +53,7 @@ export default function Typing() {
   const [result, setResult] = useState(null);
   const [saving, setSaving] = useState(false);
   const [qStart, setQStart] = useState(Date.now());
-  const startedAt = useMemo(() => new Date().toISOString(), []);
+  const [startedAt, setStartedAt] = useState(() => new Date().toISOString());
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -61,8 +64,9 @@ export default function Typing() {
     }
     setLoading(true);
     setError('');
-    const promise = isQuick
-      ? generateQuickQuiz({ wordIds, mode: 'TYPING' })
+    const effectiveIds = isQuick ? wordIds : retryIds;
+    const promise = effectiveIds
+      ? generateQuickQuiz({ wordIds: effectiveIds, mode: 'TYPING' })
       : generateQuiz({ mode: 'TYPING', scopeType, scopeId, limit: 20 });
     promise
       .then((data) => {
@@ -73,7 +77,7 @@ export default function Typing() {
       })
       .catch((e) => setError(getErrorMessage(e, 'Không tạo được bộ câu hỏi.')))
       .finally(() => setLoading(false));
-  }, [scopeType, scopeId, isQuick, wordIds]);
+  }, [scopeType, scopeId, isQuick, wordIds, retryIds, runKey]);
 
   useEffect(() => {
     if (!loading && !finished && inputRef.current) inputRef.current.focus();
@@ -120,11 +124,14 @@ export default function Typing() {
     setSaving(true);
     const correctCount = allItems.filter((i) => i.correct).length;
     const wrong = questions.filter((_, i) => !allItems[i]?.correct);
+    // Vòng luyện lại từ gõ sai (non-quick) ghi session QUICK như luồng quick.
+    const effScopeType = retryIds ? 'QUICK' : scopeType;
+    const effScopeId = retryIds ? 'quick' : scopeId;
     try {
       const res = await recordSession({
         mode: SESSION_MODE,
-        scopeType,
-        scopeId,
+        scopeType: effScopeType,
+        scopeId: effScopeId,
         totalItems: allItems.length,
         correctCount,
         items: allItems,
@@ -138,6 +145,27 @@ export default function Typing() {
       setSaving(false);
       setFinished(true);
     }
+  };
+
+  // Luyện lại: newWordIds=null → toàn bộ (từ scope gốc hoặc tập đã chọn).
+  const restart = (newWordIds) => {
+    if (isQuick) {
+      setQuick((prev) => ({ ...prev, wordIds: newWordIds || prev.allWordIds }));
+    } else {
+      setRetryIds(newWordIds);
+    }
+    setQuestions([]);
+    setIdx(0);
+    setInput('');
+    setChecked(null);
+    setItems([]);
+    setFinished(false);
+    setResult(null);
+    setSaving(false);
+    setError('');
+    setQStart(Date.now());
+    setStartedAt(new Date().toISOString());
+    setRunKey((k) => k + 1);
   };
 
   if (loading) return <div className="page"><p className="muted">Đang chuẩn bị bài gõ…</p></div>;
@@ -158,6 +186,7 @@ export default function Typing() {
 
   if (finished && result) {
     const pctScore = Math.round((result.correctCount / result.total) * 100);
+    const wrongIds = result.wrong.map((q) => q.wordId);
     return (
       <div className="page result-page">
         <h1>Kết quả Gõ phiên âm</h1>
@@ -184,6 +213,16 @@ export default function Typing() {
           </>
         )}
         <div className="result-actions">
+          {wrongIds.length > 0 ? (
+            <button type="button" className="btn btn-primary" onClick={() => restart(wrongIds)}>
+              📝 Luyện lại {wrongIds.length} từ gõ sai
+            </button>
+          ) : (
+            <span className="muted">Tuyệt vời, nhớ hết rồi! 🎉</span>
+          )}
+          <button type="button" className="btn btn-outline" onClick={() => restart(null)}>
+            🔁 Luyện lại toàn bộ
+          </button>
           {isQuick ? (
             <button type="button" className="btn btn-outline" onClick={() => navigate(quick?.returnTo || -1)}>
               ✏️ Chọn lại từ
