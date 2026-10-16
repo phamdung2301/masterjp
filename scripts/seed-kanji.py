@@ -16,7 +16,10 @@ Tên khác mà keys giống → Atlas báo IndexOptionsConflict (code 85).
 
 ENV:
   MONGODB_URI       (default: mongodb://localhost:27017)
-  MONGODB_DATABASE  (default: master_jp)
+  MONGODB_DATABASE  (BẮT BUỘC — fail-fast nếu thiếu, không default ngầm)
+
+Topic: đọc data/seed/kanji-topics.json (mapping character → topic code),
+ghi field `topic` cho mỗi kanji. Chạy lại an toàn: chỉ update field.
 
 Yêu cầu: pip install pymongo
 
@@ -36,13 +39,19 @@ except ImportError:
     sys.exit('LỖI: chưa cài pymongo. Chạy: pip install pymongo')
 
 MONGODB_URI = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017')
-MONGODB_DATABASE = os.environ.get('MONGODB_DATABASE', 'master_jp')
+# Fail-fast: KHÔNG default ngầm (từng ghi nhầm DB master_jp do silent default).
+MONGODB_DATABASE = os.environ.get('MONGODB_DATABASE')
+if not MONGODB_DATABASE:
+    sys.exit('LỖI: thiếu env MONGODB_DATABASE. Ví dụ PowerShell:\n'
+             '    $env:MONGODB_DATABASE="masterjp"\n'
+             '    python scripts/seed-kanji.py')
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 KANJI_FILES = [
     os.path.join(ROOT, 'data', 'seed', 'kanji-n5.json'),
     os.path.join(ROOT, 'data', 'seed', 'kanji-n4.json'),
 ]
+TOPICS_FILE = os.path.join(ROOT, 'data', 'seed', 'kanji-topics.json')
 
 BATCH = 500
 
@@ -64,6 +73,18 @@ def load_kanji():
         items.extend(d.get('kanji', []))
     if not items:
         sys.exit('LỖI: data/seed/kanji-*.json không có chữ nào.')
+
+    # Mapping character → topic code (kanji-topics.json). Chữ nào thiếu
+    # mapping thì rơi vào 'khac' (không fail cả đợt seed).
+    mapping = {}
+    if os.path.exists(TOPICS_FILE):
+        with open(TOPICS_FILE, encoding='utf-8') as f:
+            mapping = json.load(f).get('mapping', {})
+        print(f'kanji: đã load mapping {len(mapping)} chữ → topic từ kanji-topics.json')
+    else:
+        print(f'CẢNH BÁO: không tìm thấy {TOPICS_FILE}, mọi chữ sẽ gán topic "khac".')
+    for k in items:
+        k['topic'] = mapping.get(k['character'], 'khac')
     return items
 
 
@@ -84,6 +105,7 @@ def main():
     # Index đúng tên như backend domain/Kanji.java
     kanji.create_index([('lessonNos', 1)], name='idx_kanji_lesson')
     kanji.create_index([('jlpt', 1)], name='idx_kanji_jlpt')
+    kanji.create_index([('topic', 1)], name='idx_kanji_topic')
 
     print('kanji: đang import ...', flush=True)
     ops = []
@@ -97,6 +119,7 @@ def main():
             'strokes': k.get('strokes', 0),
             'jlpt': k.get('jlpt'),
             'lessonNos': k.get('lessonNos') or [],
+            'topic': k.get('topic') or 'khac',
         }
         # _id = character (string): upsert idempotent, đúng với Kanji.id của backend
         ops.append(UpdateOne({'_id': ch}, {'$set': doc}, upsert=True))
