@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { fetchKanji } from '../api/kanji.js';
+import { fetchKanji, generateKanjiQuiz } from '../api/kanji.js';
 import { getErrorMessage } from '../api/client.js';
 import './pages.css';
 
@@ -13,7 +13,9 @@ import './pages.css';
 //   rồi sang /luyen-tap/kanji?pick=1. N = 0 → confirm trước khi luyện toàn bộ
 //   (tránh bấm nhầm 988 chữ như trước).
 const KANJI_PICK_KEY = 'mjp_kanji_pick';
+const KANJI_QUIZ_KEY = 'mjp_kanji_quiz';
 const LESSON_OPTIONS = Array.from({ length: 50 }, (_, i) => i + 1);
+const MIN_MCQ_CHARS = 4; // trắc nghiệm cần ≥ 4 chữ để đủ đáp án nhiễu (contract F-D)
 
 export default function Kanji() {
   const navigate = useNavigate();
@@ -25,6 +27,11 @@ export default function Kanji() {
   const [selLessons, setSelLessons] = useState([]); // number[] — bài đã tick
   const [extra, setExtra] = useState(() => new Set()); // chữ tick tay (ngoài bài đã chọn)
   const [dropped, setDropped] = useState(() => new Set()); // chữ bỏ tick tay (dù trong bài đã chọn)
+  // R3: thanh luyện tập cho tập chữ đã chọn — quiz trắc nghiệm + gõ cách đọc
+  // qua POST /api/kanji/quiz (contract F-D). v1 không lưu SM-2/progress.
+  const [quizMode, setQuizMode] = useState('KANJI_MEANING'); // KANJI_MEANING | MEANING_KANJI
+  const [practicing, setPracticing] = useState(false);
+  const [practiceError, setPracticeError] = useState('');
 
   // Fetch 1 lần toàn bộ; mọi filter (bài, cấp độ, tìm chữ) đều client-side.
   useEffect(() => {
@@ -135,6 +142,40 @@ export default function Kanji() {
     });
   };
 
+  // R3: tạo quiz kanji cho tập chữ đã chọn rồi sang trang /luyen-tap/kanji-quiz
+  // (trắc nghiệm + gõ cách đọc chung 1 trang, chấm tại chỗ).
+  const startKanjiQuiz = async (mode) => {
+    setPracticeError('');
+    const chars = [...picked];
+    if (chars.length === 0) return;
+    if (mode !== 'KANJI_TYPING' && chars.length < MIN_MCQ_CHARS) return;
+    setPracticing(true);
+    try {
+      const data = await generateKanjiQuiz({ characters: chars, mode });
+      const questions = data?.questions || [];
+      if (questions.length === 0) {
+        throw new Error('Không tạo được câu hỏi cho tập chữ này. Hãy thử tập chữ khác.');
+      }
+      sessionStorage.setItem(KANJI_QUIZ_KEY, JSON.stringify({
+        questions,
+        mode,
+        count: questions.length,
+        totalChars: chars.length,
+      }));
+      navigate(`/luyen-tap/kanji-quiz?mode=${mode}`);
+    } catch (e) {
+      setPracticeError(getErrorMessage(e, 'Không tạo được quiz kanji.'));
+    } finally {
+      setPracticing(false);
+    }
+  };
+
+  const practiceHint = picked.size === 0
+    ? 'Tick chọn chữ kanji ở lưới bên dưới để luyện.'
+    : picked.size < MIN_MCQ_CHARS
+      ? `Trắc nghiệm cần ít nhất ${MIN_MCQ_CHARS} chữ (để đủ đáp án nhiễu); gõ cách đọc đã sẵn sàng.`
+      : '';
+
   const goFlashcard = () => {
     if (picked.size > 0) {
       const arr = [...picked]
@@ -156,6 +197,14 @@ export default function Kanji() {
     navigate('/luyen-tap/kanji');
   };
 
+  // Tick bài = chọn toàn bộ kanji của bài đó (vẫn có thể bỏ tick từng chữ bên dưới).
+  const lessonBtn = (n) => (
+    <label key={n} className={`lesson-pick-item${selLessons.includes(n) ? ' selected' : ''}`}>
+      <input type="checkbox" checked={selLessons.includes(n)} onChange={() => toggleLesson(n)} />
+      <span>{n}</span>
+    </label>
+  );
+
   return (
     <div className="page">
       <div className="kanji-head">
@@ -170,18 +219,18 @@ export default function Kanji() {
 
       <div className="lesson-pick">
         <div className="lesson-pick-head">
-          <span className="lesson-pick-title">Chọn bài để lấy kanji ({selLessons.length}/50)</span>
+          <span className="lesson-pick-title">Tick bài để chọn toàn bộ kanji của bài ({selLessons.length}/50)</span>
           <button type="button" className="btn btn-ghost btn-sm" onClick={toggleAllLessons}>
             {selLessons.length === LESSON_OPTIONS.length ? 'Bỏ chọn hết' : 'Chọn tất cả'}
           </button>
         </div>
+        <div className="lesson-pick-grid-label muted">N5 · Bài 1–25</div>
         <div className="lesson-pick-grid">
-          {LESSON_OPTIONS.map((n) => (
-            <label key={n} className={`lesson-pick-item${selLessons.includes(n) ? ' selected' : ''}`}>
-              <input type="checkbox" checked={selLessons.includes(n)} onChange={() => toggleLesson(n)} />
-              <span>{n}</span>
-            </label>
-          ))}
+          {LESSON_OPTIONS.slice(0, 25).map(lessonBtn)}
+        </div>
+        <div className="lesson-pick-grid-label muted">N4 · Bài 26–50</div>
+        <div className="lesson-pick-grid">
+          {LESSON_OPTIONS.slice(25).map(lessonBtn)}
         </div>
       </div>
 
@@ -199,12 +248,48 @@ export default function Kanji() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button type="button" className="btn btn-ghost btn-sm" onClick={selectVisible} disabled={filtered.length === 0}>
-          Chọn tất cả
+          Chọn hết đang hiện
         </button>
         <button type="button" className="btn btn-ghost btn-sm" onClick={deselectVisible} disabled={picked.size === 0}>
-          Bỏ chọn
+          Bỏ chọn đang hiện
         </button>
         <span className="muted">{filtered.length} chữ · đã chọn {picked.size}</span>
+      </div>
+
+      {/* R3: thanh luyện tập cho tập chữ đã chọn */}
+      <div className="kanji-practice">
+        <div className="kanji-practice-info">
+          <strong>✏️ Luyện tập tập đã chọn ({picked.size} chữ)</strong>
+          {practiceHint && <span className="muted"> — {practiceHint}</span>}
+        </div>
+        <div className="kanji-practice-actions">
+          <select
+            className="select-inline"
+            value={quizMode}
+            onChange={(e) => setQuizMode(e.target.value)}
+            aria-label="Dạng quiz kanji"
+          >
+            <option value="KANJI_MEANING">Chữ → Nghĩa</option>
+            <option value="MEANING_KANJI">Nghĩa → Chữ</option>
+          </select>
+          <button
+            type="button"
+            className="btn btn-outline"
+            disabled={picked.size < MIN_MCQ_CHARS || practicing}
+            onClick={() => startKanjiQuiz(quizMode)}
+          >
+            {practicing ? 'Đang tạo…' : '✏️ Quiz kanji'}
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline"
+            disabled={picked.size < 1 || practicing}
+            onClick={() => startKanjiQuiz('KANJI_TYPING')}
+          >
+            {practicing ? 'Đang tạo…' : '⌨️ Gõ cách đọc'}
+          </button>
+        </div>
+        {practiceError && <div className="alert alert-error">{practiceError}</div>}
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}
