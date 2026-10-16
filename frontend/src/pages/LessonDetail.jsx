@@ -28,6 +28,12 @@ export default function LessonDetail() {
   const [loginPrompt, setLoginPrompt] = useState('');
   const [addSetOpen, setAddSetOpen] = useState(false);
   const [quizMode, setQuizMode] = useState('JP_VI');
+  // Hướng flashcard: JP_VI = mặt trước tiếng Nhật, VI_JP = mặt trước nghĩa Việt.
+  const [flashcardDir, setFlashcardDir] = useState('JP_VI');
+  const FLASHCARD_DIRS = [
+    { value: 'JP_VI', label: 'Nhật → Việt' },
+    { value: 'VI_JP', label: 'Việt → Nhật' },
+  ];
 
   // F-A: chế độ xem theo cụm
   const [viewMode, setViewMode] = useState('section'); // 'section' | 'cluster'
@@ -76,7 +82,7 @@ export default function LessonDetail() {
   };
 
   const goFlashcard = (scopeType, scopeId) =>
-    navigate(`/luyen-tap/flashcard?scopeType=${scopeType}&scopeId=${encodeURIComponent(scopeId)}`);
+    navigate(`/luyen-tap/flashcard?direction=${flashcardDir.toLowerCase()}&scopeType=${scopeType}&scopeId=${encodeURIComponent(scopeId)}`);
 
   const goQuiz = (scopeType, scopeId) =>
     navigate(`/luyen-tap/quiz?mode=${quizMode.toLowerCase()}&scopeType=${scopeType}&scopeId=${encodeURIComponent(scopeId)}`);
@@ -141,7 +147,7 @@ export default function LessonDetail() {
       navigate('/luyen-tap/go-phien-am?quick=1');
     } else {
       sessionStorage.setItem(QUICK_KEY, JSON.stringify({ wordIds, words, mode: 'FLASHCARD', returnTo }));
-      navigate('/luyen-tap/flashcard?quick=1');
+      navigate(`/luyen-tap/flashcard?quick=1&direction=${flashcardDir.toLowerCase()}`);
     }
   };
 
@@ -163,17 +169,24 @@ export default function LessonDetail() {
           <div className="practice-bar">
             <div className="practice-group">
               <span className="practice-label">Luyện cả bài:</span>
-              <button type="button" className="btn btn-primary btn-sm"
-                onClick={() => requireLogin('Đăng nhập để luyện flashcard và lưu tiến trình.', () => goFlashcard('LESSON', id))}>
-                🃏 Flashcard
-              </button>
-              <select className="select-inline" value={quizMode} onChange={(e) => setQuizMode(e.target.value)} aria-label="Dạng quiz">
-                {QUIZ_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
-              </select>
-              <button type="button" className="btn btn-outline btn-sm"
-                onClick={() => requireLogin('Đăng nhập để làm quiz và lưu tiến trình.', () => goQuiz('LESSON', id))}>
-                ✏️ Quiz
-              </button>
+              <span className="practice-pair">
+                <button type="button" className="btn btn-primary btn-sm"
+                  onClick={() => requireLogin('Đăng nhập để luyện flashcard và lưu tiến trình.', () => goFlashcard('LESSON', id))}>
+                  🃏 Flashcard
+                </button>
+                <select className="select-inline" value={flashcardDir} onChange={(e) => setFlashcardDir(e.target.value)} aria-label="Hướng flashcard">
+                  {FLASHCARD_DIRS.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                </select>
+              </span>
+              <span className="practice-pair">
+                <button type="button" className="btn btn-outline btn-sm"
+                  onClick={() => requireLogin('Đăng nhập để làm quiz và lưu tiến trình.', () => goQuiz('LESSON', id))}>
+                  ✏️ Quiz
+                </button>
+                <select className="select-inline" value={quizMode} onChange={(e) => setQuizMode(e.target.value)} aria-label="Dạng quiz">
+                  {QUIZ_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                </select>
+              </span>
               <button type="button" className="btn btn-outline btn-sm"
                 onClick={() => requireLogin('Đăng nhập để luyện gõ phiên âm và lưu tiến trình.', () => goTyping('LESSON', id))}>
                 ⌨️ Gõ phiên âm
@@ -182,14 +195,24 @@ export default function LessonDetail() {
             {viewMode === 'section' && (
               <div className="practice-group">
                 <span className="practice-label">Luyện phần này ({SECTION_LABELS[section]}):</span>
-                <button type="button" className="btn btn-primary btn-sm"
-                  onClick={() => requireLogin('Đăng nhập để luyện flashcard và lưu tiến trình.', () => goFlashcard('SECTION', sectionId))}>
-                  🃏 Flashcard
-                </button>
-                <button type="button" className="btn btn-outline btn-sm"
-                  onClick={() => requireLogin('Đăng nhập để làm quiz và lưu tiến trình.', () => goQuiz('SECTION', sectionId))}>
-                  ✏️ Quiz
-                </button>
+                <span className="practice-pair">
+                  <button type="button" className="btn btn-primary btn-sm"
+                    onClick={() => requireLogin('Đăng nhập để luyện flashcard và lưu tiến trình.', () => goFlashcard('SECTION', sectionId))}>
+                    🃏 Flashcard
+                  </button>
+                  <select className="select-inline" value={flashcardDir} onChange={(e) => setFlashcardDir(e.target.value)} aria-label="Hướng flashcard">
+                    {FLASHCARD_DIRS.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                  </select>
+                </span>
+                <span className="practice-pair">
+                  <button type="button" className="btn btn-outline btn-sm"
+                    onClick={() => requireLogin('Đăng nhập để làm quiz và lưu tiến trình.', () => goQuiz('SECTION', sectionId))}>
+                    ✏️ Quiz
+                  </button>
+                  <select className="select-inline" value={quizMode} onChange={(e) => setQuizMode(e.target.value)} aria-label="Dạng quiz">
+                    {QUIZ_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                  </select>
+                </span>
                 <button type="button" className="btn btn-outline btn-sm"
                   onClick={() => requireLogin('Đăng nhập để luyện gõ phiên âm và lưu tiến trình.', () => goTyping('SECTION', sectionId))}>
                   ⌨️ Gõ phiên âm
@@ -203,17 +226,24 @@ export default function LessonDetail() {
             <div className="selection-bar">
               <span className="selection-count">Đã chọn <strong>{selectionWords.length}</strong> từ</span>
               <div className="selection-actions">
-                <button type="button" className="btn btn-primary btn-sm"
-                  onClick={() => requireLogin('Đăng nhập để luyện flashcard và lưu tiến trình.', () => startSelectionPractice('flashcard'))}>
-                  🃏 Flashcard
-                </button>
-                <select className="select-inline" value={quizMode} onChange={(e) => setQuizMode(e.target.value)} aria-label="Dạng quiz">
-                  {QUIZ_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
-                </select>
-                <button type="button" className="btn btn-outline btn-sm"
-                  onClick={() => requireLogin('Đăng nhập để làm quiz và lưu tiến trình.', () => startSelectionPractice('quiz'))}>
-                  ✏️ Quiz
-                </button>
+                <span className="practice-pair">
+                  <button type="button" className="btn btn-primary btn-sm"
+                    onClick={() => requireLogin('Đăng nhập để luyện flashcard và lưu tiến trình.', () => startSelectionPractice('flashcard'))}>
+                    🃏 Flashcard
+                  </button>
+                  <select className="select-inline" value={flashcardDir} onChange={(e) => setFlashcardDir(e.target.value)} aria-label="Hướng flashcard">
+                    {FLASHCARD_DIRS.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                  </select>
+                </span>
+                <span className="practice-pair">
+                  <button type="button" className="btn btn-outline btn-sm"
+                    onClick={() => requireLogin('Đăng nhập để làm quiz và lưu tiến trình.', () => startSelectionPractice('quiz'))}>
+                    ✏️ Quiz
+                  </button>
+                  <select className="select-inline" value={quizMode} onChange={(e) => setQuizMode(e.target.value)} aria-label="Dạng quiz">
+                    {QUIZ_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                  </select>
+                </span>
                 <button type="button" className="btn btn-outline btn-sm"
                   onClick={() => requireLogin('Đăng nhập để luyện gõ phiên âm và lưu tiến trình.', () => startSelectionPractice('typing'))}>
                   ⌨️ Gõ phiên âm
