@@ -24,7 +24,7 @@ export default function KanjiFlashcard() {
   const [flipped, setFlipped] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [remembered, setRemembered] = useState(0);
+  const [results, setResults] = useState([]); // [{ character, ok }] từng thẻ đã trả lời
   const [finished, setFinished] = useState(false);
 
   const scopeName = useMemo(() => {
@@ -60,13 +60,25 @@ export default function KanjiFlashcard() {
   }, [pick, lessonNo, jlpt]);
 
   const answer = (ok) => {
-    if (ok) setRemembered((n) => n + 1);
+    const card = cards[idx];
+    setResults((prev) => [...prev, { character: card.character, ok }]);
     if (idx + 1 >= cards.length) {
       setFinished(true);
     } else {
       setIdx(idx + 1);
       setFlipped(false);
     }
+  };
+
+  // Luyện lại: onlyWrong=true → chỉ các chữ bị đánh "Chưa nhớ".
+  const restart = (onlyWrong) => {
+    const wrongChars = new Set(results.filter((r) => !r.ok).map((r) => r.character));
+    const next = shuffle(onlyWrong ? cards.filter((c) => wrongChars.has(c.character)) : cards);
+    setCards(next);
+    setIdx(0);
+    setFlipped(false);
+    setResults([]);
+    setFinished(false);
   };
 
   if (loading) return <div className="page"><p className="muted">Đang chuẩn bị thẻ…</p></div>;
@@ -88,21 +100,26 @@ export default function KanjiFlashcard() {
   }
 
   if (finished) {
+    const rememberedCount = results.filter((r) => r.ok).length;
+    const wrongCount = results.length - rememberedCount;
     return (
       <div className="page result-page">
         <h1>Hoàn thành! 🎉</h1>
         <div className="result-summary">
-          <div className="result-big">{remembered}/{cards.length}</div>
+          <div className="result-big">{rememberedCount}/{cards.length}</div>
           <div className="muted">chữ bạn đánh giá "Nhớ"{scopeName && ` · ${scopeName}`}</div>
         </div>
         <div className="result-actions">
-          <button type="button" className="btn btn-primary" onClick={() => {
-            setCards(shuffle(cards));
-            setIdx(0);
-            setFlipped(false);
-            setRemembered(0);
-            setFinished(false);
-          }}>Học lại</button>
+          <button type="button" className="btn btn-primary" onClick={() => restart(false)}>
+            🔁 Luyện lại toàn bộ
+          </button>
+          {wrongCount > 0 ? (
+            <button type="button" className="btn btn-outline" onClick={() => restart(true)}>
+              📝 Luyện lại {wrongCount} chữ chưa nhớ
+            </button>
+          ) : (
+            <span className="muted">Tuyệt vời, nhớ hết rồi! 🎉</span>
+          )}
           <button type="button" className="btn btn-outline" onClick={() => navigate('/kanji')}>Về trang kanji</button>
         </div>
       </div>

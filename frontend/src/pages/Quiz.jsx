@@ -53,6 +53,8 @@ export default function Quiz() {
   const [qStart, setQStart] = useState(Date.now());
   const [startedAt, setStartedAt] = useState(() => new Date().toISOString());
   const audioCache = useRef({});
+  // Non-quick: vòng luyện lại từ sai dùng API quick với wordIds (ghi session QUICK).
+  const [retryIds, setRetryIds] = useState(null);
 
   useEffect(() => {
     if (isQuick && (!wordIds || wordIds.length === 0)) {
@@ -62,8 +64,8 @@ export default function Quiz() {
     }
     setLoading(true);
     setError('');
-    const promise = isQuick
-      ? generateQuickQuiz({ wordIds, mode })
+    const promise = (isQuick || retryIds)
+      ? generateQuickQuiz({ wordIds: retryIds || wordIds, mode })
       : generateQuiz({ mode, scopeType, scopeId, limit: 20 });
     promise
       .then((data) => {
@@ -74,7 +76,7 @@ export default function Quiz() {
       })
       .catch((e) => setError(getErrorMessage(e, 'Không tạo được bộ câu hỏi.')))
       .finally(() => setLoading(false));
-  }, [mode, scopeType, scopeId, isQuick, wordIds, runKey]);
+  }, [mode, scopeType, scopeId, isQuick, wordIds, retryIds, runKey]);
 
   // Phát audio câu hiện tại; preload câu kế (NFR-001).
   useEffect(() => {
@@ -119,11 +121,14 @@ export default function Quiz() {
     setSaving(true);
     const correctCount = allItems.filter((i) => i.correct).length;
     const wrong = qs.filter((_, i) => !allItems[i]?.correct);
+    // Vòng luyện lại từ sai (non-quick) ghi session QUICK như luồng quick.
+    const effScopeType = retryIds ? 'QUICK' : scopeType;
+    const effScopeId = retryIds ? 'quick' : scopeId;
     try {
       const res = await recordSession({
         mode: SESSION_MODE[mode],
-        scopeType,
-        scopeId,
+        scopeType: effScopeType,
+        scopeId: effScopeId,
         totalItems: allItems.length,
         correctCount,
         items: allItems,
@@ -142,6 +147,22 @@ export default function Quiz() {
   // F-C: chạy lại quiz với tập từ mới (từ sai hoặc toàn bộ), ở nguyên trang.
   const restartQuick = (newWordIds) => {
     setQuick((prev) => ({ ...prev, wordIds: newWordIds }));
+    setQuestions([]);
+    setIdx(0);
+    setSelectedId(null);
+    setItems([]);
+    setFinished(false);
+    setResult(null);
+    setSaving(false);
+    setError('');
+    setStartedAt(new Date().toISOString());
+    audioCache.current = {};
+    setRunKey((k) => k + 1);
+  };
+
+  // Non-quick: luyện lại (từ sai → qua API quick; toàn bộ → từ scope gốc).
+  const restartRun = (newWordIds) => {
+    setRetryIds(newWordIds); // null = toàn bộ từ scope gốc
     setQuestions([]);
     setIdx(0);
     setSelectedId(null);
@@ -216,6 +237,19 @@ export default function Quiz() {
           </div>
         ) : (
           <div className="result-actions">
+            {/* Quiz cần ít nhất 4 từ để tạo đáp án nhiễu — ẩn nút thay vì rơi vào trang lỗi. */}
+            {wrongIds.length >= 4 ? (
+              <button type="button" className="btn btn-primary" onClick={() => restartRun(wrongIds)}>
+                🔁 Luyện lại từ sai ({wrongIds.length})
+              </button>
+            ) : wrongIds.length > 0 ? (
+              <span className="muted">Còn {wrongIds.length} từ sai — cần ít nhất 4 từ để tạo quiz mới, hãy luyện lại toàn bộ.</span>
+            ) : (
+              <span className="muted">Tuyệt vời, nhớ hết rồi! 🎉</span>
+            )}
+            <button type="button" className="btn btn-outline" onClick={() => restartRun(null)}>
+              🔁 Luyện lại toàn bộ
+            </button>
             <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
             <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
           </div>

@@ -167,13 +167,17 @@ export default function KanjiQuiz() {
           <p className="muted kquiz-note">v1 chưa lưu tiến trình SM-2 cho kanji (theo contract F-D).</p>
           {regenError && <div className="alert alert-error">{regenError}</div>}
           <div className="kquiz-result-actions">
-            <button
-              type="button" className="btn btn-outline"
-              disabled={wrongChars.length === 0 || regenerating}
-              onClick={() => regenerate(wrongChars)}
-            >
-              {regenerating ? 'Đang tạo…' : `🔁 Luyện lại ${wrongChars.length} chữ sai`}
-            </button>
+            {wrongChars.length > 0 ? (
+              <button
+                type="button" className="btn btn-outline"
+                disabled={regenerating}
+                onClick={() => regenerate(wrongChars)}
+              >
+                {regenerating ? 'Đang tạo…' : `🔁 Luyện lại ${wrongChars.length} chữ sai`}
+              </button>
+            ) : (
+              <span className="muted">Tuyệt vời, nhớ hết rồi! 🎉</span>
+            )}
             <button
               type="button" className="btn btn-outline"
               disabled={regenerating}
