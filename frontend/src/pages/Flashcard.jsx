@@ -22,6 +22,9 @@ export default function Flashcard() {
   const isQuick = params.get('quick') === '1';
   const scopeType = isQuick ? 'QUICK' : params.get('scopeType');
   const scopeId = isQuick ? 'quick' : params.get('scopeId');
+  // Hướng thẻ: jp_vi (mặc định) = mặt trước tiếng Nhật → đoán nghĩa;
+  // vi_jp = mặt trước nghĩa Việt → đoán tiếng Nhật.
+  const direction = params.get('direction') === 'vi_jp' ? 'vi_jp' : 'jp_vi';
 
   const [words, setWords] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -178,32 +181,46 @@ export default function Flashcard() {
 
   const word = words[idx];
 
+  // Hai mặt thẻ theo hướng đã chọn.
+  const jaSide = (
+    <>
+      <div className="flash-ja">{word.kanji || word.kana}</div>
+      {word.kanji && <div className="flash-kana">{word.kana}</div>}
+      <div className="flash-romaji">{word.romaji}</div>
+      <AudioButton url={word.audioUrl} />
+    </>
+  );
+  const viSide = (
+    <>
+      <div className="flash-meaning">{word.meaningVi}</div>
+      {word.pos && <div className="flash-pos">{word.pos}</div>}
+      {word.exampleJa && (
+        <div className="flash-example">
+          <div>{word.exampleJa}</div>
+          {word.exampleVi && <div className="muted">{word.exampleVi}</div>}
+        </div>
+      )}
+    </>
+  );
+  const frontSide = direction === 'vi_jp' ? viSide : jaSide;
+  const backSide = direction === 'vi_jp' ? jaSide : viSide;
+
   return (
     <div className="page practice-page">
       <div className="practice-top">
-        <span className="muted">Thẻ {idx + 1}/{words.length}{scopeName && ` · ${scopeName}`}</span>
+        <span className="muted">Thẻ {idx + 1}/{words.length}{scopeName && ` · ${scopeName}`}{direction === 'vi_jp' && ' · Việt → Nhật'}</span>
         <div className="progress-bar slim"><div className="progress-fill" style={{ width: `${((idx) / words.length) * 100}%` }} /></div>
       </div>
 
       <div className={`flash-card${flipped ? ' flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
         {!flipped ? (
           <div className="flash-front">
-            <div className="flash-ja">{word.kanji || word.kana}</div>
-            {word.kanji && <div className="flash-kana">{word.kana}</div>}
-            <div className="flash-romaji">{word.romaji}</div>
-            <AudioButton url={word.audioUrl} />
+            {frontSide}
             <div className="flash-hint">Chạm để lật thẻ</div>
           </div>
         ) : (
           <div className="flash-back">
-            <div className="flash-meaning">{word.meaningVi}</div>
-            {word.pos && <div className="flash-pos">{word.pos}</div>}
-            {word.exampleJa && (
-              <div className="flash-example">
-                <div>{word.exampleJa}</div>
-                {word.exampleVi && <div className="muted">{word.exampleVi}</div>}
-              </div>
-            )}
+            {backSide}
           </div>
         )}
       </div>
@@ -216,7 +233,7 @@ export default function Flashcard() {
           😊 Nhớ rồi
         </button>
       </div>
-      {!flipped && <p className="muted center">Hãy tự nhớ nghĩa trước khi lật thẻ nhé!</p>}
+      {!flipped && <p className="muted center">{direction === 'vi_jp' ? 'Hãy tự nhớ từ tiếng Nhật trước khi lật thẻ nhé!' : 'Hãy tự nhớ nghĩa trước khi lật thẻ nhé!'}</p>}
     </div>
   );
 }
