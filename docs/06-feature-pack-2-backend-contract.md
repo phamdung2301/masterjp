@@ -148,6 +148,55 @@ copy đúng tên field như ghi dưới đây.
 
 ---
 
+## F-D. Quiz kanji — `POST /api/kanji/quiz` (Track 3, R1-R3 rebuild)
+
+- **Auth: bắt buộc đăng nhập** (401 nếu chưa login), như `POST /api/quiz/quick`.
+  `SecurityConfig` chỉ `permitAll` cho `GET /api/kanji/**` nên `POST` này rơi vào
+  rule `/api/**` → `authenticated()` — không cần sửa SecurityConfig.
+- Request:
+
+```json
+{ "characters": ["私", "人", "..."], "mode": "KANJI_MEANING" }
+```
+
+- `mode`: `KANJI_MEANING` | `MEANING_KANJI` | `KANJI_TYPING` — enum **riêng**
+  `KanjiQuizMode` (không tái dùng `QuizMode` của quiz từ vựng để tránh vỡ
+  switch exhaustive ở `QuizService`). Validate bằng `EnumUtils` như quiz thường.
+- Validate:
+  - `characters`: 1–100 phần tử (Bean Validation `@Size`) — vi phạm → `400`
+    validation error. Null/rỗng/trùng được chuẩn hoá, chữ không có trong DB → bỏ qua.
+  - Sau khi lọc còn 0 chữ → `400 QUIZ_NOT_ENOUGH_KANJI`.
+  - Mode trắc nghiệm (`KANJI_MEANING`/`MEANING_KANJI`) cần ≥ 4 đáp án (1 đúng +
+    3 nhiễu) — chữ chưa có nghĩa Việt thì bị loại khỏi lượt thay vì vỡ cả quiz.
+  - Đáp án nhiễu: **ưu tiên chữ khác trong tập `characters` user chọn →
+    fallback chữ cùng JLPT** (query `KanjiRepository.findByJlptOrderByStrokesAsc`) →
+    **loại đáp án mơ hồ** (nghĩa Việt trùng nhau / nghĩa rỗng / trùng chữ).
+    Thứ tự đáp án được shuffle. Thiếu nhiễu → `400 QUIZ_NOT_ENOUGH_KANJI`.
+- `KANJI_TYPING`: hiện chữ + nghĩa → gõ cách đọc; không đáp án nhiễu.
+  Response dùng các field của shape typing sẵn có: `options: []`,
+  `kana` = chuỗi nối **mọi on/kun** (vd. `"シ, わたし, わたくし"`) để FE chấm local.
+- Response: **đúng shape `QuizResponse`** như quiz thường — `wordId`/`answerWordId`
+  = `character`, `promptAudioUrl: null` (kanji chưa có audio):
+
+```json
+{
+  "questions": [
+    {
+      "wordId": "私", "promptText": "私", "promptAudioUrl": null,
+      "options": [ { "wordId": "私", "text": "tôi" }, { "wordId": "人", "text": "người" }, ... ],
+      "answerWordId": "私",
+      "kana": null, "kanji": null, "meaningVi": null
+    }
+  ]
+}
+```
+
+- **V1 KHÔNG lưu SM-2 / progress kanji** — endpoint chỉ sinh câu hỏi, không tạo
+  StudySession, không cập nhật WordProgress. Kanji progress để phase 2.
+  (Vì vậy luồng "ghi lịch sử như quiz thường" của F-C KHÔNG áp dụng cho kanji ở v1.)
+
+---
+
 ## Ghi chú cho Phase 2 (seed scripts)
 
 1. Index mới `idx_lesson_cluster` (`{'lessonId': 1, 'cluster': 1}`) trên `vocab_words`

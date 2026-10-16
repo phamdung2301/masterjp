@@ -1,14 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toHiragana } from 'wanakana';
 import { answerProgress, generateQuiz, recordSession } from '../api/study.js';
+import { generateQuickQuiz } from '../api/quickPractice.js';
 import { getErrorMessage } from '../api/client.js';
 import { playAudio } from '../utils.js';
 import './pages.css';
 
 // US-017 (F-037, F-027): gõ phiên âm — hiện kanji (+ nghĩa Việt), user gõ romaji
 // tự chuyển hiragana realtime (wanakana), chấm local, PATCH progress mỗi câu.
+// R2: chế độ luyện tập đã chọn (?quick=1) — mirror pattern Quiz.jsx: nhận
+// wordIds từ sessionStorage (trang chi tiết bài lưu trước khi chuyển sang),
+// gọi POST /api/quiz/quick với mode 'TYPING', ghi session scopeType 'QUICK'.
 const SESSION_MODE = 'TYPING';
+const QUICK_KEY = 'mjp_quick_quiz';
 
 // Chuẩn hóa để chấm (F-037): trim, lowercase, chuyển về hiragana, bỏ khoảng trắng
 // và ký tự 〜/・. Katakana chuẩn được chấp nhận ở dạng hiragana tương đương.
@@ -18,8 +23,21 @@ function normalizeKana(s) {
 
 export default function Typing() {
   const [params] = useSearchParams();
-  const scopeType = params.get('scopeType');
-  const scopeId = params.get('scopeId');
+  const navigate = useNavigate();
+  const isQuick = params.get('quick') === '1';
+  const scopeType = isQuick ? 'QUICK' : params.get('scopeType');
+  const scopeId = isQuick ? 'quick' : params.get('scopeId');
+
+  // R2: đọc payload luyện tập đã chọn (do trang chi tiết bài lưu vào sessionStorage).
+  const [quick, setQuick] = useState(() => {
+    if (!isQuick) return null;
+    try {
+      const p = JSON.parse(sessionStorage.getItem(QUICK_KEY) || 'null');
+      if (p?.wordIds?.length) return { wordIds: p.wordIds, returnTo: p.returnTo };
+    } catch { /* bỏ qua */ }
+    return { error: true };
+  });
+  const wordIds = isQuick ? quick?.wordIds : null;
 
   const [questions, setQuestions] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -36,9 +54,17 @@ export default function Typing() {
   const inputRef = useRef(null);
 
   useEffect(() => {
+    if (isQuick && (!wordIds || wordIds.length === 0)) {
+      setLoading(false);
+      setError('Không tìm thấy danh sách từ đã chọn để luyện gõ. Hãy quay lại và chọn từ nhé.');
+      return;
+    }
     setLoading(true);
     setError('');
-    generateQuiz({ mode: 'TYPING', scopeType, scopeId, limit: 20 })
+    const promise = isQuick
+      ? generateQuickQuiz({ wordIds, mode: 'TYPING' })
+      : generateQuiz({ mode: 'TYPING', scopeType, scopeId, limit: 20 });
+    promise
       .then((data) => {
         const qs = data.questions || [];
         if (qs.length === 0) throw new Error('Phạm vi này không có từ để luyện gõ. Hãy mở rộng phạm vi nhé.');
@@ -47,7 +73,7 @@ export default function Typing() {
       })
       .catch((e) => setError(getErrorMessage(e, 'Không tạo được bộ câu hỏi.')))
       .finally(() => setLoading(false));
-  }, [scopeType, scopeId]);
+  }, [scopeType, scopeId, isQuick, wordIds]);
 
   useEffect(() => {
     if (!loading && !finished && inputRef.current) inputRef.current.focus();
@@ -115,7 +141,20 @@ export default function Typing() {
   };
 
   if (loading) return <div className="page"><p className="muted">Đang chuẩn bị bài gõ…</p></div>;
-  if (error) return <div className="page"><div className="alert alert-error">{error}</div></div>;
+  if (error) return (
+    <div className="page">
+      <div className="alert alert-error">{error}</div>
+      {isQuick ? (
+        <button type="button" className="btn btn-outline" onClick={() => navigate(quick?.returnTo || -1)}>
+          ✏️ Chọn lại từ
+        </button>
+      ) : (
+        <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>
+          ← Quay lại
+        </button>
+      )}
+    </div>
+  );
 
   if (finished && result) {
     const pctScore = Math.round((result.correctCount / result.total) * 100);
@@ -145,8 +184,16 @@ export default function Typing() {
           </>
         )}
         <div className="result-actions">
-          <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
-          <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
+          {isQuick ? (
+            <button type="button" className="btn btn-outline" onClick={() => navigate(quick?.returnTo || -1)}>
+              ✏️ Chọn lại từ
+            </button>
+          ) : (
+            <>
+              <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
+              <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
+            </>
+          )}
         </div>
       </div>
     );

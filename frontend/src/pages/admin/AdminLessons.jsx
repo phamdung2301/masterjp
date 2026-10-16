@@ -83,7 +83,8 @@ export default function AdminLessons() {
             <input type="text" value={form.titleJa} onChange={(e) => setForm({ ...form, titleJa: e.target.value })} placeholder="第1課" />
           </label>
           <label>Tiêu đề tiếng Việt
-            <input type="text" value={form.titleVi} onChange={(e) => setForm({ ...form, titleVi: e.target.value })} required placeholder="Bài 1 — Chào hỏi" />
+            <input type="text" value={form.titleVi} onChange={(e) => setForm({ ...form, titleVi: e.target.value })} required placeholder="Chào hỏi, giới thiệu" />
+            <small className="muted">Chỉ nhập tên bài — không cần "Bài N", hệ thống tự thêm khi hiển thị.</small>
           </label>
         </div>
         <div className="row-actions">

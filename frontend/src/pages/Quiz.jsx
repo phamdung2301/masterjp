@@ -156,7 +156,14 @@ export default function Quiz() {
   };
 
   if (loading) return <div className="page"><p className="muted">Đang tạo bộ câu hỏi…</p></div>;
-  if (error) return <div className="page"><div className="alert alert-error">{error}</div></div>;
+  if (error) return (
+    <div className="page">
+      <div className="alert alert-error">{error}</div>
+      <button type="button" className="btn btn-outline" onClick={() => navigate(isQuick ? '/luyen-tap-nhanh' : -1)}>
+        ← Quay lại
+      </button>
+    </div>
+  );
 
   if (finished && result) {
     const pctScore = Math.round((result.correctCount / result.total) * 100);
@@ -192,11 +199,14 @@ export default function Quiz() {
         )}
         {isQuick ? (
           <div className="result-actions">
-            {wrongIds.length > 0 && (
+            {/* Quiz cần ít nhất 4 từ để tạo đáp án nhiễu — ẩn nút thay vì rơi vào trang lỗi. */}
+            {wrongIds.length >= 4 ? (
               <button type="button" className="btn btn-primary" onClick={() => restartQuick(wrongIds)}>
                 🔁 Luyện lại từ sai ({wrongIds.length})
               </button>
-            )}
+            ) : wrongIds.length > 0 ? (
+              <span className="muted">Còn {wrongIds.length} từ sai — cần ít nhất 4 từ để tạo quiz mới, hãy luyện lại toàn bộ.</span>
+            ) : null}
             <button type="button" className="btn btn-outline" onClick={() => restartQuick(quick.allWordIds)}>
               🔁 Luyện lại toàn bộ
             </button>

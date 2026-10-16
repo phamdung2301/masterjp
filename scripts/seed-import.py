@@ -20,6 +20,7 @@ Yêu cầu: pip install pymongo
 """
 import json
 import os
+import re
 import sys
 import argparse
 import unicodedata
@@ -30,7 +31,12 @@ except ImportError:
     sys.exit('LỖI: chưa cài pymongo. Chạy: pip install pymongo')
 
 MONGODB_URI = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017')
-MONGODB_DATABASE = os.environ.get('MONGODB_DATABASE', 'master_jp')
+# FAIL-FAST: không có default ngầm — từng ghi nhầm DB 'master_jp' thay vì
+# 'masterjp' do silent default (xem AGENTS.md bài học MongoDB 2026-10-15).
+MONGODB_DATABASE = os.environ.get('MONGODB_DATABASE')
+if not MONGODB_DATABASE:
+    sys.exit('LỖI: thiếu env MONGODB_DATABASE. Ví dụ: '
+             '$env:MONGODB_DATABASE="masterjp"  (PowerShell)')
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SEED_FILES = [
@@ -130,13 +136,17 @@ def main():
     # 1) Upsert lessons
     lesson_ids = {}
     for L in data['lessons']:
+        # R1: seed-lessons-4-50.json trong git vẫn còn prefix 'Bài N — ' trong
+        # titleVi (không strip được vì file 924KB vượt giới hạn push) — strip
+        # tại import để DB live không bao giờ nhận titleVi kèm prefix.
+        title_vi = re.sub(r'^Bài \d+ — ', '', L.get('titleVi', ''))
         lessons.update_one(
             {'level': L['level'], 'lessonNo': L['lessonNo']},
             {'$set': {
                 'level': L['level'],
                 'lessonNo': L['lessonNo'],
                 'titleJa': L['titleJa'],
-                'titleVi': L['titleVi'],
+                'titleVi': title_vi,
                 'order': L['lessonNo'],
             }},
             upsert=True,

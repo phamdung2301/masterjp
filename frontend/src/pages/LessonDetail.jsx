@@ -97,12 +97,6 @@ export default function LessonDetail() {
     return map;
   }, [words]);
 
-  const clusterCountMap = useMemo(() => {
-    const map = {};
-    for (const c of clusters) map[c.cluster] = c.count;
-    return map;
-  }, [clusters]);
-
   const toggleCluster = (code) => {
     setSelectedClusters((prev) => {
       const next = { ...prev };
@@ -117,13 +111,38 @@ export default function LessonDetail() {
   const visibleClusters = clusters.filter((c) =>
     selectedClusterCodes.length === 0 || selectedClusters[c.cluster]
   );
-  const selectedWordCount = selectedClusterCodes.reduce(
-    (sum, code) => sum + (clusterCountMap[code] ?? (wordsByCluster[code]?.length || 0)), 0
-  );
 
-  const goQuickPractice = () => {
-    const codes = selectedClusterCodes.join(',');
-    navigate(`/luyen-tap-nhanh?lessonId=${encodeURIComponent(id)}&clusters=${encodeURIComponent(codes)}`);
+  // R2: tập từ đã chọn = tick từng từ (2 chế độ xem) + cụm đã tick (chế độ cụm), gộp theo id.
+  const selectionWords = useMemo(() => {
+    const byId = {};
+    for (const w of selectedWords) byId[w.id] = w;
+    if (viewMode === 'cluster') {
+      for (const code of selectedClusterCodes) {
+        for (const w of (wordsByCluster[code] || [])) byId[w.id] = w;
+      }
+    }
+    return Object.values(byId);
+  }, [selectedWords, viewMode, selectedClusterCodes, wordsByCluster]);
+
+  // R2: thanh luyện tập thống nhất — lưu payload vào sessionStorage (key chung
+  // với trang Luyện tập nhanh: 'mjp_quick_quiz', thêm full objects cho Flashcard)
+  // rồi sang trang luyện với ?quick=1.
+  const QUICK_KEY = 'mjp_quick_quiz';
+  const QUIZ_URL_MODE = { JP_VI: 'jp_vi', VI_JP: 'vi_jp', LISTENING: 'listening' };
+  const startSelectionPractice = (target) => {
+    const words = selectionWords;
+    const wordIds = words.map((w) => w.id);
+    const returnTo = `/bai-hoc/${encodeURIComponent(id)}`;
+    if (target === 'quiz') {
+      sessionStorage.setItem(QUICK_KEY, JSON.stringify({ wordIds, words, mode: quizMode, returnTo }));
+      navigate(`/luyen-tap/quiz?quick=1&mode=${QUIZ_URL_MODE[quizMode] || 'jp_vi'}`);
+    } else if (target === 'typing') {
+      sessionStorage.setItem(QUICK_KEY, JSON.stringify({ wordIds, words, mode: 'TYPING', returnTo }));
+      navigate('/luyen-tap/go-phien-am?quick=1');
+    } else {
+      sessionStorage.setItem(QUICK_KEY, JSON.stringify({ wordIds, words, mode: 'FLASHCARD', returnTo }));
+      navigate('/luyen-tap/flashcard?quick=1');
+    }
   };
 
   if (loading) return <div className="page"><p className="muted">Đang tải…</p></div>;
@@ -178,6 +197,34 @@ export default function LessonDetail() {
               </div>
             )}
           </div>
+
+          {/* R2: thanh luyện tập thống nhất — hiện khi đã chọn từ (tick lẻ và/hoặc cụm). */}
+          {selectionWords.length > 0 && (
+            <div className="selection-bar">
+              <span className="selection-count">Đã chọn <strong>{selectionWords.length}</strong> từ</span>
+              <div className="selection-actions">
+                <button type="button" className="btn btn-primary btn-sm"
+                  onClick={() => requireLogin('Đăng nhập để luyện flashcard và lưu tiến trình.', () => startSelectionPractice('flashcard'))}>
+                  🃏 Flashcard
+                </button>
+                <select className="select-inline" value={quizMode} onChange={(e) => setQuizMode(e.target.value)} aria-label="Dạng quiz">
+                  {QUIZ_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                </select>
+                <button type="button" className="btn btn-outline btn-sm"
+                  onClick={() => requireLogin('Đăng nhập để làm quiz và lưu tiến trình.', () => startSelectionPractice('quiz'))}>
+                  ✏️ Quiz
+                </button>
+                <button type="button" className="btn btn-outline btn-sm"
+                  onClick={() => requireLogin('Đăng nhập để luyện gõ phiên âm và lưu tiến trình.', () => startSelectionPractice('typing'))}>
+                  ⌨️ Gõ phiên âm
+                </button>
+                <button type="button" className="btn btn-outline btn-sm"
+                  onClick={() => requireLogin('Đăng nhập để thêm từ vào bộ thẻ của bạn.', () => setAddSetOpen(true))}>
+                  ＋ Thêm vào bộ thẻ
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* F-A: toggle chế độ xem Theo phần | Theo cụm */}
           <div className="tabs">
@@ -246,11 +293,6 @@ export default function LessonDetail() {
                   <div className="cluster-panel">
                     <div className="cluster-panel-head">
                       <span className="muted">Tick chọn cụm để luyện (chưa chọn → xem toàn bộ):</span>
-                      <button type="button" className="btn btn-primary"
-                        disabled={selectedClusterCodes.length === 0}
-                        onClick={() => requireLogin('Đăng nhập để luyện tập nhanh và lưu tiến trình.', goQuickPractice)}>
-                        ⚡ Luyện cụm đã chọn{selectedClusterCodes.length > 0 ? ` (${selectedWordCount} từ)` : ''}
-                      </button>
                     </div>
                     <div className="cluster-grid">
                       {clusters.map((c) => (
@@ -262,6 +304,17 @@ export default function LessonDetail() {
                         </label>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Tick từng từ để thêm vào bộ thẻ (chế độ cụm vẫn giữ được chọn lẻ). */}
+                  <div className="toolbar">
+                    <span className="muted">Tick từng từ rồi thêm vào bộ thẻ · đã chọn {selectedWords.length}</span>
+                    {selectedWords.length > 0 && (
+                      <button type="button" className="btn btn-primary btn-sm"
+                        onClick={() => requireLogin('Đăng nhập để thêm từ vào bộ thẻ của bạn.', () => setAddSetOpen(true))}>
+                        ＋ Thêm {selectedWords.length} từ vào bộ thẻ
+                      </button>
+                    )}
                   </div>
 
                   {visibleClusters.map((c) => {
