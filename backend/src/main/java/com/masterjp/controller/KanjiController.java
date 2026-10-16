@@ -30,11 +30,23 @@ public class KanjiController {
         this.kanjiQuizService = kanjiQuizService;
     }
 
-    /** Loc theo bai / cap do (ca 2 optional); khong param -> tat ca, sap theo so net. */
+    /**
+     * Loc theo bai / cap do / chu de (topic nhan nhieu code cach nhau dau phay,
+     * vd. ?topic=thoi_gian,so_dem); tat ca optional, luon sap theo so net.
+     */
     @GetMapping
     public List<KanjiDtos.KanjiDto> list(@RequestParam(required = false) Integer lessonNo,
-                                         @RequestParam(required = false) String jlpt) {
-        return kanjiService.listKanji(lessonNo, jlpt);
+                                        @RequestParam(required = false) String jlpt,
+                                        @RequestParam(required = false) String topic) {
+        List<String> topics = (topic == null || topic.isBlank()) ? List.of()
+                : List.of(topic.split(","));
+        return kanjiService.listKanji(lessonNo, jlpt, topics);
+    }
+
+    /** Danh sach 17 chu de + so chu thuc te (cho FE render grid chon chu de). */
+    @GetMapping("/topics")
+    public List<KanjiDtos.KanjiTopicDto> topics() {
+        return kanjiService.listTopics();
     }
 
     /** Chi tiet chu + toi da 50 tu chua chu do (character URL-encoded, vd. %E7%A7%81). */

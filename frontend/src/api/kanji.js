@@ -15,6 +15,13 @@ export async function fetchKanjiDetail(character) {
   return data; // KanjiDto + words (tối đa 50 từ, studyStatus luôn null)
 }
 
+// Kanji topics: 17 chủ đề + số chữ thực tế trong DB.
+// → [{ code, label, count }]. Public, không cần đăng nhập.
+export async function fetchKanjiTopics() {
+  const { data } = await client.get('/kanji/topics');
+  return data;
+}
+
 // F-D (R3): tạo quiz kanji — cần đăng nhập.
 // mode: 'KANJI_MEANING' | 'MEANING_KANJI' | 'KANJI_TYPING'.
 // → đúng shape QuizResponse như quiz thường: { questions: [...] }.
