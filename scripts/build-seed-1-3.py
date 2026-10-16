@@ -22,9 +22,9 @@ SRC = os.path.join(ROOT, 'research', 'minna-vocab-50.json')
 OUT = os.path.join(ROOT, 'data', 'seed', 'seed-lessons-1-3.json')
 
 LESSONS = [
-    {'lessonNo': 1, 'level': 'N5', 'titleJa': '第1課', 'titleVi': 'Bài 1 — Chào hỏi, giới thiệu'},
-    {'lessonNo': 2, 'level': 'N5', 'titleJa': '第2課', 'titleVi': 'Bài 2 — Đồ vật và cách chỉ định'},
-    {'lessonNo': 3, 'level': 'N5', 'titleJa': '第3課', 'titleVi': 'Bài 3 — Nơi chốn, số đếm và giá cả'},
+    {'lessonNo': 1, 'level': 'N5', 'titleJa': '第1課', 'titleVi': 'Chào hỏi, giới thiệu'},
+    {'lessonNo': 2, 'level': 'N5', 'titleJa': '第2課', 'titleVi': 'Đồ vật và cách chỉ định'},
+    {'lessonNo': 3, 'level': 'N5', 'titleJa': '第3課', 'titleVi': 'Nơi chốn, số đếm và giá cả'},
 ]
 
 SECTION_MAP = {
