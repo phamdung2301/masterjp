@@ -18,7 +18,8 @@ import java.util.List;
 @Document("kanji")
 @CompoundIndexes({
         @CompoundIndex(name = "idx_kanji_lesson", def = "{'lessonNos': 1}"),
-        @CompoundIndex(name = "idx_kanji_jlpt", def = "{'jlpt': 1}")
+        @CompoundIndex(name = "idx_kanji_jlpt", def = "{'jlpt': 1}"),
+        @CompoundIndex(name = "idx_kanji_topic", def = "{'topic': 1}")
 })
 public class Kanji {
 
@@ -32,6 +33,7 @@ public class Kanji {
     private int strokes; // so net
     private String jlpt; // "N5" / "N4"
     private List<Integer> lessonNos = new ArrayList<>(); // cac bai co tu chua chu nay
+    private String topic; // ma chu de (vd. "thoi_gian") — xem KanjiService.TOPIC_LABELS
 
     public String getId() {
         return id;
@@ -95,5 +97,13 @@ public class Kanji {
 
     public void setLessonNos(List<Integer> lessonNos) {
         this.lessonNos = lessonNos;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }

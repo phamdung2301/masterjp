@@ -1,0 +1,989 @@
+character	meaningVi	jlpt	topic	why
+一	một	N5	so_dem	explicit
+人	người	N5	con_nguoi_co_the	rule:người
+七	bảy	N5	so_dem	explicit
+九	chín	N5	so_dem	explicit
+二	hai	N5	so_dem	explicit
+八	tám	N5	so_dem	explicit
+十	mười	N5	so_dem	explicit
+入	vào; nhập	N5	sinh_hoat	rule:vào
+士	chuyên gia; học sĩ	N5	hoc_tap_cong_viec	rule:học
+大	lớn; to	N5	tinh_chat	rule:lớn
+土	đất; thổ	N5	thien_nhien	rule:đất
+子	con; trẻ em	N5	gia_dinh_xa_hoi	rule:trẻ em
+万	vạn (mười nghìn)	N5	so_dem	explicit
+下	dưới; hạ xuống	N5	noi_chon_huong	rule:dưới
+千	nghìn	N5	so_dem	explicit
+女	phụ nữ; con gái	N5	con_nguoi_co_the	explicit
+上	trên; lên	N5	noi_chon_huong	rule:trên
+小	nhỏ	N5	tinh_chat	rule:nhỏ
+山	núi	N5	thien_nhien	rule:núi
+三	ba	N5	so_dem	explicit
+川	sông	N5	thien_nhien	rule:sông
+口	miệng	N5	con_nguoi_co_the	rule:miệng
+丈	chiều dài; trượng	N5	thoi_gian	rule:chiều
+久	lâu	N5	thoi_gian	rule:lâu
+才	tài năng; tuổi	N5	thoi_gian	explicit
+中	giữa; trung; trong	N5	noi_chon_huong	rule:trong
+戸	cửa; hộ gia đình	N5	gia_dinh_xa_hoi	rule:gia đình
+方	người (lịch sự); phía; phương	N5	con_nguoi_co_the	explicit
+日	ngày; mặt trời; Nhật Bản	N5	thoi_gian	explicit
+手	tay	N5	con_nguoi_co_the	rule:tay
+円	đồng yên; hình tròn	N5	kinh_te	explicit
+今	bây giờ	N5	thoi_gian	rule:giờ
+分	chia; phút; hiểu	N5	thoi_gian	explicit
+午	buổi trưa	N5	thoi_gian	rule:buổi
+月	tháng; mặt trăng	N5	thoi_gian	explicit
+木	cây; gỗ	N5	dong_thuc_vat	rule:cây
+水	nước	N5	thien_nhien	rule:nước
+火	lửa	N5	thien_nhien	rule:lửa
+友	bạn bè	N5	con_nguoi_co_the	rule:bạn
+公	công cộng	N5	gia_dinh_xa_hoi	rule:công cộng
+牛	bò	N5	dong_thuc_vat	rule:bò
+切	cắt	N5	sinh_hoat	rule:cắt
+父	cha	N5	gia_dinh_xa_hoi	rule:cha
+元	gốc; nguyên	N5	truu_tuong	explicit
+内	bên trong	N5	noi_chon_huong	rule:bên
+夫	chồng	N5	gia_dinh_xa_hoi	rule:chồng
+少	ít	N5	tinh_chat	rule:ít
+犬	chó	N5	dong_thuc_vat	rule:chó
+五	năm	N5	so_dem	explicit
+六	sáu	N5	so_dem	explicit
+天	trời	N5	thien_nhien	rule:trời
+文	văn; chữ	N5	hoc_tap_cong_viec	rule:chữ
+止	dừng	N5	sinh_hoat	rule:dừng
+引	kéo; rút ra	N5	sinh_hoat	rule:ra
+心	trái tim; tâm	N5	con_nguoi_co_the	rule:trái tim
+予	dự đoán; trước	N5	thoi_gian	explicit
+不	không; bất	N5	truu_tuong	rule:không
+太	mập; to	N5	tinh_chat	rule:to
+介	giới thiệu; giúp đỡ	N5	sinh_hoat	rule:giúp đỡ
+失	mất; thất bại	N5	truu_tuong	rule:mất
+本	sách; gốc; bản	N5	hoc_tap_cong_viec	rule:sách
+生	sống; sinh	N5	con_nguoi_co_the	rule:sống
+礼	lễ nghi; lời cảm ơn	N5	gia_dinh_xa_hoi	rule:lễ nghi
+世	thế giới; đời	N5	gia_dinh_xa_hoi	rule:thế giới
+付	gắn; đính kèm; trả (tiền)	N5	kinh_te	rule:tiền
+半	một nửa	N5	so_dem	explicit
+号	số hiệu; số báo	N5	so_dem	explicit
+去	rời đi; qua (năm ngoái)	N5	sinh_hoat	rule:đi
+甲	giáp (hàng đầu); dùng trong tên riêng 甲子園 Kōshien	N5	khac	explicit
+写	chụp; sao chép	N5	giao_tiep	rule:chụp
+母	mẹ	N5	gia_dinh_xa_hoi	rule:mẹ
+仕	làm việc; phục vụ	N5	hoc_tap_cong_viec	rule:làm việc
+古	cũ	N5	tinh_chat	rule:cũ
+白	trắng	N5	mau_sac	explicit
+主	chủ; chính	N5	gia_dinh_xa_hoi	rule:chủ
+用	dùng	N5	sinh_hoat	rule:dùng
+右	phải	N5	noi_chon_huong	rule:phải
+外	ngoài	N5	noi_chon_huong	rule:ngoài
+左	trái	N5	noi_chon_huong	rule:trái
+目	mắt	N5	con_nguoi_co_the	rule:mắt
+兄	anh trai	N5	gia_dinh_xa_hoi	rule:anh trai
+出	ra; xuất	N5	sinh_hoat	rule:ra
+台	đài; cái (đồ vật)	N5	truu_tuong	rule:đồ vật
+四	bốn	N5	so_dem	explicit
+冬	mùa đông	N5	thoi_gian	rule:mùa
+甘	ngọt	N5	an_uong	rule:ngọt
+丼	bát cơm (tô)	N5	an_uong	rule:cơm
+市	thành phố; chợ	N5	gia_dinh_xa_hoi	rule:thành phố
+広	rộng	N5	tinh_chat	rule:rộng
+末	cuối; cuối cùng	N5	thoi_gian	rule:cuối
+正	đúng; chính	N5	tinh_chat	explicit
+田	ruộng	N5	thien_nhien	rule:ruộng
+立	đứng; lập	N5	sinh_hoat	rule:đứng
+払	trả (tiền)	N5	kinh_te	rule:tiền
+北	phía bắc	N5	noi_chon_huong	rule:phía
+布	vải	N5	sinh_hoat	explicit
+弁	biện; van	N5	truu_tuong	explicit
+他	khác	N5	tinh_chat	rule:khác
+会	gặp gỡ; hội	N5	gia_dinh_xa_hoi	rule:hội
+先	trước; đầu	N5	thoi_gian	explicit
+名	tên	N5	truu_tuong	explicit
+気	khí; tinh thần; tâm trạng	N5	truu_tuong	explicit
+行	đi; thực hiện	N5	sinh_hoat	rule:đi
+机	cái bàn	N5	giao_tiep	rule:bàn
+自	tự; bản thân	N5	con_nguoi_co_the	rule:tự
+地	đất; địa điểm	N5	noi_chon_huong	rule:địa điểm
+百	trăm	N5	so_dem	explicit
+阪	Osaka	N5	noi_chon_huong	rule:Osaka
+休	nghỉ ngơi	N5	sinh_hoat	rule:nghỉ ngơi
+合	hợp; gặp nhau	N5	truu_tuong	explicit
+毎	mỗi	N5	thoi_gian	rule:mỗi
+伏	cúi; ẩn nấp (dùng trong tên riêng 伏見 Fushimi)	N5	khac	explicit
+多	nhiều	N5	tinh_chat	rule:nhiều
+年	năm; tuổi	N5	thoi_gian	explicit
+次	tiếp theo; lần	N5	thoi_gian	explicit
+吸	hút; hít	N5	sinh_hoat	explicit
+肉	thịt	N5	an_uong	rule:thịt
+安	yên; rẻ	N5	kinh_te	rule:yên
+寺	chùa	N5	gia_dinh_xa_hoi	rule:chùa
+忙	bận rộn	N5	tinh_chat	rule:bận rộn
+有	có; tồn tại	N5	truu_tuong	rule:tồn tại
+伎	kỹ nghệ (dùng trong 歌舞伎 kịch Kabuki)	N5	khac	explicit
+全	toàn bộ	N5	tinh_chat	rule:toàn bộ
+好	thích	N5	cam_xuc	rule:thích
+字	chữ (viết)	N5	hoc_tap_cong_viec	rule:chữ
+早	sớm; nhanh	N5	tinh_chat	rule:nhanh
+池	ao	N5	thien_nhien	rule:ao
+両	cả hai; lượng	N5	so_dem	explicit
+回	lần; vòng	N5	thoi_gian	explicit
+伝	truyền đạt	N5	giao_tiep	explicit
+曲	cong; khúc (nhạc)	N5	giao_tiep	rule:khúc
+耳	tai	N5	con_nguoi_co_the	rule:tai
+危	nguy hiểm	N5	tinh_chat	rule:nguy hiểm
+交	giao; trộn lẫn	N5	truu_tuong	explicit
+吉	tốt lành; cát	N5	tinh_chat	rule:tốt
+同	giống nhau; cùng	N5	tinh_chat	rule:giống
+当	trúng; đương (thời)	N5	truu_tuong	explicit
+団	đoàn; nhóm	N5	gia_dinh_xa_hoi	rule:đoàn
+考	suy nghĩ	N5	truu_tuong	explicit
+何	cái gì; mấy	N5	truu_tuong	explicit
+初	đầu tiên	N5	thoi_gian	rule:đầu tiên
+医	y học; bác sĩ	N5	con_nguoi_co_the	rule:bác sĩ
+君	bạn (cậu)	N5	con_nguoi_co_the	explicit
+来	đến; tới	N5	sinh_hoat	rule:đến
+社	công ty; đền (thờ)	N5	gia_dinh_xa_hoi	rule:công ty
+私	tôi	N5	con_nguoi_co_the	rule:tôi
+究	nghiên cứu	N5	hoc_tap_cong_viec	rule:nghiên cứu
+車	xe; ô tô	N5	sinh_hoat	rule:ô
+売	bán	N5	kinh_te	rule:bán
+見	nhìn; xem	N5	giao_tiep	rule:nhìn
+図	hình vẽ; sơ đồ; thư viện	N5	hoc_tap_cong_viec	rule:thư viện
+局	cục; bưu điện	N5	gia_dinh_xa_hoi	rule:bưu điện
+卵	trứng	N5	an_uong	rule:trứng
+花	hoa	N5	dong_thuc_vat	rule:hoa
+状	trạng thái; giấy (tờ)	N5	hoc_tap_cong_viec	rule:giấy
+低	thấp	N5	tinh_chat	rule:thấp
+冷	lạnh (đồ vật)	N5	tinh_chat	rule:lạnh
+利	lợi ích; tiện lợi	N5	truu_tuong	explicit
+町	thị trấn; phố	N5	gia_dinh_xa_hoi	rule:thị trấn
+良	tốt	N5	tinh_chat	rule:tốt
+赤	đỏ	N5	mau_sac	explicit
+束	bó; trói (dùng trong 約束 lời hứa)	N5	truu_tuong	explicit
+男	đàn ông; con trai	N5	con_nguoi_co_the	explicit
+近	gần	N5	tinh_chat	rule:gần
+弟	em trai	N5	gia_dinh_xa_hoi	rule:em trai
+身	cơ thể; thân	N5	con_nguoi_co_the	rule:cơ thể
+辛	cay; đắng (khổ)	N5	an_uong	rule:cay
+別	chia ly; khác	N5	tinh_chat	rule:khác
+役	vai trò; chức vụ	N5	hoc_tap_cong_viec	explicit
+迎	đón	N5	sinh_hoat	rule:đón
+住	sống; cư trú	N5	sinh_hoat	explicit
+作	làm; chế tạo	N5	sinh_hoat	rule:làm
+床	sàn nhà; giường	N5	noi_chon_huong	rule:nhà
+体	cơ thể	N5	con_nguoi_co_the	rule:cơ thể
+足	chân; đủ	N5	con_nguoi_co_the	rule:chân
+呂	(dùng trong tên riêng; phòng tắm)	N5	sinh_hoat	explicit
+忘	quên	N5	truu_tuong	explicit
+返	trả lại	N5	kinh_te	rule:trả
+言	nói; lời	N5	giao_tiep	rule:nói
+余	dư thừa	N5	so_dem	explicit
+里	làng quê; dặm	N5	noi_chon_huong	rule:làng
+角	góc; sừng	N5	noi_chon_huong	rule:góc
+国	đất nước; quốc gia	N5	gia_dinh_xa_hoi	rule:đất nước
+学	học	N5	hoc_tap_cong_viec	rule:học
+者	người	N5	con_nguoi_co_the	rule:người
+刺	đâm; chích	N5	sinh_hoat	rule:đâm
+英	nước Anh; anh (hùng)	N5	gia_dinh_xa_hoi	explicit
+事	việc; sự việc	N5	truu_tuong	rule:việc
+受	nhận; nhận lấy	N5	sinh_hoat	rule:lấy
+所	nơi; chỗ	N5	noi_chon_huong	rule:nơi
+夜	đêm; ban đêm	N5	thoi_gian	rule:đêm
+明	sáng; rõ ràng	N5	tinh_chat	rule:sáng
+画	bức tranh; kế hoạch	N5	giao_tiep	rule:tranh
+金	vàng; tiền	N5	kinh_te	explicit
+彼	anh ấy; người kia	N5	con_nguoi_co_the	rule:người
+歩	đi bộ	N5	sinh_hoat	rule:đi
+乳	sữa	N5	an_uong	rule:sữa
+店	cửa hàng	N5	noi_chon_huong	rule:cửa hàng
+果	trái cây; kết quả	N5	an_uong	rule:trái cây
+物	đồ vật	N5	truu_tuong	rule:đồ vật
+侍	võ sĩ (samurai)	N5	gia_dinh_xa_hoi	rule:võ sĩ
+奈	Nara (tên riêng)	N5	noi_chon_huong	rule:Nara
+易	dễ dàng	N5	tinh_chat	rule:dễ dàng
+杯	chén; cốc	N5	so_dem	explicit
+青	xanh (dương/lá)	N5	mau_sac	explicit
+妻	vợ	N5	gia_dinh_xa_hoi	rule:vợ
+征	chinh phạt (dùng trong tên riêng 征爾)	N5	gia_dinh_xa_hoi	rule:phạt
+念	ý nghĩ; niệm	N5	truu_tuong	rule:ý
+京	kinh đô	N5	gia_dinh_xa_hoi	rule:kinh đô
+東	phía đông	N5	noi_chon_huong	rule:phía
+妹	em gái	N5	gia_dinh_xa_hoi	rule:em gái
+姉	chị gái	N5	gia_dinh_xa_hoi	rule:chị gái
+枚	tờ (đếm vật mỏng)	N5	so_dem	explicit
+空	bầu trời; trống rỗng	N5	tinh_chat	rule:trống rỗng
+季	mùa	N5	thoi_gian	rule:mùa
+祇	(dùng trong tên riêng 祇園 Gion)	N5	khac	explicit
+雨	mưa	N5	thien_nhien	rule:mưa
+定	cố định; quyết định	N5	truu_tuong	rule:quyết định
+注	chú ý; đổ vào	N5	sinh_hoat	rule:vào
+泳	bơi	N5	sinh_hoat	rule:bơi
+使	sử dụng	N5	sinh_hoat	rule:sử dụng
+取	lấy	N5	sinh_hoat	rule:lấy
+呼	gọi	N5	giao_tiep	rule:gọi
+始	bắt đầu	N5	thoi_gian	rule:bắt đầu
+刻	khắc; phút	N5	thoi_gian	explicit
+服	quần áo	N5	sinh_hoat	rule:quần áo
+知	biết	N5	truu_tuong	explicit
+表	mặt; biểu đồ	N5	noi_chon_huong	explicit
+門	cổng; cửa	N5	noi_chon_huong	rule:cổng
+押	ấn; đẩy	N5	sinh_hoat	rule:ấn
+若	trẻ	N5	tinh_chat	rule:trẻ
+長	dài; trưởng	N5	tinh_chat	rule:dài
+邪	tà; gian ác	N5	tinh_chat	rule:ác
+味	vị	N5	an_uong	rule:vị
+牧	chăn nuôi	N5	dong_thuc_vat	rule:chăn nuôi
+祈	cầu nguyện	N5	cam_xuc	rule:cầu nguyện
+非	phi; không	N5	truu_tuong	rule:phi
+実	thật; thực tế	N5	tinh_chat	rule:thật
+泊	trọ qua đêm	N5	thoi_gian	rule:đêm
+価	giá trị	N5	kinh_te	rule:giá
+直	thẳng; trực tiếp; sửa	N5	tinh_chat	rule:thẳng
+放	thả ra; phát (sóng)	N5	sinh_hoat	rule:ra
+治	trị; cai quản	N5	truu_tuong	explicit
+和	hòa; Nhật Bản	N5	gia_dinh_xa_hoi	rule:Nhật Bản
+法	pháp luật; phương pháp	N5	gia_dinh_xa_hoi	rule:pháp luật
+舎	nhà trọ; xá	N5	noi_chon_huong	rule:nhà
+前	trước; phía trước	N5	thoi_gian	explicit
+皆	mọi người; tất cả	N5	con_nguoi_co_the	rule:người
+研	nghiên cứu; mài	N5	hoc_tap_cong_viec	rule:nghiên cứu
+神	thần; thần linh	N5	gia_dinh_xa_hoi	rule:thần
+持	cầm; mang theo	N5	sinh_hoat	rule:cầm
+計	đo lường; tính toán; kế hoạch	N5	truu_tuong	rule:tính
+室	phòng	N5	noi_chon_huong	rule:phòng
+屋	cửa hàng; mái nhà	N5	noi_chon_huong	rule:nhà
+段	bậc; đoạn; cấp bậc	N5	truu_tuong	explicit
+洗	rửa	N5	sinh_hoat	rule:rửa
+食	ăn	N5	an_uong	rule:ăn
+便	tiện; thư từ	N5	giao_tiep	explicit
+変	thay đổi	N5	sinh_hoat	rule:thay đổi
+後	sau; phía sau	N5	thoi_gian	explicit
+映	phản chiếu; chiếu (phim)	N5	giao_tiep	rule:chiếu
+昨	hôm qua	N5	thoi_gian	rule:hôm qua
+昼	buổi trưa	N5	thoi_gian	rule:buổi
+美	đẹp	N5	tinh_chat	rule:đẹp
+城	thành (lâu đài)	N5	thoi_gian	rule:lâu
+急	gấp; vội	N5	tinh_chat	rule:gấp
+飛	bay	N5	sinh_hoat	rule:bay
+紅	đỏ thẫm	N5	mau_sac	explicit
+茶	trà	N5	an_uong	rule:trà
+送	gửi; tiễn	N5	kinh_te	rule:gửi
+活	sống động; hoạt động	N5	con_nguoi_co_the	rule:sống
+面	mặt; bề mặt	N5	noi_chon_huong	explicit
+度	độ; lần	N5	thoi_gian	explicit
+約	hứa hẹn; khoảng	N5	thoi_gian	rule:khoảng
+音	âm thanh	N5	giao_tiep	rule:âm thanh
+乗	lên (xe); cưỡi	N5	sinh_hoat	rule:lên
+県	tỉnh	N5	gia_dinh_xa_hoi	rule:tỉnh
+封	phong bì; niêm phong	N5	sinh_hoat	explicit
+単	đơn; đơn giản	N5	tinh_chat	rule:đơn
+春	mùa xuân	N5	thoi_gian	rule:mùa
+海	biển	N5	thien_nhien	rule:biển
+界	giới; thế giới	N5	gia_dinh_xa_hoi	rule:thế giới
+秋	mùa thu	N5	thoi_gian	rule:mùa
+重	nặng; chồng chất	N5	gia_dinh_xa_hoi	rule:chồng
+香	hương thơm	N5	tinh_chat	rule:thơm
+待	chờ đợi	N5	sinh_hoat	explicit
+狭	hẹp	N5	tinh_chat	rule:hẹp
+信	tin tưởng	N5	truu_tuong	rule:tin tưởng
+点	điểm; chấm	N5	truu_tuong	explicit
+砂	cát	N5	thien_nhien	rule:cát
+品	sản phẩm; phẩm chất	N5	hoc_tap_cong_viec	rule:sản phẩm
+専	chuyên	N5	hoc_tap_cong_viec	explicit
+思	nghĩ	N5	truu_tuong	explicit
+独	một mình; độc	N5	so_dem	rule:một
+背	lưng; chiều cao	N5	thoi_gian	rule:chiều
+保	bảo vệ; giữ	N5	sinh_hoat	rule:bảo vệ
+風	gió	N5	thien_nhien	rule:gió
+故	lý do; cố (đã qua đời)	N5	sinh_hoat	rule:qua
+是	đúng; phải	N5	noi_chon_huong	rule:phải
+相	tương; lẫn nhau	N5	an_uong	rule:tương
+要	cần thiết; yếu (điểm)	N5	tinh_chat	rule:yếu
+政	chính trị	N5	gia_dinh_xa_hoi	rule:chính trị
+負	thua; mang (vác)	N5	truu_tuong	rule:thua
+首	cổ	N5	con_nguoi_co_the	rule:cổ
+発	phát; xuất phát	N5	sinh_hoat	explicit
+建	xây dựng	N5	sinh_hoat	rule:xây dựng
+員	nhân viên; thành viên	N5	gia_dinh_xa_hoi	rule:nhân viên
+師	thầy; chuyên gia	N5	hoc_tap_cong_viec	explicit
+病	bệnh	N5	con_nguoi_co_the	rule:bệnh
+院	viện	N5	noi_chon_huong	explicit
+時	thời gian; giờ	N5	thoi_gian	rule:giờ
+書	viết; sách	N5	hoc_tap_cong_viec	rule:sách
+勉	chăm chỉ; học tập	N5	hoc_tap_cong_viec	rule:học
+起	dậy; đứng lên	N5	sinh_hoat	rule:dậy
+家	nhà; gia đình	N5	gia_dinh_xa_hoi	rule:gia đình
+帰	trở về	N5	sinh_hoat	rule:về
+校	trường học	N5	hoc_tap_cong_viec	rule:học
+特	đặc biệt	N5	tinh_chat	explicit
+通	thông qua; đi lại	N5	sinh_hoat	rule:đi
+庭	sân vườn	N5	noi_chon_huong	rule:vườn
+真	thật; đúng	N5	tinh_chat	rule:đúng
+紙	giấy	N5	hoc_tap_cong_viec	rule:giấy
+酒	rượu	N5	an_uong	rule:rượu
+借	mượn; vay	N5	kinh_te	rule:mượn
+旅	du lịch	N5	sinh_hoat	explicit
+消	tắt; xóa; biến mất	N5	truu_tuong	rule:mất
+荷	hành lý; hàng hóa	N5	truu_tuong	rule:lý
+桜	hoa anh đào	N5	dong_thuc_vat	rule:hoa
+高	cao	N5	tinh_chat	rule:cao
+料	phí; nguyên liệu	N5	kinh_te	rule:phí
+残	còn lại; tàn dư	N5	truu_tuong	rule:còn lại
+速	nhanh	N5	tinh_chat	rule:nhanh
+庫	kho	N5	noi_chon_huong	rule:kho
+留	dừng lại; giữ lại	N5	sinh_hoat	rule:dừng
+航	hàng hải; hàng không	N5	truu_tuong	rule:không
+夏	mùa hè	N5	thoi_gian	rule:mùa
+疲	mệt	N5	con_nguoi_co_the	rule:mệt
+座	ngồi	N5	sinh_hoat	rule:ngồi
+梅	hoa mơ; quả mơ	N5	dong_thuc_vat	rule:hoa
+降	xuống; rơi (mưa/tuyết)	N5	sinh_hoat	rule:xuống
+造	chế tạo; xây dựng	N5	sinh_hoat	rule:xây dựng
+浴	tắm	N5	sinh_hoat	rule:tắm
+配	phân phát	N5	sinh_hoat	explicit
+原	đồng hoang; nguyên	N5	thien_nhien	rule:đồng hoang
+記	ghi chép	N5	giao_tiep	rule:ghi
+馬	ngựa	N5	dong_thuc_vat	rule:ngựa
+弱	yếu	N5	tinh_chat	rule:yếu
+眠	buồn ngủ; ngủ	N5	sinh_hoat	explicit
+除	loại trừ	N5	truu_tuong	rule:loại
+修	tu sửa; học	N5	hoc_tap_cong_viec	rule:học
+姫	công chúa	N5	gia_dinh_xa_hoi	explicit
+被	đội (mũ); bị (động)	N5	sinh_hoat	rule:đội
+差	che (ô); chênh lệch	N5	sinh_hoat	rule:ô
+案	đề án; hướng dẫn	N5	noi_chon_huong	rule:hướng
+連	liên tiếp; nối	N5	truu_tuong	explicit
+教	dạy; giáo dục	N5	hoc_tap_cong_viec	rule:dạy
+動	chuyển động	N5	sinh_hoat	rule:chuyển động
+帳	sổ	N5	hoc_tap_cong_viec	rule:sổ
+産	sản phẩm; di sản	N5	hoc_tap_cong_viec	explicit
+務	công việc; nhiệm vụ	N5	hoc_tap_cong_viec	rule:công việc
+堂	đại sảnh; nhà	N5	noi_chon_huong	rule:nhà
+販	bán; buôn bán	N5	kinh_te	rule:bán
+部	bộ phận; phần	N5	hoc_tap_cong_viec	explicit
+問	hỏi; vấn đề	N5	giao_tiep	rule:hỏi
+強	mạnh	N5	tinh_chat	rule:mạnh
+終	kết thúc	N5	thoi_gian	rule:kết thúc
+術	kỹ thuật	N5	hoc_tap_cong_viec	rule:kỹ thuật
+郵	bưu điện	N5	gia_dinh_xa_hoi	rule:bưu điện
+族	gia tộc; dân tộc	N5	gia_dinh_xa_hoi	rule:gia tộc
+船	thuyền; tàu	N5	sinh_hoat	explicit
+転	lăn; chuyển	N5	sinh_hoat	rule:lăn
+週	tuần	N5	thoi_gian	rule:tuần
+宿	trọ; nơi ở	N5	noi_chon_huong	rule:nơi
+菜	rau	N5	an_uong	rule:rau
+野	đồng ruộng; dã	N5	thien_nhien	rule:đồng ruộng
+魚	cá	N5	dong_thuc_vat	rule:cá
+掛	treo; gọi (điện thoại)	N5	giao_tiep	rule:gọi
+符	ký hiệu; bùa	N5	truu_tuong	explicit
+習	học tập	N5	hoc_tap_cong_viec	rule:học
+悪	xấu; ác	N5	tinh_chat	rule:xấu
+黒	đen	N5	mau_sac	explicit
+球	quả bóng; cầu	N5	noi_chon_huong	rule:cầu
+理	lý; lẽ	N5	truu_tuong	rule:lý
+細	mảnh; chi tiết	N5	tinh_chat	rule:mảnh
+猫	mèo	N5	dong_thuc_vat	rule:mèo
+窓	cửa sổ	N5	hoc_tap_cong_viec	rule:sổ
+涼	mát mẻ	N5	tinh_chat	rule:mát mẻ
+祭	lễ hội	N5	gia_dinh_xa_hoi	rule:lễ hội
+豚	heo	N5	dong_thuc_vat	rule:heo
+雪	tuyết	N5	thien_nhien	rule:tuyết
+婚	hôn nhân	N5	gia_dinh_xa_hoi	rule:hôn nhân
+寂	buồn; vắng vẻ	N5	cam_xuc	rule:buồn
+欲	muốn; ham muốn	N5	cam_xuc	rule:ham muốn
+渇	khát	N5	con_nguoi_co_the	explicit
+済	xong; hoàn thành	N5	truu_tuong	explicit
+経	kinh qua; kinh tế	N5	kinh_te	rule:kinh tế
+釣	câu (cá)	N5	sinh_hoat	explicit
+閉	đóng	N5	sinh_hoat	rule:đóng
+健	khỏe mạnh	N5	con_nguoi_co_the	rule:khỏe mạnh
+康	khỏe mạnh; yên ổn	N5	con_nguoi_co_the	rule:khỏe mạnh
+張	dán; căng ra	N5	sinh_hoat	rule:ra
+脱	cởi ra; thoát	N5	sinh_hoat	rule:cởi
+険	hiểm trở	N5	tinh_chat	rule:hiểm trở
+捨	vứt bỏ	N5	sinh_hoat	rule:vứt bỏ
+現	hiện tại; xuất hiện	N5	thoi_gian	explicit
+郷	quê hương	N5	noi_chon_huong	rule:quê hương
+乾	khô	N5	tinh_chat	rule:khô
+掃	quét	N5	sinh_hoat	rule:quét
+斎	trai giới (dùng trong tên riêng 北斎 Hokusai)	N5	gia_dinh_xa_hoi	explicit
+探	tìm kiếm; thăm dò	N5	sinh_hoat	rule:tìm kiếm
+眼	mắt	N5	con_nguoi_co_the	rule:mắt
+都	thủ đô	N5	gia_dinh_xa_hoi	rule:thủ đô
+械	máy móc; dụng cụ	N5	hoc_tap_cong_viec	rule:máy móc
+隆	hưng thịnh	N5	truu_tuong	explicit
+紹	giới thiệu	N5	giao_tiep	explicit
+菓	bánh kẹo	N5	an_uong	rule:bánh kẹo
+富	giàu có; thịnh vượng	N5	kinh_te	rule:giàu có
+傘	cái ô; cái dù	N5	sinh_hoat	rule:ô
+椅	ghế	N5	sinh_hoat	rule:ghế
+筆	bút lông; bút	N5	hoc_tap_cong_viec	rule:bút
+場	nơi; địa điểm	N5	noi_chon_huong	rule:nơi
+階	tầng (nhà)	N5	noi_chon_huong	rule:nhà
+晩	buổi tối	N5	thoi_gian	rule:buổi
+朝	buổi sáng	N5	thoi_gian	rule:buổi
+番	số thứ tự; phiên	N5	so_dem	explicit
+博	bác học; uyên bác	N5	hoc_tap_cong_viec	rule:học
+普	thông thường	N5	tinh_chat	rule:thông thường
+達	đạt; bạn (trong 友達)	N5	con_nguoi_co_the	rule:bạn
+買	mua	N5	kinh_te	rule:mua
+飯	cơm	N5	an_uong	rule:cơm
+飲	uống	N5	an_uong	rule:uống
+貸	cho mượn; cho thuê	N5	kinh_te	rule:cho mượn
+賀	chúc mừng	N5	giao_tiep	rule:chúc mừng
+寒	lạnh (thời tiết)	N5	tinh_chat	rule:lạnh
+暑	nóng (thời tiết)	N5	tinh_chat	rule:nóng
+湖	hồ	N5	thien_nhien	rule:hồ
+琵	đàn tì bà (dùng trong 琵琶湖 hồ Biwa)	N5	giao_tiep	explicit
+琶	đàn tì bà (dùng trong 琵琶湖 hồ Biwa)	N5	giao_tiep	explicit
+奥	sâu bên trong; vợ	N5	gia_dinh_xa_hoi	rule:vợ
+然	nhiên; như vậy	N5	truu_tuong	explicit
+絵	tranh vẽ	N5	giao_tiep	rule:tranh
+間	giữa; khoảng thời gian	N5	thoi_gian	explicit
+喫	uống (trà); quán (喫茶店)	N5	an_uong	rule:uống
+棚	kệ; giá	N5	kinh_te	rule:giá
+象	voi; tượng	N5	dong_thuc_vat	rule:voi
+筒	ống	N5	sinh_hoat	explicit
+温	ấm; nhiệt độ	N5	tinh_chat	rule:ấm
+港	cảng	N5	noi_chon_huong	rule:cảng
+焼	nướng; cháy	N5	an_uong	rule:nướng
+葉	lá	N5	dong_thuc_vat	rule:lá
+軽	nhẹ	N5	tinh_chat	rule:nhẹ
+遅	muộn; chậm	N5	tinh_chat	rule:chậm
+喉	cổ họng	N5	con_nguoi_co_the	rule:cổ
+散	tản ra; rơi rụng	N5	sinh_hoat	rule:ra
+登	leo (núi)	N5	sinh_hoat	rule:leo
+結	kết; buộc	N5	sinh_hoat	explicit
+遊	chơi	N5	sinh_hoat	explicit
+答	trả lời	N5	giao_tiep	rule:trả lời
+開	mở	N5	sinh_hoat	rule:mở
+歯	răng	N5	con_nguoi_co_the	rule:răng
+換	đổi	N5	sinh_hoat	explicit
+短	ngắn	N5	tinh_chat	rule:ngắn
+証	chứng minh; bằng chứng	N5	truu_tuong	explicit
+無	không có	N5	truu_tuong	rule:không
+痛	đau	N5	con_nguoi_co_the	rule:đau
+着	mặc; đến nơi	N5	noi_chon_huong	rule:nơi
+覚	nhớ; tỉnh giấc	N5	gia_dinh_xa_hoi	rule:tỉnh
+弾	chơi (đàn); đạn	N5	giao_tiep	explicit
+運	vận chuyển; vận mệnh	N5	sinh_hoat	rule:vận chuyển
+集	tập hợp; thu thập	N5	truu_tuong	explicit
+葛	sắn dây (dùng trong tên riêng 葛飾)	N5	dong_thuc_vat	explicit
+勝	thắng	N5	truu_tuong	rule:thắng
+最	nhất; tối đa	N5	tinh_chat	rule:tối
+統	thống nhất; hệ thống	N5	tinh_chat	rule:nhất
+帽	mũ	N5	sinh_hoat	rule:mũ
+渡	qua (sông); đưa	N5	sinh_hoat	rule:qua
+湯	nước nóng; suối nước nóng	N5	tinh_chat	rule:nóng
+越	vượt qua	N5	sinh_hoat	rule:qua
+道	đường; đạo	N5	noi_chon_huong	rule:đường
+備	chuẩn bị; trang bị	N5	sinh_hoat	rule:chuẩn bị
+勤	chăm chỉ; đi làm	N5	hoc_tap_cong_viec	rule:chăm chỉ
+歳	tuổi	N5	thoi_gian	explicit
+電	điện	N5	truu_tuong	explicit
+新	mới	N5	tinh_chat	rule:mới
+話	nói chuyện; câu chuyện	N5	giao_tiep	rule:nói
+辞	từ điển; từ chức	N5	hoc_tap_cong_viec	rule:từ điển
+違	khác; sai	N5	tinh_chat	rule:sai
+鉛	chì	N5	thien_nhien	explicit
+靴	giày	N5	sinh_hoat	rule:giày
+働	làm việc	N5	hoc_tap_cong_viec	rule:làm việc
+寝	ngủ; nằm	N5	sinh_hoat	rule:ngủ
+試	thử	N5	hoc_tap_cong_viec	explicit
+園	vườn; công viên	N5	noi_chon_huong	rule:vườn
+幹	thân (cây); tuyến chính (trong 新幹線 tàu siêu tốc)	N5	con_nguoi_co_the	rule:thân
+鉄	sắt	N5	thien_nhien	explicit
+暇	rảnh rỗi	N5	tinh_chat	rule:rảnh rỗi
+楽	vui vẻ; âm nhạc	N5	giao_tiep	explicit
+嫌	ghét	N5	cam_xuc	rule:ghét
+漢	Hán (Trung Quốc); chữ Hán	N5	gia_dinh_xa_hoi	rule:Trung Quốc
+暖	ấm	N5	tinh_chat	rule:ấm
+節	tiết; dịp lễ	N5	thoi_gian	rule:dịp lễ
+遠	xa	N5	tinh_chat	rule:xa
+腹	bụng	N5	con_nguoi_co_the	rule:bụng
+塩	muối	N5	an_uong	rule:muối
+置	đặt; để	N5	sinh_hoat	rule:đặt
+資	tư liệu; tài nguyên	N5	hoc_tap_cong_viec	rule:tư liệu
+暗	tối	N5	tinh_chat	rule:tối
+業	nghề; công việc	N5	hoc_tap_cong_viec	rule:công việc
+煙	khói	N5	thien_nhien	explicit
+禁	cấm	N5	gia_dinh_xa_hoi	rule:cấm
+飾	trang trí	N5	sinh_hoat	rule:trang trí
+僕	tôi (nam giới)	N5	con_nguoi_co_the	rule:tôi
+夢	giấc mơ	N5	truu_tuong	explicit
+意	ý; ý nghĩa	N5	truu_tuong	rule:nghĩa
+賃	tiền công; tiền thuê	N5	kinh_te	rule:tiền
+聖	thánh	N5	gia_dinh_xa_hoi	explicit
+触	chạm	N5	sinh_hoat	rule:chạm
+準	chuẩn; chuẩn bị	N5	sinh_hoat	rule:chuẩn bị
+頑	ngoan cố; chăm chỉ (頑張る)	N5	hoc_tap_cong_viec	rule:chăm chỉ
+銀	bạc	N5	kinh_te	explicit
+聞	nghe; hỏi	N5	giao_tiep	rule:nghe
+誌	tạp chí	N5	hoc_tap_cong_viec	rule:tạp chí
+語	ngôn ngữ; nói	N5	giao_tiep	rule:nói
+雑	tạp; lộn xộn	N5	tinh_chat	explicit
+線	tuyến; đường dây	N5	noi_chon_huong	rule:đường
+駅	nhà ga	N5	noi_chon_huong	rule:nhà
+緒	đầu mối; mối (tình)	N5	truu_tuong	explicit
+読	đọc	N5	giao_tiep	rule:đọc
+慣	quen	N5	truu_tuong	explicit
+閣	lầu; gác (dùng trong 金閣寺 chùa Vàng)	N5	noi_chon_huong	explicit
+静	yên tĩnh	N5	kinh_te	rule:yên
+歌	hát; bài hát	N5	giao_tiep	rule:hát
+爾	kia; ấy (dùng trong tên riêng 爾)	N5	truu_tuong	explicit
+製	chế tạo; sản xuất	N5	sinh_hoat	rule:chế tạo
+緑	màu xanh lá	N5	mau_sac	explicit
+認	công nhận	N5	truu_tuong	rule:công nhận
+髪	tóc	N5	con_nguoi_co_the	rule:tóc
+鼻	mũi	N5	con_nguoi_co_the	rule:mũi
+際	dịp; quốc tế	N5	truu_tuong	rule:dịp
+練	luyện tập	N5	hoc_tap_cong_viec	rule:luyện tập
+嘘	nói dối	N5	giao_tiep	rule:nói
+領	lãnh; nhận	N5	truu_tuong	explicit
+駄	tồi; vô dụng	N5	tinh_chat	explicit
+徳	đức	N5	truu_tuong	rule:đức
+障	chướng ngại	N5	truu_tuong	explicit
+説	giải thích; thuyết	N5	cam_xuc	rule:thích
+誕	sinh (ra đời)	N5	con_nguoi_co_the	rule:sinh
+撮	chụp (ảnh)	N5	giao_tiep	rule:chụp
+箸	đũa	N5	an_uong	rule:đũa
+寮	ký túc xá	N5	noi_chon_huong	explicit
+熱	nóng; nhiệt	N5	tinh_chat	rule:nóng
+舞	múa	N5	giao_tiep	rule:múa
+箱	hộp	N5	sinh_hoat	rule:hộp
+蔵	kho; cất giữ	N5	noi_chon_huong	rule:kho
+確	chắc chắn; xác nhận	N5	tinh_chat	rule:chắc chắn
+課	bài học; khoa (phòng)	N5	hoc_tap_cong_viec	rule:học
+趣	thú vị; ý vị	N5	an_uong	rule:vị
+撲	đánh; quyền anh (ボクシング)	N5	sinh_hoat	rule:đánh
+調	điều tra; điều chỉnh	N5	truu_tuong	rule:điều tra
+履	đi (giày); thực hiện (履歴)	N5	sinh_hoat	rule:giày
+駐	đỗ (xe); đóng quân	N5	sinh_hoat	rule:đóng
+億	trăm triệu	N5	so_dem	explicit
+機	máy móc; cơ hội	N5	gia_dinh_xa_hoi	rule:hội
+館	tòa nhà; quán	N5	noi_chon_huong	rule:nhà
+親	cha mẹ; thân thiết	N5	con_nguoi_co_the	rule:thân
+澤	đầm lầy; ơn huệ (dùng trong họ 小澤 Ozawa)	N5	thien_nhien	explicit
+隣	hàng xóm; bên cạnh	N5	gia_dinh_xa_hoi	rule:hàng xóm
+曇	nhiều mây	N5	tinh_chat	rule:nhiều
+録	ghi lại; ghi âm	N5	giao_tiep	rule:ghi
+糖	đường (ngọt)	N5	an_uong	rule:ngọt
+橋	cầu	N5	noi_chon_huong	rule:cầu
+頭	đầu	N5	con_nguoi_co_the	rule:đầu
+薬	thuốc	N5	con_nguoi_co_the	rule:thuốc
+鍵	chìa khóa	N5	sinh_hoat	explicit
+濯	giặt; súc (miệng)	N5	con_nguoi_co_the	rule:miệng
+韓	Hàn Quốc	N5	gia_dinh_xa_hoi	explicit
+曜	ngày trong tuần	N5	thoi_gian	explicit
+験	kinh nghiệm; kiểm tra	N5	hoc_tap_cong_viec	rule:kiểm tra
+題	chủ đề; đề tài	N5	hoc_tap_cong_viec	explicit
+難	khó	N5	tinh_chat	rule:khó
+簡	đơn giản	N5	tinh_chat	rule:đơn
+額	trán; số tiền	N5	kinh_te	explicit
+顔	khuôn mặt	N5	con_nguoi_co_the	rule:khuôn mặt
+願	mong muốn; cầu nguyện	N5	cam_xuc	rule:mong muốn
+鶏	gà	N5	dong_thuc_vat	rule:gà
+鏡	gương	N5	sinh_hoat	explicit
+議	nghị luận; bàn bạc	N5	giao_tiep	rule:bàn
+力	sức mạnh	N4	con_nguoi_co_the	rule:sức mạnh
+丁	khu phố; -chō	N4	noi_chon_huong	explicit
+工	công (kỹ thuật)	N4	hoc_tap_cong_viec	rule:kỹ thuật
+丸	tròn	N4	tinh_chat	rule:tròn
+夕	chiều tối	N4	thoi_gian	rule:chiều
+亡	mất; qua đời	N4	con_nguoi_co_the	explicit
+井	giếng	N4	thien_nhien	rule:giếng
+片	một bên; mảnh	N4	so_dem	rule:một
+氏	họ; ngài	N4	con_nguoi_co_the	rule:ngài
+支	hỗ trợ; chi nhánh	N4	sinh_hoat	rule:hỗ trợ
+反	phản; ngược lại	N4	truu_tuong	explicit
+仏	Phật	N4	gia_dinh_xa_hoi	rule:Phật
+匹	con (đếm động vật)	N4	so_dem	explicit
+双	đôi; sinh đôi	N4	con_nguoi_co_the	rule:sinh
+化	biến hóa; hóa	N4	truu_tuong	rule:biến hóa
+収	thu; thu hoạch	N4	truu_tuong	explicit
+匂	mùi	N4	tinh_chat	rule:mùi
+比	so sánh; tỷ lệ	N4	truu_tuong	explicit
+加	thêm vào; cộng	N4	sinh_hoat	rule:vào
+平	bằng phẳng; bình thường	N4	tinh_chat	rule:bằng phẳng
+申	nói (khiêm nhường); đăng ký	N4	giao_tiep	rule:nói
+込	chen chúc; bao gồm	N4	sinh_hoat	rule:chen chúc
+由	lý do	N4	truu_tuong	rule:lý
+皿	đĩa	N4	sinh_hoat	explicit
+辺	vùng; xung quanh	N4	noi_chon_huong	rule:vùng
+玄	huyền; sảnh vào (玄関)	N4	sinh_hoat	rule:vào
+功	công lao	N4	truu_tuong	explicit
+占	chiếm; bói	N4	truu_tuong	explicit
+石	đá	N4	thien_nhien	rule:đá
+代	thay thế; thời đại	N4	gia_dinh_xa_hoi	rule:thời đại
+以	lấy; trở đi (以上)	N4	sinh_hoat	rule:đi
+打	đánh	N4	sinh_hoat	rule:đánh
+玉	ngọc; viên	N4	thien_nhien	explicit
+矢	mũi tên	N4	con_nguoi_co_the	rule:mũi
+可	có thể; được	N4	truu_tuong	rule:có thể
+史	lịch sử	N4	gia_dinh_xa_hoi	rule:lịch sử
+必	nhất định	N4	tinh_chat	rule:nhất
+叱	mắng; la	N4	giao_tiep	explicit
+冊	quyển (đếm sách)	N4	so_dem	explicit
+仙	tiên (nhân)	N4	truu_tuong	explicit
+犯	phạm tội	N4	gia_dinh_xa_hoi	rule:phạm tội
+幼	non nớt; trẻ thơ	N4	tinh_chat	rule:trẻ
+包	bọc; gói	N4	sinh_hoat	explicit
+札	thẻ; tiền giấy	N4	hoc_tap_cong_viec	rule:giấy
+召	mời (kính ngữ); gọi	N4	giao_tiep	rule:gọi
+叶	thành hiện thực (ước mơ)	N4	truu_tuong	explicit
+宇	vũ trụ	N4	thien_nhien	rule:vũ trụ
+缶	lon (kim loại)	N4	sinh_hoat	rule:lon
+伊	Italy (伊太利); ấy	N4	gia_dinh_xa_hoi	explicit
+色	màu sắc	N4	mau_sac	rule:màu
+西	phía tây	N4	noi_chon_huong	rule:phía
+汚	bẩn	N4	tinh_chat	rule:bẩn
+灯	đèn	N4	sinh_hoat	explicit
+式	nghi thức; kiểu	N4	gia_dinh_xa_hoi	rule:nghi thức
+成	trở thành; hoàn thành	N4	truu_tuong	explicit
+守	bảo vệ; giữ	N4	sinh_hoat	rule:bảo vệ
+印	dấu; con dấu	N4	hoc_tap_cong_viec	explicit
+仲	mối quan hệ; bạn bè	N4	con_nguoi_co_the	rule:bạn
+光	ánh sáng	N4	tinh_chat	rule:sáng
+向	hướng tới	N4	noi_chon_huong	rule:hướng
+朱	đỏ son	N4	mau_sac	explicit
+江	sông; vịnh	N4	thien_nhien	rule:sông
+米	gạo; Mỹ (亜米利加)	N4	an_uong	explicit
+死	chết	N4	con_nguoi_co_the	rule:chết
+汗	mồ hôi	N4	con_nguoi_co_the	rule:mồ hôi
+件	vụ việc; món	N4	truu_tuong	rule:vụ việc
+宅	nhà ở	N4	noi_chon_huong	rule:nhà
+争	tranh chấp	N4	giao_tiep	rule:tranh
+因	nguyên nhân	N4	truu_tuong	rule:nguyên nhân
+再	lại; tái	N4	truu_tuong	explicit
+存	tồn tại (khiêm nhường)	N4	truu_tuong	rule:tồn tại
+灰	tro	N4	thien_nhien	rule:tro
+困	khó khăn; lúng túng	N4	tinh_chat	rule:khó
+声	giọng nói	N4	con_nguoi_co_the	rule:giọng nói
+形	hình dạng	N4	truu_tuong	explicit
+豆	đậu	N4	an_uong	rule:đậu
+走	chạy	N4	sinh_hoat	rule:chạy
+折	gập; bẻ	N4	sinh_hoat	rule:gập
+谷	thung lũng	N4	thien_nhien	rule:thung lũng
+針	kim	N4	sinh_hoat	explicit
+労	lao động	N4	hoc_tap_cong_viec	rule:lao động
+希	hiếm; hy vọng	N4	tinh_chat	rule:hiếm
+戻	quay lại	N4	sinh_hoat	rule:quay lại
+決	quyết định	N4	truu_tuong	rule:quyết định
+村	làng	N4	noi_chon_huong	rule:làng
+吹	thổi	N4	sinh_hoat	explicit
+我	tôi; ta	N4	con_nguoi_co_the	rule:tôi
+牡	đực	N4	dong_thuc_vat	rule:đực
+助	giúp đỡ	N4	sinh_hoat	rule:giúp đỡ
+投	ném; đầu tư	N4	con_nguoi_co_the	rule:đầu
+材	vật liệu; tài năng	N4	hoc_tap_cong_viec	rule:vật liệu
+佐	tá; giúp đỡ	N4	sinh_hoat	rule:giúp đỡ
+志	chí; ý chí	N4	truu_tuong	explicit
+対	đối; cặp	N4	truu_tuong	rule:đối
+汽	hơi nước	N4	thien_nhien	rule:nước
+技	kỹ thuật; tài nghệ	N4	hoc_tap_cong_viec	rule:kỹ thuật
+麦	lúa mì	N4	an_uong	explicit
+似	giống	N4	tinh_chat	rule:giống
+判	phán đoán; con dấu	N4	truu_tuong	rule:đoán
+伺	hỏi; đến thăm (khiêm nhường)	N4	giao_tiep	rule:hỏi
+抜	rút ra; nhổ	N4	sinh_hoat	rule:ra
+序	thứ tự; mở đầu	N4	con_nguoi_co_the	rule:đầu
+位	vị trí; ngôi	N4	noi_chon_huong	explicit
+均	đều; cân bằng	N4	truu_tuong	explicit
+寿	tuổi thọ; chúc thọ	N4	thoi_gian	explicit
+芸	nghệ thuật	N4	giao_tiep	explicit
+伸	kéo dài; duỗi	N4	sinh_hoat	rule:kéo
+応	đáp ứng; trả lời	N4	giao_tiep	rule:trả lời
+参	đi (khiêm nhường); tham gia	N4	sinh_hoat	rule:đi
+宙	vũ trụ	N4	thien_nhien	rule:vũ trụ
+怖	đáng sợ	N4	cam_xuc	rule:sợ
+例	ví dụ	N4	truu_tuong	explicit
+具	dụng cụ	N4	hoc_tap_cong_viec	rule:dụng cụ
+昔	ngày xưa	N4	thoi_gian	rule:ngày
+波	sóng	N4	thien_nhien	rule:sóng
+育	nuôi dưỡng; giáo dục	N4	hoc_tap_cong_viec	rule:giáo dục
+枝	cành cây	N4	dong_thuc_vat	rule:cây
+並	xếp hàng; song song	N4	sinh_hoat	explicit
+周	xung quanh; chu vi	N4	noi_chon_huong	rule:xung quanh
+苦	khổ; đắng	N4	tinh_chat	explicit
+卒	tốt nghiệp	N4	hoc_tap_cong_viec	rule:tốt nghiệp
+宝	báu vật	N4	kinh_te	rule:báu vật
+怪	kỳ lạ; quái	N4	tinh_chat	rule:kỳ lạ
+油	dầu	N4	an_uong	explicit
+炊	nấu (cơm)	N4	an_uong	rule:cơm
+届	đến (nơi); giao	N4	noi_chon_huong	rule:nơi
+命	mệnh lệnh; sinh mệnh	N4	con_nguoi_co_the	rule:sinh
+官	quan chức	N4	gia_dinh_xa_hoi	rule:quan chức
+招	mời; rủ	N4	giao_tiep	rule:mời
+泥	bùn	N4	thien_nhien	rule:bùn
+郎	chàng trai (tên riêng)	N4	khac	explicit
+岸	bờ (sông/biển)	N4	thien_nhien	rule:sông
+性	tính chất; giới tính	N4	truu_tuong	rule:tính
+的	mục tiêu; -tính	N4	truu_tuong	rule:mục tiêu
+到	đến (nơi)	N4	noi_chon_huong	rule:nơi
+幸	hạnh phúc	N4	cam_xuc	rule:hạnh phúc
+房	phòng; buồng	N4	noi_chon_huong	rule:phòng
+沸	sôi	N4	an_uong	rule:sôi
+泣	khóc	N4	cam_xuc	rule:khóc
+弥	(dùng trong tên riêng 弥 Shin'ya)	N4	khac	explicit
+協	hợp tác	N4	hoc_tap_cong_viec	explicit
+拝	lạy; kính (ngữ)	N4	giao_tiep	explicit
+彦	người con trai (tên riêng)	N4	khac	explicit
+拾	nhặt	N4	sinh_hoat	rule:nhặt
+星	ngôi sao	N4	noi_chon_huong	rule:ngôi
+柔	mềm	N4	tinh_chat	rule:mềm
+盆	chậu; lễ Obon (盆踊り điệu múa Bon)	N4	giao_tiep	rule:múa
+拭	lau	N4	sinh_hoat	rule:lau
+指	ngón tay; chỉ	N4	con_nguoi_co_the	rule:tay
+客	khách	N4	gia_dinh_xa_hoi	rule:khách
+泉	suối	N4	thien_nhien	rule:suối
+南	phía nam	N4	noi_chon_huong	rule:phía
+咳	ho	N4	con_nguoi_co_the	explicit
+胃	dạ dày	N4	con_nguoi_co_the	rule:dạ dày
+則	quy tắc	N4	gia_dinh_xa_hoi	rule:quy tắc
+拶	(dùng trong 挨拶 lời chào)	N4	giao_tiep	explicit
+祝	chúc mừng	N4	giao_tiep	rule:chúc mừng
+逃	trốn; chạy thoát	N4	sinh_hoat	rule:chạy
+係	phụ trách; liên quan	N4	hoc_tap_cong_viec	explicit
+咲	nở (hoa)	N4	dong_thuc_vat	rule:hoa
+津	bến cảng	N4	noi_chon_huong	rule:cảng
+珍	hiếm; quý	N4	tinh_chat	rule:hiếm
+科	khoa; môn học	N4	hoc_tap_cong_viec	rule:học
+草	cỏ	N4	dong_thuc_vat	rule:cỏ
+紀	kỷ; thời đại	N4	gia_dinh_xa_hoi	rule:thời đại
+甚	rất; thậm (dùng trong tên riêng 甚五郎)	N4	tinh_chat	explicit
+退	rút lui; về hưu	N4	sinh_hoat	rule:về
+洋	đại dương; phương Tây	N4	thien_nhien	explicit
+祖	tổ tiên	N4	gia_dinh_xa_hoi	rule:tổ tiên
+厚	dày	N4	tinh_chat	rule:dày
+律	luật; kỷ luật	N4	gia_dinh_xa_hoi	rule:luật
+査	điều tra	N4	truu_tuong	rule:điều tra
+秒	giây	N4	thoi_gian	rule:giây
+姿	dáng vẻ	N4	con_nguoi_co_the	rule:dáng vẻ
+胞	bào; tế bào	N4	con_nguoi_co_the	rule:tế bào
+迷	lạc; phân vân	N4	truu_tuong	explicit
+郊	ngoại ô	N4	noi_chon_huong	rule:ngoại ô
+捜	tìm kiếm	N4	sinh_hoat	rule:tìm kiếm
+誰	ai	N4	truu_tuong	explicit
+財	tài sản	N4	kinh_te	rule:tài sản
+将	tướng; sắp tới	N4	thoi_gian	explicit
+素	nguyên tố; tố chất	N4	truu_tuong	rule:chất
+値	giá trị	N4	kinh_te	rule:giá
+娘	con gái	N4	gia_dinh_xa_hoi	explicit
+容	chứa đựng; dung mạo	N4	truu_tuong	explicit
+息	hơi thở; con trai	N4	con_nguoi_co_the	explicit
+倒	đổ; ngã	N4	sinh_hoat	explicit
+宮	cung điện; đền	N4	noi_chon_huong	rule:cung điện
+破	phá vỡ	N4	sinh_hoat	rule:vỡ
+展	triển lãm; mở rộng	N4	sinh_hoat	rule:mở
+席	chỗ ngồi	N4	noi_chon_huong	rule:chỗ
+恋	tình yêu	N4	cam_xuc	rule:tình yêu
+格	cách; tư cách	N4	truu_tuong	explicit
+徐	chậm rãi	N4	tinh_chat	rule:chậm
+挨	(dùng trong 挨拶 lời chào)	N4	giao_tiep	explicit
+個	cái (đếm đồ vật)	N4	so_dem	explicit
+島	đảo	N4	thien_nhien	rule:đảo
+根	rễ; gốc	N4	dong_thuc_vat	rule:rễ
+剣	kiếm	N4	gia_dinh_xa_hoi	explicit
+帯	thắt lưng (kimono); mang theo	N4	con_nguoi_co_the	rule:lưng
+埋	chôn; lấp	N4	sinh_hoat	rule:chôn
+華	hoa; lộng lẫy	N4	dong_thuc_vat	rule:hoa
+恥	xấu hổ	N4	cam_xuc	rule:xấu hổ
+途	đường đi; giữa chừng	N4	noi_chon_huong	rule:đường
+孫	cháu	N4	gia_dinh_xa_hoi	explicit
+浦	vịnh; bến	N4	thien_nhien	rule:vịnh
+栓	nút chai; van	N4	sinh_hoat	rule:chai
+紐	dây	N4	sinh_hoat	explicit
+倍	gấp đôi; lần	N4	so_dem	explicit
+涙	nước mắt	N4	con_nguoi_co_the	rule:mắt
+笑	cười	N4	cam_xuc	rule:cười
+悩	lo lắng	N4	cam_xuc	explicit
+射	bắn; chiếu	N4	giao_tiep	rule:chiếu
+徒	đồ đệ; đi bộ	N4	sinh_hoat	rule:đi
+捕	bắt	N4	sinh_hoat	explicit
+害	gây hại	N4	truu_tuong	explicit
+接	tiếp xúc; nối	N4	truu_tuong	explicit
+瓶	chai; lọ	N4	sinh_hoat	rule:chai
+鳥	chim	N4	dong_thuc_vat	rule:chim
+組	lắp ráp; nhóm	N4	gia_dinh_xa_hoi	rule:nhóm
+側	phía; bên	N4	noi_chon_huong	rule:phía
+袋	túi	N4	sinh_hoat	rule:túi
+常	thường; bình thường	N4	tinh_chat	rule:bình thường
+授	truyền thụ; ban	N4	hoc_tap_cong_viec	rule:truyền thụ
+望	mong muốn; ngắm	N4	cam_xuc	rule:mong muốn
+敗	thua; thất bại	N4	truu_tuong	rule:thất bại
+規	quy tắc	N4	gia_dinh_xa_hoi	rule:quy tắc
+紺	xanh chàm (xanh đậm)	N4	mau_sac	explicit
+黄	vàng	N4	mau_sac	explicit
+設	thiết lập; thành lập	N4	sinh_hoat	rule:thiết lập
+許	cho phép; tha thứ	N4	truu_tuong	rule:cho phép
+軟	mềm	N4	tinh_chat	rule:mềm
+頃	khoảng (thời gian)	N4	thoi_gian	explicit
+彫	khắc; chạm	N4	sinh_hoat	rule:chạm
+盗	ăn trộm	N4	gia_dinh_xa_hoi	explicit
+訳	dịch; lý do	N4	giao_tiep	rule:dịch
+寄	ghé qua; gửi	N4	kinh_te	rule:gửi
+崎	mũi đất; dốc	N4	con_nguoi_co_the	rule:mũi
+酔	say (rượu)	N4	an_uong	rule:rượu
+亀	rùa	N4	dong_thuc_vat	rule:rùa
+情	tình cảm; thông tin	N4	cam_xuc	rule:tình cảm
+陸	đất liền	N4	thien_nhien	rule:đất
+混	trộn lẫn	N4	truu_tuong	explicit
+笥	tủ (dùng trong 箪笥 tủ quần áo)	N4	sinh_hoat	explicit
+救	cứu	N4	sinh_hoat	rule:cứu
+停	dừng (xe)	N4	sinh_hoat	rule:dừng
+進	tiến	N4	sinh_hoat	rule:tiến
+啓	mở ra; khai sáng (dùng trong 拝啓 Kính gửi)	N4	truu_tuong	explicit
+絡	quấn; liên lạc (連絡)	N4	giao_tiep	explicit
+診	khám bệnh	N4	con_nguoi_co_the	rule:bệnh
+雄	hùng; đực (dùng trong tên riêng 雄)	N4	dong_thuc_vat	rule:đực
+景	cảnh	N4	thien_nhien	explicit
+晴	trời quang	N4	thien_nhien	rule:trời
+偉	vĩ đại	N4	tinh_chat	rule:vĩ đại
+給	cung cấp; lương	N4	kinh_te	rule:lương
+割	chia; vỡ	N4	sinh_hoat	rule:vỡ
+替	thay thế	N4	truu_tuong	rule:thế
+落	rơi; rụng	N4	sinh_hoat	rule:rơi
+廊	hành lang	N4	noi_chon_huong	rule:hành lang
+復	phục; lặp lại	N4	truu_tuong	explicit
+植	trồng	N4	sinh_hoat	rule:trồng
+貼	dán	N4	sinh_hoat	rule:dán
+隅	góc	N4	noi_chon_huong	rule:góc
+葬	đám tang	N4	gia_dinh_xa_hoi	explicit
+陽	dương; nắng	N4	thien_nhien	rule:nắng
+募	tuyển mộ; quyên góp	N4	hoc_tap_cong_viec	explicit
+営	kinh doanh; điều hành	N4	hoc_tap_cong_viec	rule:kinh doanh
+報	báo cáo; tin tức	N4	giao_tiep	rule:báo cáo
+悲	buồn	N4	cam_xuc	rule:buồn
+煮	nấu (hầm)	N4	an_uong	rule:nấu
+痩	gầy	N4	con_nguoi_co_the	rule:gầy
+硬	cứng	N4	tinh_chat	rule:cứng
+絶	dứt; tuyệt	N4	truu_tuong	explicit
+貯	tích trữ; tiết kiệm	N4	kinh_te	rule:tiết kiệm
+過	quá; qua (thời gian)	N4	thoi_gian	explicit
+棒	gậy	N4	sinh_hoat	explicit
+紫	màu tím	N4	mau_sac	explicit
+雲	mây	N4	thien_nhien	rule:mây
+測	đo	N4	truu_tuong	rule:đo
+量	lượng; đo	N4	truu_tuong	rule:lượng
+減	giảm	N4	truu_tuong	rule:giảm
+御	ngự; kính (ngữ)	N4	giao_tiep	explicit
+順	thuận; thứ tự	N4	con_nguoi_co_the	rule:tự
+慌	hoảng hốt	N4	cam_xuc	rule:hoảng hốt
+粧	trang điểm (dùng trong 化粧)	N4	sinh_hoat	explicit
+貿	thương mại	N4	kinh_te	rule:thương mại
+惑	bối rối; mê hoặc	N4	truu_tuong	explicit
+援	hỗ trợ; cứu viện	N4	sinh_hoat	rule:cứu
+敬	kính trọng	N4	truu_tuong	explicit
+飼	nuôi (động vật)	N4	sinh_hoat	rule:nuôi
+源	nguồn	N4	truu_tuong	explicit
+義	nghĩa	N4	truu_tuong	rule:nghĩa
+続	tiếp tục	N4	truu_tuong	explicit
+愛	tình yêu	N4	cam_xuc	rule:tình yêu
+載	đăng (báo); chở	N4	giao_tiep	rule:đăng
+蓋	nắp	N4	sinh_hoat	explicit
+詳	chi tiết	N4	tinh_chat	rule:chi tiết
+勢	thế; sức mạnh	N4	con_nguoi_co_the	rule:sức mạnh
+携	mang theo (携帯 điện thoại di động)	N4	sinh_hoat	rule:mang theo
+照	chiếu sáng; soi	N4	giao_tiep	rule:chiếu
+雷	sấm sét	N4	thien_nhien	rule:sấm sét
+傷	vết thương	N4	con_nguoi_co_the	rule:vết thương
+数	số	N4	so_dem	explicit
+裏	mặt sau; bên trong	N4	thoi_gian	rule:sau
+猿	khỉ	N4	dong_thuc_vat	rule:khỉ
+稚	non nớt	N4	tinh_chat	rule:non nớt
+預	gửi (tiền); ủy thác	N4	kinh_te	rule:tiền
+戦	chiến tranh	N4	gia_dinh_xa_hoi	rule:chiến tranh
+福	phúc; may mắn	N4	cam_xuc	rule:may mắn
+詰	nhồi; đóng gói	N4	sinh_hoat	rule:đóng
+滑	trơn; trượt	N4	tinh_chat	rule:trơn
+脳	não	N4	con_nguoi_co_the	rule:não
+感	cảm giác	N4	cam_xuc	rule:cảm giác
+彰	tỏ rõ; hiển	N4	truu_tuong	explicit
+様	ngài; vẻ	N4	con_nguoi_co_the	explicit
+踊	nhảy múa	N4	giao_tiep	rule:nhảy múa
+漫	truyện tranh (漫画)	N4	giao_tiep	rule:tranh
+関	quan hệ; cửa ải	N4	noi_chon_huong	rule:cửa
+管	ống; quản lý	N4	truu_tuong	rule:lý
+誘	rủ rê; mời	N4	giao_tiep	rule:mời
+網	lưới	N4	sinh_hoat	explicit
+察	quan sát; đoán	N4	truu_tuong	rule:quan sát
+罰	phạt	N4	gia_dinh_xa_hoi	rule:phạt
+適	thích hợp	N4	cam_xuc	rule:thích
+歴	lịch; trải qua	N4	sinh_hoat	rule:qua
+腐	thối; hỏng	N4	tinh_chat	explicit
+遭	gặp (tai nạn)	N4	con_nguoi_co_the	rule:tai
+豪	hào; sang trọng	N4	tinh_chat	rule:sang trọng
+複	phức tạp; lặp lại	N4	tinh_chat	rule:phức tạp
+暮	chiều tối; sinh sống	N4	sinh_hoat	explicit
+算	tính toán	N4	truu_tuong	rule:tính
+増	tăng	N4	truu_tuong	rule:tăng
+寧	yên ổn; thà rằng	N4	kinh_te	rule:yên
+箪	tủ (dùng trong 箪笥 tủ quần áo)	N4	sinh_hoat	explicit
+鳴	kêu; reo	N4	giao_tiep	explicit
+塾	lớp học thêm	N4	hoc_tap_cong_viec	explicit
+構	cấu tạo; xây dựng	N4	sinh_hoat	rule:xây dựng
+演	biểu diễn	N4	giao_tiep	rule:biểu diễn
+緊	căng thẳng; khẩn cấp	N4	sinh_hoat	rule:căng
+横	ngang; bên cạnh	N4	noi_chon_huong	rule:bên
+噛	nhai; cắn	N4	sinh_hoat	explicit
+選	chọn	N4	sinh_hoat	rule:chọn
+震	rung; động đất	N4	thien_nhien	rule:đất
+嬉	vui	N4	cam_xuc	rule:vui
+談	đàm phán; nói chuyện	N4	giao_tiep	rule:nói
+締	thắt; đóng (hợp đồng)	N4	sinh_hoat	rule:đóng
+質	chất lượng; chất	N4	truu_tuong	rule:chất lượng
+器	dụng cụ	N4	hoc_tap_cong_viec	rule:dụng cụ
+褒	khen	N4	giao_tiep	explicit
+踏	giẫm; bước lên	N4	sinh_hoat	rule:lên
+遺	để lại; di sản	N4	hoc_tap_cong_viec	rule:di sản
+輪	vòng; bánh xe	N4	thoi_gian	rule:vòng
+噂	tin đồn	N4	giao_tiep	rule:tin đồn
+餌	mồi; thức ăn (động vật)	N4	an_uong	rule:ăn
+敷	trải ra	N4	sinh_hoat	rule:ra
+論	luận; bàn về	N4	giao_tiep	rule:bàn
+縁	duyên; viền	N4	truu_tuong	rule:duyên
+賛	tán thành	N4	giao_tiep	explicit
+慮	suy nghĩ; cân nhắc	N4	truu_tuong	explicit
+賞	giải thưởng	N4	truu_tuong	explicit
+燃	cháy	N4	thien_nhien	explicit
+壁	tường	N4	noi_chon_huong	rule:tường
+壊	phá hỏng	N4	sinh_hoat	rule:phá
+懐	lòng; nhớ (quê)	N4	cam_xuc	explicit
+憩	nghỉ ngơi	N4	sinh_hoat	rule:nghỉ ngơi
+篤	thành thật; nghiêm trọng (危篤 nguy kịch)	N4	tinh_chat	rule:thật
+諦	từ bỏ	N4	cam_xuc	explicit
+磨	mài; đánh (răng)	N4	con_nguoi_co_the	rule:răng
+鍋	nồi	N4	an_uong	rule:nồi
+操	điều khiển; thao tác	N4	hoc_tap_cong_viec	explicit
+築	xây dựng	N4	sinh_hoat	rule:xây dựng
+輸	vận chuyển; xuất nhập	N4	sinh_hoat	rule:vận chuyển
+頼	nhờ vả; tin cậy	N4	giao_tiep	rule:nhờ vả
+整	chỉnh đốn; sắp xếp	N4	sinh_hoat	explicit
+齢	tuổi	N4	thoi_gian	explicit
+積	chất đống; tích lũy	N4	sinh_hoat	rule:chất đống
+興	hứng thú; hưng thịnh	N4	cam_xuc	rule:hứng thú
+薄	mỏng; nhạt	N4	tinh_chat	rule:mỏng
+濃	đậm	N4	tinh_chat	rule:đậm
+優	dịu dàng; ưu tú	N4	tinh_chat	rule:dịu dàng
+講	giảng	N4	hoc_tap_cong_viec	explicit
+覧	xem; xem xét	N4	giao_tiep	rule:xem
+績	thành tích	N4	hoc_tap_cong_viec	explicit
+謝	cảm ơn; xin lỗi	N4	giao_tiep	rule:cảm ơn
+濡	ướt	N4	tinh_chat	rule:ướt
+厳	nghiêm khắc	N4	tinh_chat	rule:nghiêm khắc
+類	loại	N4	truu_tuong	rule:loại
+騒	ồn ào	N4	tinh_chat	rule:ồn ào
+醤	tương (dùng trong 醤油 nước tương)	N4	an_uong	rule:tương
+藤	cây tử đằng	N4	dong_thuc_vat	rule:cây
+翻	dịch; lật	N4	giao_tiep	rule:dịch
+贈	tặng	N4	sinh_hoat	rule:tặng
+警	cảnh báo; cảnh sát	N4	gia_dinh_xa_hoi	rule:cảnh sát
+爆	nổ	N4	truu_tuong	explicit
+離	rời xa; chia ly	N4	sinh_hoat	rule:rời
+鹸	xà phòng (dùng trong 石鹸)	N4	sinh_hoat	explicit
+識	nhận thức; kiến thức	N4	truu_tuong	rule:nhận thức
+懸	treo; dốc sức (一生懸命)	N4	sinh_hoat	rule:treo
+護	bảo vệ	N4	sinh_hoat	rule:bảo vệ
+競	cạnh tranh	N4	giao_tiep	rule:tranh
+魔	ma quỷ	N4	truu_tuong	explicit

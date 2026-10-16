@@ -296,6 +296,24 @@
   flex-wrap: wrap;
 }
 /* ===== /R2 ===== */
+
+/* ===== Kanji topics: grid chọn chủ đề + từ vựng theo bài + thanh sticky ===== */
+.topic-pick { background: #fff; border-radius: 12px; box-shadow: var(--shadow); padding: 14px 16px; margin-bottom: 14px; }
+.topic-pick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+.topic-pick-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 2px solid var(--border); border-radius: 10px; cursor: pointer; font-size: 0.92rem; background: #fff; }
+.topic-pick-item input { width: 18px; height: 18px; accent-color: var(--primary); flex-shrink: 0; }
+.topic-pick-item.selected { border-color: var(--primary); background: #f4f8ff; }
+.topic-pick-label { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.topic-pick-count { margin-left: auto; font-size: 0.85rem; flex-shrink: 0; }
+.kanji-page { padding-bottom: 8px; }
+.kanji-vocab { margin-top: 20px; }
+.kanji-vocab > h2 { font-size: 1.25rem; margin-bottom: 12px; }
+.kanji-vocab-lesson { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; margin-bottom: 12px; }
+.kanji-vocab-title { margin: 0 0 10px; font-size: 1.05rem; }
+.selection-bar-sticky { position: sticky; bottom: 0; top: auto; z-index: 60; flex-direction: column; align-items: stretch; }
+.selection-group { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.selection-group + .selection-group { border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; }
+.kanji-practice-hint { width: 100%; font-size: 0.85rem; margin-top: 6px; }
 /* ===== R3 quick-practice + kanji-quiz ===== */
 /* R3: QuickPractice accordion 50 bài */
 .qp-sec-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 12px 0 8px; }

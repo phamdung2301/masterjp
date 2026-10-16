@@ -19,4 +19,7 @@ public interface KanjiRepository extends MongoRepository<Kanji, String> {
     List<Kanji> findAllByOrderByStrokesAsc();
 
     Optional<Kanji> findByCharacter(String character);
+
+    /** Dem so chu theo topic (cho GET /api/kanji/topics). */
+    long countByTopic(String topic);
 }

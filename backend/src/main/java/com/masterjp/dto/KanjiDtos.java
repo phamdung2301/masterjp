@@ -22,12 +22,17 @@ public final class KanjiDtos {
 
     public record KanjiDto(String character, List<String> onYomi, List<String> kunYomi,
                            String meaningVi, int strokes, String jlpt,
-                           List<Integer> lessonNos) {
+                           List<Integer> lessonNos, String topic) {
     }
 
     public record KanjiDetailDto(String character, List<String> onYomi, List<String> kunYomi,
                                  String meaningVi, int strokes, String jlpt,
-                                 List<Integer> lessonNos, List<WordDtos.WordDto> words) {
+                                 List<Integer> lessonNos, String topic,
+                                 List<WordDtos.WordDto> words) {
+    }
+
+    /** GET /api/kanji/topics — 1 chu de + so chu trong DB. */
+    public record KanjiTopicDto(String code, String label, long count) {
     }
 
     /**
