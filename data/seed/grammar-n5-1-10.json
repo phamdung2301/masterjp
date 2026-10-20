@@ -1,0 +1,1327 @@
+{
+ "version": 1,
+ "level": "N5",
+ "lessonRange": [
+  1,
+  10
+ ],
+ "grammar": [
+  {
+   "_id": "g01-01",
+   "active": true,
+   "compareWith": [
+    "g01-02"
+   ],
+   "examples": [
+    {
+     "ja": "わたしはマイクです。",
+     "kana": "わたしはまいくです。",
+     "vi": "Tôi là Mike."
+    },
+    {
+     "ja": "わたしはエンジニアです。",
+     "kana": "わたしはえんじにあです。",
+     "vi": "Tôi là kỹ sư."
+    },
+    {
+     "ja": "ミラーさんはアメリカじんです。",
+     "kana": "みらーさんはあめりかじんです。",
+     "vi": "Anh Miller là người Mỹ."
+    }
+   ],
+   "explanation": "は là trợ từ đánh dấu chủ đề của câu, đọc là \"wa\" (không đọc \"ha\"). Cấu trúc: chủ đề + は + phần giải thích + です. です đặt ở cuối câu, thể hiện sự lịch sự. Ví dụ: わたしは がくせいです (Tôi là học sinh) — わたし là chủ đề, がくせい là phần giải thích.",
+   "formation": "N1 は N2 です。",
+   "lessonNo": 1,
+   "level": "N5",
+   "meaningVi": "Diễn tả N1 là N2. Đây là mẫu câu cơ bản nhất để giới thiệu bản thân, xác định người hoặc sự vật.",
+   "notes": "Người Việt hay đọc は là \"ha\" — phải đọc là \"wa\". Không dùng です sau tính từ đuôi い (sẽ học ở bài 8).",
+   "orderInLesson": 1,
+   "pattern": "N1 は N2 です",
+   "tags": [
+    "copula",
+    "khang-dinh",
+    "wa"
+   ],
+   "title": "N1 は N2 です",
+   "titleVi": "N1 là N2 (khẳng định)"
+  },
+  {
+   "_id": "g01-02",
+   "active": true,
+   "compareWith": [
+    "g01-01"
+   ],
+   "examples": [
+    {
+     "ja": "わたしは先生じゃありません。",
+     "kana": "わたしはせんせいじゃありません。",
+     "vi": "Tôi không phải là giáo viên."
+    },
+    {
+     "ja": "サントスさんは学生じゃありません。",
+     "kana": "さんとすさんはがくせいじゃありません。",
+     "vi": "Anh Santos không phải là học sinh."
+    },
+    {
+     "ja": "わたしは日本人じゃありません。",
+     "kana": "わたしはにほんじんじゃありません。",
+     "vi": "Tôi không phải là người Nhật."
+    }
+   ],
+   "explanation": "じゃありません là dạng phủ định của です trong văn nói hằng ngày. Trong văn viết trang trọng dùng ではありません. Cấu trúc câu giữ nguyên, chỉ thay です ở cuối thành じゃありません.",
+   "formation": "N1 は N2 じゃありません。",
+   "lessonNo": 1,
+   "level": "N5",
+   "meaningVi": "Dạng phủ định của \"N1 は N2 です\" — N1 không phải là N2.",
+   "notes": "じゃありません dùng trong hội thoại; ではありません trang trọng hơn. Cả hai đều đúng, không phải hai mẫu khác nhau.",
+   "orderInLesson": 2,
+   "pattern": "N1 は N2 じゃありません",
+   "tags": [
+    "copula",
+    "phu-dinh"
+   ],
+   "title": "N1 は N2 じゃありません",
+   "titleVi": "N1 không phải là N2 (phủ định)"
+  },
+  {
+   "_id": "g01-03",
+   "active": true,
+   "compareWith": [
+    "g02-04"
+   ],
+   "examples": [
+    {
+     "ja": "ミラーさんはアメリカじんですか。",
+     "kana": "みらーさんはあめりかじんですか。",
+     "vi": "Anh Miller là người Mỹ phải không?"
+    },
+    {
+     "ja": "はい、アメリカじんです。",
+     "kana": "はい、あめりかじんです。",
+     "vi": "Vâng, là người Mỹ."
+    },
+    {
+     "ja": "あなたはエンジニアですか。",
+     "kana": "あなたはえんじにあですか。",
+     "vi": "Bạn là kỹ sư phải không?"
+    },
+    {
+     "ja": "いいえ、エンジニアじゃありません。",
+     "kana": "いいえ、えんじにあじゃありません。",
+     "vi": "Không, tôi không phải là kỹ sư."
+    }
+   ],
+   "explanation": "Tiếng Nhật không cần đảo ngữ như tiếng Anh. Chỉ cần thêm trợ từ か vào cuối câu khẳng định là thành câu hỏi. Khi nói, lên giọng ở cuối câu. Trả lời: はい (vâng) cho khẳng định, いいえ (không) cho phủ định — và câu trả lời phủ định phải dùng dạng phủ định じゃありません.",
+   "formation": "Câu khẳng định + か。",
+   "lessonNo": 1,
+   "level": "N5",
+   "meaningVi": "Biến câu khẳng định thành câu hỏi có/không chỉ bằng cách thêm か vào cuối câu.",
+   "notes": "Trong văn viết trang trọng không thêm dấu \"?\" kiểu phương Tây (dùng 。). Trả lời いいえ thì câu sau phải ở dạng phủ định.",
+   "orderInLesson": 3,
+   "pattern": "S か。",
+   "tags": [
+    "cau-hoi",
+    "ka"
+   ],
+   "title": "S か (câu hỏi có/không)",
+   "titleVi": "Câu hỏi có/không (thêm か cuối câu)"
+  },
+  {
+   "_id": "g01-04",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "わたしは会社員です。サントスさんも会社員です。",
+     "kana": "わたしはかいしゃいんです。さんとすさんもかいしゃいんです。",
+     "vi": "Tôi là nhân viên công ty. Anh Santos cũng là nhân viên công ty."
+    },
+    {
+     "ja": "ミラーさんはアメリカじんです。ワンさんもアメリカじんです。",
+     "kana": "みらーさんはあめりかじんです。わんさんもあめりかじんです。",
+     "vi": "Anh Miller là người Mỹ. Anh Wang cũng là người Mỹ."
+    }
+   ],
+   "explanation": "も thay thế cho は khi muốn nói \"cũng như vậy\", tránh lặp lại. Ví dụ: A nói わたしはベトナムじんです (Tôi là người Việt Nam), B đáp わたしもベトナムじんです (Tôi cũng là người Việt Nam) — も thay cho は của B.",
+   "formation": "N も + (phần còn lại giống câu trước).",
+   "lessonNo": 1,
+   "level": "N5",
+   "meaningVi": "\"Cũng\" — dùng khi chủ đề mới có cùng nội dung với câu vừa nói trước đó.",
+   "notes": "も THAY は, không đi cùng は. Nói \"わたしもは\" là sai — người Việt hay mắc lỗi này do dịch từng chữ \"tôi cũng là\".",
+   "orderInLesson": 4,
+   "pattern": "N も",
+   "tags": [
+    "mo",
+    "cung"
+   ],
+   "title": "N も",
+   "titleVi": "N cũng (も thay thế は)"
+  },
+  {
+   "_id": "g02-01",
+   "active": true,
+   "compareWith": [
+    "g02-02",
+    "g03-01"
+   ],
+   "examples": [
+    {
+     "ja": "これは本です。",
+     "kana": "これはほんです。",
+     "vi": "Đây là quyển sách."
+    },
+    {
+     "ja": "それは辞書ですか。",
+     "kana": "それはじしょですか。",
+     "vi": "Đó có phải là từ điển không?"
+    },
+    {
+     "ja": "あれは私の傘です。",
+     "kana": "あれはわたしのかさです。",
+     "vi": "Kia là cái ô của tôi."
+    }
+   ],
+   "explanation": "これ = cái này (gần người nói), それ = cái đó (gần người nghe), あれ = cái kia (xa cả hai người). Ba từ này đứng ĐỘC LẬP làm chủ ngữ, sau đó là は. Khác với この・その・あの (điểm tiếp theo) bắt buộc phải đi kèm danh từ phía sau.",
+   "formation": "これ／それ／あれ は N です。",
+   "lessonNo": 2,
+   "level": "N5",
+   "meaningVi": "Chỉ vào đồ vật và nói nó là cái gì.",
+   "notes": "これ・それ・あれ KHÔNG đi trực tiếp trước danh từ (không nói \"これ本\"). Muốn nói \"quyển sách này\" phải dùng この本.",
+   "orderInLesson": 1,
+   "pattern": "これ・それ・あれ は N です",
+   "tags": [
+    "chi-dinh",
+    "kore-sore-are"
+   ],
+   "title": "これ・それ・あれ は N です",
+   "titleVi": "Cái này/đó/kia là N (chỉ đồ vật)"
+  },
+  {
+   "_id": "g02-02",
+   "active": true,
+   "compareWith": [
+    "g02-01"
+   ],
+   "examples": [
+    {
+     "ja": "このかばんは私のです。",
+     "kana": "このかばんはわたしのです。",
+     "vi": "Cái cặp này là của tôi."
+    },
+    {
+     "ja": "それは何ですか。",
+     "kana": "それはなんですか。",
+     "vi": "Đó là cái gì?"
+    },
+    {
+     "ja": "あの車は日本の車です。",
+     "kana": "あのくるまはにほんのくるまです。",
+     "vi": "Chiếc xe kia là xe Nhật."
+    }
+   ],
+   "explanation": "この・その・あの là từ chỉ định, BẮT BUỘC đi kèm danh từ phía sau (không đứng một mình). この本 = quyển sách này (gần tôi), その本 = quyển sách đó (gần bạn), あの本 = quyển sách kia (xa cả hai). Quy tắc khoảng cách giống hệt これ・それ・あれ.",
+   "formation": "この／その／あの N（は … です）。",
+   "lessonNo": 2,
+   "level": "N5",
+   "meaningVi": "Chỉ định đồ vật cụ thể: \"cái N này / đó / kia\".",
+   "notes": "Phân biệt kỹ: これ (đứng một mình làm chủ ngữ) vs この + N (đi kèm danh từ). Người Việt hay nhầm lẫn cặp này nhất.",
+   "orderInLesson": 2,
+   "pattern": "この・その・あの + N",
+   "tags": [
+    "chi-dinh",
+    "kono-sono-ano"
+   ],
+   "title": "この・その・あの N",
+   "titleVi": "Cái N này/đó/kia (bổ nghĩa cho danh từ)"
+  },
+  {
+   "_id": "g02-03",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "これはテレホンカードですか。",
+     "kana": "これはてれほんかーどですか。",
+     "vi": "Đây có phải là thẻ điện thoại không?"
+    },
+    {
+     "ja": "はい、そうです。",
+     "kana": "はい、そうです。",
+     "vi": "Vâng, đúng vậy."
+    },
+    {
+     "ja": "それはシャープペンシルですか。",
+     "kana": "それはしゃーぷぺんしるですか。",
+     "vi": "Đó có phải là bút chì bấm không?"
+    },
+    {
+     "ja": "いいえ、そうじゃありません。ボールペンです。",
+     "kana": "いいえ、そうじゃありません。ぼーるぺんです。",
+     "vi": "Không, không phải vậy. Là bút bi."
+    }
+   ],
+   "explanation": "そう thay thế cho toàn bộ nội dung \"N です\" đã nói trước đó, giúp tránh lặp lại. Hỏi: それはテレホンカードですか (Đó có phải là thẻ điện thoại không?) — Đáp đúng: はい、そうです (Vâng, đúng vậy) — Đáp sai: いいえ、そうじゃありません (Không, không phải vậy), rồi nói tiếp đáp án đúng.",
+   "formation": "はい、そうです。／ いいえ、そうじゃありません。（+ đáp án đúng）",
+   "lessonNo": 2,
+   "level": "N5",
+   "meaningVi": "Trả lời \"đúng vậy\" hoặc \"không phải vậy\" khi được hỏi \"…は N ですか\".",
+   "notes": "そう = \"như thế\", thay cho cả mệnh đề. Khi ngữ cảnh đã rõ, không cần lặp lại danh từ (nói gọn はい、そうです thay vì はい、テレホンカードです).",
+   "orderInLesson": 3,
+   "pattern": "はい、そうです。／ いいえ、そうじゃありません。",
+   "tags": [
+    "tra-loi",
+    "sou"
+   ],
+   "title": "そうです・そうじゃありません",
+   "titleVi": "Đúng vậy / Không phải vậy (trả lời)"
+  },
+  {
+   "_id": "g02-04",
+   "active": true,
+   "compareWith": [
+    "g01-03"
+   ],
+   "examples": [
+    {
+     "ja": "これはコーヒーですか、紅茶ですか。",
+     "kana": "これはこーひーですか、こうちゃですか。",
+     "vi": "Đây là cà phê hay trà đen?"
+    },
+    {
+     "ja": "コーヒーです。",
+     "kana": "こーひーです。",
+     "vi": "Là cà phê."
+    },
+    {
+     "ja": "それは英語の新聞ですか、日本語の新聞ですか。",
+     "kana": "それはえいごのしんぶんですか、にほんごのしんぶんですか。",
+     "vi": "Đó là báo tiếng Anh hay báo tiếng Nhật?"
+    },
+    {
+     "ja": "日本語の新聞です。",
+     "kana": "にほんごのしんぶんです。",
+     "vi": "Là báo tiếng Nhật."
+    }
+   ],
+   "explanation": "Đặt か sau mỗi phương án. Khác với câu hỏi có/không, câu hỏi lựa chọn KHÔNG trả lời bằng はい/いいえ mà phải nhắc lại phương án đúng. Ví dụ: これは本ですか、ノートですか (Đây là sách hay vở?) → 本です (Là sách).",
+   "formation": "S1 か、S2 か。",
+   "lessonNo": 2,
+   "level": "N5",
+   "meaningVi": "Hỏi lựa chọn giữa hai phương án: \"A hay B?\"",
+   "notes": "Tuyệt đối không trả lời はい/いいえ cho câu hỏi lựa chọn — phải nhắc lại đáp án. Người Việt hay nhầm trả lời \"vâng\" theo thói quen.",
+   "orderInLesson": 4,
+   "pattern": "S1 か、S2 か。",
+   "tags": [
+    "cau-hoi",
+    "lua-chon",
+    "ka"
+   ],
+   "title": "S1 か、S2 か (câu hỏi lựa chọn)",
+   "titleVi": "A hay B? (câu hỏi lựa chọn)"
+  },
+  {
+   "_id": "g03-01",
+   "lessonNo": 3,
+   "level": "N5",
+   "orderInLesson": 1,
+   "title": "ここ・そこ・あそこ は N です",
+   "titleVi": "Đây/đó/kia là N (chỉ nơi chốn)",
+   "pattern": "ここ・そこ・あそこ は N（địa điểm）です",
+   "meaningVi": "Chỉ vào một nơi chốn và nói đó là đâu.",
+   "explanation": "ここ (chỗ này, gần người nói), そこ (chỗ đó, gần người nghe), あそこ (chỗ kia, xa cả hai). Ba từ này dùng để chỉ ĐỊA ĐIỂM — khác với これ・それ・あれ chỉ ĐỒ VẬT (bài 2). Ví dụ: ここは教室です (Đây là phòng học).",
+   "formation": "ここ／そこ／あそこ は N（địa điểm）です。",
+   "examples": [
+    {
+     "ja": "ここは事務所です。",
+     "kana": "ここはじむしょです。",
+     "vi": "Đây là văn phòng."
+    },
+    {
+     "ja": "そこは受付ですか。",
+     "kana": "そこはうけつけですか。",
+     "vi": "Đó có phải là quầy tiếp tân không?"
+    },
+    {
+     "ja": "あそこはトイレです。",
+     "kana": "あそこはといれです。",
+     "vi": "Đằng kia là nhà vệ sinh."
+    }
+   ],
+   "notes": "ここ・そこ・あそこ = NƠI CHỐN; これ・それ・あれ = ĐỒ VẬT. Nói \"ここは本です\" là sai.",
+   "compareWith": [
+    "g02-01"
+   ],
+   "tags": [
+    "chi-dinh",
+    "noi-chon"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g03-02",
+   "lessonNo": 3,
+   "level": "N5",
+   "orderInLesson": 2,
+   "title": "N（địa điểm）1 は N（địa điểm）2 です",
+   "titleVi": "N1 (nơi chốn) ở vị trí N2",
+   "pattern": "N1 は N2 です（cả hai đều là địa điểm）",
+   "meaningVi": "Nói một địa điểm N1 nằm ở vị trí N2.",
+   "explanation": "Khi cả N1 và N2 đều là địa điểm, câu có nghĩa \"N1 ở (vị trí) N2\". Ví dụ: トイレはあそこです (Nhà vệ sinh ở đằng kia) — トイレ là chủ đề cần xác định vị trí, あそこ là vị trí của nó. Từ để hỏi vị trí là どこ (ở đâu), luôn đi với です: トイレはどこですか。",
+   "formation": "N（địa điểm）1 は N（địa điểm）2 です。／ N は どこですか。",
+   "examples": [
+    {
+     "ja": "トイレはあそこです。",
+     "kana": "といれはあそこです。",
+     "vi": "Nhà vệ sinh ở đằng kia."
+    },
+    {
+     "ja": "エレベーターはここです。",
+     "kana": "えれべーたーはここです。",
+     "vi": "Thang máy ở đây."
+    },
+    {
+     "ja": "お手洗いはどこですか。",
+     "kana": "おてあらいはどこですか。",
+     "vi": "Nhà vệ sinh ở đâu?"
+    },
+    {
+     "ja": "あそこです。",
+     "kana": "あそこです。",
+     "vi": "Ở đằng kia."
+    }
+   ],
+   "notes": "どこ (ở đâu) hỏi về nơi chốn; 何 (なに/なん) hỏi về đồ vật. Đừng nhầm hai từ để hỏi này.",
+   "compareWith": [
+    "g03-01"
+   ],
+   "tags": [
+    "noi-chon",
+    "doko"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g03-03",
+   "lessonNo": 3,
+   "level": "N5",
+   "orderInLesson": 3,
+   "title": "N1 の N2",
+   "titleVi": "N1 の N2 (sở hữu / thuộc tính)",
+   "pattern": "N1 の N2",
+   "meaningVi": "Nối hai danh từ: N2 thuộc về hoặc liên quan đến N1.",
+   "explanation": "の có nhiều nghĩa: sở hữu (わたしのかさ: cái ô của tôi), thuộc tính (にほんごの本: sách tiếng Nhật), tổ chức (IMCの社員: nhân viên của công ty IMC). N1 bổ nghĩa cho N2 — N2 là từ chính của cụm.",
+   "formation": "N1 の N2。",
+   "examples": [
+    {
+     "ja": "これは私のかばんです。",
+     "kana": "これはわたしのかばんです。",
+     "vi": "Đây là cái cặp của tôi."
+    },
+    {
+     "ja": "あれは日本語の辞書です。",
+     "kana": "あれはにほんごのじしょです。",
+     "vi": "Kia là từ điển tiếng Nhật."
+    },
+    {
+     "ja": "ミラーさんはIMCの社員です。",
+     "kana": "みらーさんはIMCのしゃいんです。",
+     "vi": "Anh Miller là nhân viên của công ty IMC."
+    }
+   ],
+   "notes": "Thứ tự NGƯỢC với tiếng Việt: \"sách tiếng Nhật\" = にほんごの本 (tiếng Nhật + の + sách). Người Việt hay nói ngược — sai.",
+   "compareWith": [],
+   "tags": [
+    "no",
+    "so-huu"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g04-01",
+   "lessonNo": 4,
+   "level": "N5",
+   "orderInLesson": 1,
+   "title": "Time に Vます",
+   "titleVi": "Làm V vào (thời điểm) — trợ từ に",
+   "pattern": "Time（cụ thể） に Vます",
+   "meaningVi": "Diễn tả hành động xảy ra vào một thời điểm xác định.",
+   "explanation": "に đánh dấu thời điểm cụ thể: giờ có con số (6じ), thứ (にちようび), ngày tháng. Chỉ dùng に với thời điểm XÁC ĐỊNH. KHÔNG dùng に với từ chỉ thời gian tương đối: いま (bây giờ), きょう (hôm nay), まいにち (mỗi ngày), きのう (hôm qua) — nói まいにちに là sai.",
+   "formation": "Time（cụ thể） + に + Vます。",
+   "examples": [
+    {
+     "ja": "わたしは6時に起きます。",
+     "kana": "わたしはろくじにおきます。",
+     "vi": "Tôi thức dậy lúc 6 giờ."
+    },
+    {
+     "ja": "土曜日に勉強します。",
+     "kana": "どようびにべんきょうします。",
+     "vi": "Tôi học vào thứ Bảy."
+    },
+    {
+     "ja": "わたしは11時に寝ます。",
+     "kana": "わたしはじゅういちじにねます。",
+     "vi": "Tôi đi ngủ lúc 11 giờ."
+    }
+   ],
+   "notes": "いま・きょう・きのう・まい〜 KHÔNG đi với に. Người Việt hay thêm に sau まいにち — sai.",
+   "compareWith": [
+    "g05-02"
+   ],
+   "tags": [
+    "ni",
+    "thoi-gian"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g04-02",
+   "lessonNo": 4,
+   "level": "N5",
+   "orderInLesson": 2,
+   "title": "N1 から N2 まで",
+   "titleVi": "Từ N1 đến N2",
+   "pattern": "N1 から N2 まで",
+   "meaningVi": "Chỉ một khoảng từ điểm bắt đầu N1 đến điểm kết thúc N2 (thời gian hoặc địa điểm).",
+   "explanation": "から = từ (điểm bắt đầu), まで = đến (điểm kết thúc). Dùng cho thời gian (9じから5じまで: từ 9 giờ đến 5 giờ) và cả địa điểm. Hai từ có thể dùng độc lập: 9じから (từ 9 giờ), 5じまで (đến 5 giờ).",
+   "formation": "N1 から N2 まで（+ Vます）。",
+   "examples": [
+    {
+     "ja": "わたしは9時から5時まで働きます。",
+     "kana": "わたしはくじからごじまではたらきます。",
+     "vi": "Tôi làm việc từ 9 giờ đến 5 giờ."
+    },
+    {
+     "ja": "昼休みは12時から1時までです。",
+     "kana": "ひるやすみはじゅうにじからいちじまでです。",
+     "vi": "Giờ nghỉ trưa từ 12 giờ đến 1 giờ."
+    },
+    {
+     "ja": "試験は月曜日から金曜日までです。",
+     "kana": "しけんはげつようびからきんようびまでです。",
+     "vi": "Kỳ thi từ thứ Hai đến thứ Sáu."
+    }
+   ],
+   "notes": "から/まで cũng dùng cho địa điểm (sẽ gặp lại). Khi diễn tả \"từ A đến B làm gì\" thì động từ đặt ở cuối câu.",
+   "compareWith": [],
+   "tags": [
+    "kara-made",
+    "khoang"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g04-03",
+   "lessonNo": 4,
+   "level": "N5",
+   "orderInLesson": 3,
+   "title": "N1 と N2",
+   "titleVi": "N1 và N2 (nối danh từ)",
+   "pattern": "N1 と N2",
+   "meaningVi": "\"Và\" — nối các danh từ khi liệt kê đầy đủ tất cả các mục.",
+   "explanation": "と nối các danh từ khi liệt kê TOÀN BỘ các mục, không còn mục nào khác. Ví dụ: 土曜日と日曜日 (thứ Bảy và Chủ nhật — chỉ có hai ngày này). Khác với や (bài 10) chỉ liệt kê ví dụ tiêu biểu.",
+   "formation": "N1 と N2（と N3 …）。",
+   "examples": [
+    {
+     "ja": "休みは土曜日と日曜日です。",
+     "kana": "やすみはどようびとにちようびです。",
+     "vi": "Ngày nghỉ là thứ Bảy và Chủ nhật."
+    },
+    {
+     "ja": "試験は水曜日と木曜日です。",
+     "kana": "しけんはすいようびともくようびです。",
+     "vi": "Kỳ thi vào thứ Tư và thứ Năm."
+    },
+    {
+     "ja": "わたしは土曜日と日曜日に休みます。",
+     "kana": "わたしはどようびとにちようびにやすみます。",
+     "vi": "Tôi nghỉ vào thứ Bảy và Chủ nhật."
+    }
+   ],
+   "notes": "と = liệt kê đầy đủ; や = liệt kê ví dụ (bài 10). Người Việt hay dùng と cho mọi trường hợp liệt kê.",
+   "compareWith": [
+    "g05-03"
+   ],
+   "tags": [
+    "to",
+    "noi-danh-tu"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g04-04",
+   "lessonNo": 4,
+   "level": "N5",
+   "orderInLesson": 4,
+   "title": "N をします",
+   "titleVi": "Làm N (danh từ hoạt động + をします)",
+   "pattern": "N（hoạt động） をします",
+   "meaningVi": "Diễn tả \"làm\" một hoạt động được biểu thị bằng danh từ.",
+   "explanation": "Một số danh từ chỉ hoạt động đi với をします: 勉強をします (học), 仕事をします (làm việc), テニスをします (chơi tennis), 会議をします (tổ chức họp). を đánh dấu tân ngữ của hành động. Đây là tiền đề cho mẫu N を Vます tổng quát (bài 6).",
+   "formation": "N（hoạt động） を します。",
+   "examples": [
+    {
+     "ja": "わたしは毎晩勉強をします。",
+     "kana": "わたしはまいばんべんきょうをします。",
+     "vi": "Tôi học mỗi tối."
+    },
+    {
+     "ja": "日曜日にテニスをします。",
+     "kana": "にちようびにてにすをします。",
+     "vi": "Tôi chơi tennis vào Chủ nhật."
+    },
+    {
+     "ja": "あした会議をします。",
+     "kana": "あしたかいぎをします。",
+     "vi": "Ngày mai tôi tổ chức cuộc họp."
+    }
+   ],
+   "notes": "をします chỉ đi với danh từ chỉ hoạt động. します ở đây giữ nghĩa gốc là \"làm\".",
+   "compareWith": [
+    "g06-01"
+   ],
+   "tags": [
+    "wo",
+    "shimasu"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g05-01",
+   "lessonNo": 5,
+   "level": "N5",
+   "orderInLesson": 1,
+   "title": "N へ 行きます・来ます・帰ります",
+   "titleVi": "Đi đến N (trợ từ へ đọc là え)",
+   "pattern": "N（địa điểm） へ 行きます／来ます／帰ります",
+   "meaningVi": "Diễn tả di chuyển đến một địa điểm: đi đến, đến, về.",
+   "explanation": "へ đánh dấu PHƯƠNG HƯỚNG di chuyển, đi với 3 động từ: 行きます (đi), 来ます (đến), 帰ります (về). Chú ý quan trọng: へ LUÔN đọc là \"e\", không đọc \"he\". Ví dụ: 学校へ行きます (đi đến trường).",
+   "formation": "N（địa điểm） へ 行きます／来ます／帰ります。",
+   "examples": [
+    {
+     "ja": "わたしは学校へ行きます。",
+     "kana": "わたしはがっこうへいきます。",
+     "vi": "Tôi đi đến trường."
+    },
+    {
+     "ja": "あしたスーパーへ行きます。",
+     "kana": "あしたすーぱーへいきます。",
+     "vi": "Ngày mai tôi đi siêu thị."
+    },
+    {
+     "ja": "ミラーさんは毎朝駅へ来ます。",
+     "kana": "みらーさんはまいあさえきへきます。",
+     "vi": "Anh Miller đến nhà ga mỗi sáng."
+    }
+   ],
+   "notes": "へ LUÔN đọc là \"e\". Người Việt hay đọc \"he\" — sai. へ chỉ đi với động từ di chuyển, không dùng cho hành động khác.",
+   "compareWith": [
+    "g05-02"
+   ],
+   "tags": [
+    "he",
+    "di-chuyen"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g05-02",
+   "lessonNo": 5,
+   "level": "N5",
+   "orderInLesson": 2,
+   "title": "N に・へ + động từ di chuyển",
+   "titleVi": "Phân biệt に và へ (nơi đến)",
+   "pattern": "N に／へ 行きます・来ます・帰ります",
+   "meaningVi": "Cả に và へ đều dùng được với động từ di chuyển, nhưng sắc thái khác nhau.",
+   "explanation": "へ nhấn mạnh PHƯƠNG HƯỚNG (đi về phía đâu), に nhấn mạnh ĐÍCH ĐẾN (điểm đến cụ thể). Trong thực tế với 行きます・来ます・帰ります, hai cách thường thay thế được cho nhau. Cần phân biệt với に chỉ thời điểm (bài 4): に + thời gian = thời điểm; に + địa điểm + động từ di chuyển = nơi đến.",
+   "formation": "N（địa điểm） に／へ + động từ di chuyển。",
+   "examples": [
+    {
+     "ja": "うちへ帰ります。",
+     "kana": "うちへかえります。",
+     "vi": "Tôi về nhà. (nhấn mạnh hướng về)"
+    },
+    {
+     "ja": "うちに帰ります。",
+     "kana": "うちにかえります。",
+     "vi": "Tôi về nhà. (nhấn mạnh đích đến)"
+    },
+    {
+     "ja": "友達は日本に来ます。",
+     "kana": "ともだちはにほんにきます。",
+     "vi": "Bạn tôi đến Nhật Bản."
+    }
+   ],
+   "notes": "Mẹo phân biệt に: sau に là THỜI GIAN → thời điểm (6時に); sau に là ĐỊA ĐIỂM + động từ di chuyển → nơi đến (学校に).",
+   "compareWith": [
+    "g05-01",
+    "g04-01"
+   ],
+   "tags": [
+    "ni",
+    "he",
+    "phan-biet"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g05-03",
+   "lessonNo": 5,
+   "level": "N5",
+   "orderInLesson": 3,
+   "title": "N（người） と Vます",
+   "titleVi": "Làm gì cùng với ai (N と)",
+   "pattern": "N（người） と Vます",
+   "meaningVi": "\"Cùng với ai đó\" làm gì.",
+   "explanation": "と ở đây nghĩa là \"cùng với\", đi với danh từ chỉ NGƯỜI. Ví dụ: 友達と行きます (đi cùng với bạn). Một mình = 一人で (ひとりで). Khác với と (\"và\") ở bài 4 — phân biệt bằng từ loại đi sau: N と N = \"A và B\"; N と V = \"cùng với N mà V\".",
+   "formation": "N（người） と Vます。",
+   "examples": [
+    {
+     "ja": "わたしは友達とスーパーへ行きます。",
+     "kana": "わたしはともだちとすーぱーへいきます。",
+     "vi": "Tôi đi siêu thị cùng với bạn."
+    },
+    {
+     "ja": "家族と大阪へ行きます。",
+     "kana": "かぞくとおおさかへいきます。",
+     "vi": "Tôi đi Osaka cùng với gia đình."
+    },
+    {
+     "ja": "友達とうちへ帰ります。",
+     "kana": "ともだちとうちへかえります。",
+     "vi": "Tôi về nhà cùng với bạn."
+    }
+   ],
+   "notes": "と (\"cùng với\") khác と (\"và\", bài 4). Nhìn từ đi SAU と: danh từ → \"và\"; động từ → \"cùng với\".",
+   "compareWith": [
+    "g04-03"
+   ],
+   "tags": [
+    "to",
+    "cung-voi"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g06-01",
+   "lessonNo": 6,
+   "level": "N5",
+   "orderInLesson": 1,
+   "title": "N を Vます",
+   "titleVi": "Tân ngữ を (làm gì với cái gì)",
+   "pattern": "N を Vます",
+   "meaningVi": "を đánh dấu tân ngữ — đối tượng chịu tác động của động từ.",
+   "explanation": "を (đọc là \"o\", không đọc \"wo\") đi sau danh từ chỉ vật/việc bị tác động. Ví dụ: ごはんを食べます (ăn cơm), 水を飲みます (uống nước), 手紙を書きます (viết thư). Đây là mẫu câu động từ cơ bản nhất trong tiếng Nhật.",
+   "formation": "N を Vます。",
+   "examples": [
+    {
+     "ja": "わたしはごはんを食べます。",
+     "kana": "わたしはごはんをたべます。",
+     "vi": "Tôi ăn cơm."
+    },
+    {
+     "ja": "毎朝パンを食べます。",
+     "kana": "まいあさぱんをたべます。",
+     "vi": "Tôi ăn bánh mì mỗi sáng."
+    },
+    {
+     "ja": "わたしは手紙を書きます。",
+     "kana": "わたしはてがみをかきます。",
+     "vi": "Tôi viết thư."
+    }
+   ],
+   "notes": "を đọc là \"o\". Người Việt hay đọc \"wo\" — sai. を KHÔNG dùng với động từ di chuyển (đi đâu dùng へ/に, bài 5).",
+   "compareWith": [
+    "g04-04"
+   ],
+   "tags": [
+    "wo",
+    "tan-ngu"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g06-02",
+   "lessonNo": 6,
+   "level": "N5",
+   "orderInLesson": 2,
+   "title": "N（địa điểm） で Vます",
+   "titleVi": "Làm V tại N (nơi diễn ra hành động)",
+   "pattern": "N（địa điểm） で Vます",
+   "meaningVi": "で đánh dấu NƠI DIỄN RA hành động.",
+   "explanation": "で chỉ địa điểm nơi hành động xảy ra. Ví dụ: レストランで食べます (ăn ở nhà hàng), 図書館で勉強します (học ở thư viện). Khác với に (đích đến, bài 5) và へ (phương hướng, bài 5): で trả lời câu hỏi \"làm Ở ĐÂU\", に/へ trả lời \"đi ĐẾN ĐÂU\".",
+   "formation": "N（địa điểm） で Vます。",
+   "examples": [
+    {
+     "ja": "わたしはレストランで昼ごはんを食べます。",
+     "kana": "わたしはれすとらんでひるごはんをたべます。",
+     "vi": "Tôi ăn trưa ở nhà hàng."
+    },
+    {
+     "ja": "図書館で本を読みます。",
+     "kana": "としょかんでほんをよみます。",
+     "vi": "Tôi đọc sách ở thư viện."
+    },
+    {
+     "ja": "うちで宿題をします。",
+     "kana": "うちでしゅくだいをします。",
+     "vi": "Tôi làm bài tập ở nhà."
+    }
+   ],
+   "notes": "Phân biệt: で (nơi LÀM gì) vs に/へ (nơi ĐI đến). \"Ăn ở nhà hàng\" = レストランで食べます vì hành động ăn xảy ra tại đó.",
+   "compareWith": [
+    "g05-02"
+   ],
+   "tags": [
+    "de",
+    "dia-diem"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g06-03",
+   "lessonNo": 6,
+   "level": "N5",
+   "orderInLesson": 3,
+   "title": "V ましょう",
+   "titleVi": "Chúng ta hãy V (rủ rê, đề xuất)",
+   "pattern": "V（bỏ ます） + ましょう",
+   "meaningVi": "Rủ rê, đề xuất cùng làm gì: \"Chúng ta hãy...\"",
+   "explanation": "Bỏ ます của động từ thể ます rồi thêm ましょう. Ví dụ: 食べます → 食べましょう (chúng ta hãy ăn), 行きます → 行きましょう (chúng ta hãy đi). Dùng khi người nói CŨNG tham gia hành động.",
+   "formation": "V（bỏ ます） + ましょう。",
+   "examples": [
+    {
+     "ja": "いっしょに昼ごはんを食べましょう。",
+     "kana": "いっしょにひるごはんをたべましょう。",
+     "vi": "Chúng ta hãy ăn trưa cùng nhau."
+    },
+    {
+     "ja": "あしたテニスをしましょう。",
+     "kana": "あしたてにすをしましょう。",
+     "vi": "Ngày mai chúng ta hãy chơi tennis."
+    },
+    {
+     "ja": "ちょっと休みましょう。",
+     "kana": "ちょっとやすみましょう。",
+     "vi": "Chúng ta hãy nghỉ một chút."
+    }
+   ],
+   "notes": "ましょう bao gồm cả người nói trong hành động. Muốn nhờ người khác làm (mình không làm) thì dùng てください (bài 14).",
+   "compareWith": [
+    "g06-04"
+   ],
+   "tags": [
+    "mashou",
+    "ru-re"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g06-04",
+   "lessonNo": 6,
+   "level": "N5",
+   "orderInLesson": 4,
+   "title": "V ましょうか",
+   "titleVi": "Để tôi V cho nhé? (đề nghị giúp đỡ)",
+   "pattern": "V（bỏ ます） + ましょうか",
+   "meaningVi": "Đề nghị giúp đỡ hoặc xác nhận ý kiến: \"Để tôi... cho nhé?\"",
+   "explanation": "ましょうか có 2 cách dùng: (1) Đề nghị làm gì CHO người nghe: 写真を撮りましょうか (Để tôi chụp ảnh cho nhé?); (2) Xác nhận đề xuất chung: いっしょに飲みましょうか (Chúng ta uống cùng nhau nhé?). Ngữ cảnh quyết định nghĩa nào.",
+   "formation": "V（bỏ ます） + ましょうか。",
+   "examples": [
+    {
+     "ja": "写真を撮りましょうか。",
+     "kana": "しゃしんをとりましょうか。",
+     "vi": "Để tôi chụp ảnh cho nhé?"
+    },
+    {
+     "ja": "いっしょにコーヒーを飲みましょうか。",
+     "kana": "いっしょにこーひーをのみましょうか。",
+     "vi": "Chúng ta uống cà phê cùng nhau nhé?"
+    }
+   ],
+   "notes": "ましょう (rủ rê) vs ましょうか (đề nghị/xác nhận). Thêm か là thêm sắc thái hỏi ý kiến người nghe.",
+   "compareWith": [
+    "g06-03"
+   ],
+   "tags": [
+    "mashouka",
+    "de-nghi"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g07-01",
+   "lessonNo": 7,
+   "level": "N5",
+   "orderInLesson": 1,
+   "title": "N（phương tiện） で Vます",
+   "titleVi": "Làm V bằng N (phương tiện / công cụ)",
+   "pattern": "N（phương tiện/công cụ） で Vます",
+   "meaningVi": "で đánh dấu phương tiện, công cụ, nguyên liệu dùng để thực hiện hành động: \"bằng...\".",
+   "explanation": "で có nhiều nghĩa; ở bài 7 là \"bằng, bằng cách dùng\". Ví dụ: はしで食べます (ăn bằng đũa), 電車で学校へ行きます (đi đến trường bằng tàu điện), ケータイで写真を撮ります (chụp ảnh bằng điện thoại).",
+   "formation": "N（phương tiện/công cụ） で Vます。",
+   "examples": [
+    {
+     "ja": "わたしははしでごはんを食べます。",
+     "kana": "わたしははしでごはんをたべます。",
+     "vi": "Tôi ăn cơm bằng đũa."
+    },
+    {
+     "ja": "バスで学校へ行きます。",
+     "kana": "ばすでがっこうへいきます。",
+     "vi": "Tôi đi đến trường bằng xe buýt."
+    },
+    {
+     "ja": "ケータイで写真を撮ります。",
+     "kana": "けーたいでしゃしんをとります。",
+     "vi": "Tôi chụp ảnh bằng điện thoại."
+    }
+   ],
+   "notes": "で này (\"bằng\") khác で (\"tại nơi chốn\", bài 6). Phân biệt: はしで食べます (ăn BẰNG đũa) vs レストランで食べます (ăn TẠI nhà hàng).",
+   "compareWith": [
+    "g06-02"
+   ],
+   "tags": [
+    "de",
+    "phuong-tien"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g07-02",
+   "lessonNo": 7,
+   "level": "N5",
+   "orderInLesson": 2,
+   "title": "V（bỏ ます） に 行きます",
+   "titleVi": "Đi để V (chỉ mục đích di chuyển)",
+   "pattern": "V（bỏ ます） + に 行きます／来ます／帰ります",
+   "meaningVi": "Diễn tả mục đích của việc di chuyển: \"đi để làm gì\".",
+   "explanation": "Bỏ ます của động từ, thêm に rồi đến động từ di chuyển. Ví dụ: 食べに行きます (đi để ăn), 買いに行きます (đi để mua). Chú ý: động từ chỉ mục đích để ở dạng bỏ-ます, KHÔNG có ます.",
+   "formation": "V（bỏ ます） + に + 行きます／来ます／帰ります。",
+   "examples": [
+    {
+     "ja": "レストランへ食べに行きます。",
+     "kana": "れすとらんへたべにいきます。",
+     "vi": "Tôi đi nhà hàng để ăn."
+    },
+    {
+     "ja": "デパートへ買いにいきます。",
+     "kana": "でぱーとへかいにいきます。",
+     "vi": "Tôi đi bách hóa để mua sắm."
+    },
+    {
+     "ja": "友達に会いにいきます。",
+     "kana": "ともだちにあいにいきます。",
+     "vi": "Tôi đi gặp bạn."
+    }
+   ],
+   "notes": "Động từ chỉ mục đích để ở dạng bỏ-ます (食べに, không phải 食べますに). Người Việt hay giữ nguyên ます — sai.",
+   "compareWith": [],
+   "tags": [
+    "muc-dich",
+    "ni-iku"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g07-03",
+   "lessonNo": 7,
+   "level": "N5",
+   "orderInLesson": 3,
+   "title": "N をください",
+   "titleVi": "Cho tôi N (khi mua hàng, gọi món)",
+   "pattern": "N をください",
+   "meaningVi": "Dùng khi mua hàng, gọi món, xin ai đó đưa cho mình vật gì.",
+   "explanation": "ください xuất phát từ động từ くださいます (ban cho, tặng). Mẫu N をください rất thực dụng trong đời sống: gọi món ăn, mua vé, xin tài liệu. Ví dụ: コーヒーをください (Cho tôi cà phê). Đây là tiền đề cho mẫu V-てください (bài 14).",
+   "formation": "N を ください。",
+   "examples": [
+    {
+     "ja": "コーヒーをください。",
+     "kana": "こーひーをください。",
+     "vi": "Cho tôi cà phê."
+    },
+    {
+     "ja": "切符をください。",
+     "kana": "きっぷをください。",
+     "vi": "Cho tôi vé."
+    },
+    {
+     "ja": "このシャツをください。",
+     "kana": "このしゃつをください。",
+     "vi": "Cho tôi cái áo sơ mi này."
+    }
+   ],
+   "notes": "ください đứng một mình, không có ます đi kèm. Đừng nhầm với くださいます (dạng đầy đủ, ít dùng trong mẫu này).",
+   "compareWith": [],
+   "tags": [
+    "kudasai",
+    "mua-hang"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g08-01",
+   "lessonNo": 8,
+   "level": "N5",
+   "orderInLesson": 1,
+   "title": "Adj-い／な + です",
+   "titleVi": "Tính từ trong câu khẳng định",
+   "pattern": "Adj-い（giữ い）です ／ Adj-な（bỏ な）です",
+   "meaningVi": "Miêu tả tính chất của sự vật: \"N thì (tính từ)\".",
+   "explanation": "Tính từ đuôi い: giữ nguyên い rồi + です (大きいです: to). Tính từ đuôi な: BỎ な rồi + です (きれいです: đẹp — không nói きれいなです). Bẫy kinh điển: きれい・有名・親切 tuy kết thúc bằng い nhưng là tính từ đuôi な!",
+   "formation": "Adj-い（giữ い）+ です ／ Adj-な（bỏ な）+ です。",
+   "examples": [
+    {
+     "ja": "この桜はきれいです。",
+     "kana": "このさくらはきれいです。",
+     "vi": "Hoa anh đào này đẹp."
+    },
+    {
+     "ja": "富士山は高いです。",
+     "kana": "ふじさんはたかいです。",
+     "vi": "Núi Phú Sĩ cao."
+    },
+    {
+     "ja": "日本の食べ物はおいしいです。",
+     "kana": "にほんのたべものはおいしいです。",
+     "vi": "Đồ ăn Nhật ngon."
+    }
+   ],
+   "notes": "きれい・有名・親切 là tính từ đuôi な dù tận cùng là い. Người Việt hay viết きれいなです — sai.",
+   "compareWith": [
+    "g08-03"
+   ],
+   "tags": [
+    "tinh-tu",
+    "i-na"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g08-02",
+   "lessonNo": 8,
+   "level": "N5",
+   "orderInLesson": 2,
+   "title": "N が Adj（cảm xúc／năng lực）です",
+   "titleVi": "N が + tính từ cảm xúc (thích, giỏi...)",
+   "pattern": "（私は） N が 好き／きらい／上手／下手 です",
+   "meaningVi": "Với tính từ chỉ cảm xúc, năng lực, đối tượng được yêu/ghét/giỏi đi với が.",
+   "explanation": "Thông thường chủ ngữ đi với は, nhưng với tính từ như 好き (thích), きらい (ghét), 上手 (giỏi), 下手 (kém), đối tượng của cảm xúc đi với が. Ví dụ: わたしは魚が好きです (Tôi thích cá) — わたしは là chủ đề, 魚が là đối tượng được thích.",
+   "formation": "（私は） N が すき／きらい／じょうず／へた です。",
+   "examples": [
+    {
+     "ja": "わたしは魚が好きです。",
+     "kana": "わたしはさかながすきです。",
+     "vi": "Tôi thích cá."
+    },
+    {
+     "ja": "ミラーさんは日本語が上手です。",
+     "kana": "みらーさんはにほんごがじょうずです。",
+     "vi": "Anh Miller giỏi tiếng Nhật."
+    },
+    {
+     "ja": "わたしは歌が下手です。",
+     "kana": "わたしはうたがへたです。",
+     "vi": "Tôi hát dở."
+    }
+   ],
+   "notes": "が ở đây đánh dấu đối tượng của cảm xúc, KHÔNG phải chủ ngữ hành động. Đừng nhầm với は. Mẫu này là tiền đề cho N が わかります (bài 9).",
+   "compareWith": [
+    "g09-01"
+   ],
+   "tags": [
+    "ga",
+    "cam-xuc"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g08-03",
+   "lessonNo": 8,
+   "level": "N5",
+   "orderInLesson": 3,
+   "title": "Phủ định tính từ",
+   "titleVi": "Tính từ ở thể phủ định (くないです / じゃありません)",
+   "pattern": "Adj-い（bỏ い）+ くないです ／ Adj-な + じゃありません",
+   "meaningVi": "\"Không (tính từ)\" — phủ định tính chất của sự vật.",
+   "explanation": "Tính từ đuôi い: bỏ い cuối, thêm くないです (大きい → 大きくないです: không to). Tính từ đuôi な: giữ nguyên + じゃありません (きれいじゃありません: không đẹp). Ngoại lệ duy nhất: いい → よくないです (không nói いくないです).",
+   "formation": "Adj-い（bỏ い）+ くないです ／ Adj-な + じゃありません。Riêng いい → よくないです。",
+   "examples": [
+    {
+     "ja": "この店は大きくないです。",
+     "kana": "このみせはおおきくないです。",
+     "vi": "Cửa hàng này không to."
+    },
+    {
+     "ja": "今日の試験は難しくないです。",
+     "kana": "きょうのしけんはむずかしくないです。",
+     "vi": "Bài kiểm tra hôm nay không khó."
+    },
+    {
+     "ja": "この部屋は静かじゃありません。",
+     "kana": "このへやはしずかじゃありません。",
+     "vi": "Căn phòng này không yên tĩnh."
+    },
+    {
+     "ja": "この映画はよくないです。",
+     "kana": "このえいがはよくないです。",
+     "vi": "Bộ phim này không hay."
+    }
+   ],
+   "notes": "いい → よくないです là bất quy tắc DUY NHẤT ở đây. Người Việt hay nói いくないです — sai.",
+   "compareWith": [
+    "g08-01"
+   ],
+   "tags": [
+    "tinh-tu",
+    "phu-dinh"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g09-01",
+   "lessonNo": 9,
+   "level": "N5",
+   "orderInLesson": 1,
+   "title": "N が わかります・できます",
+   "titleVi": "Hiểu N / Làm được N (が bắt buộc)",
+   "pattern": "N が わかります／できます",
+   "meaningVi": "\"Hiểu N\" / \"Làm được N\" — đối tượng của hiểu/biết đi với が.",
+   "explanation": "わかります (hiểu) và できます (có thể làm) là động từ đặc biệt: đối tượng đi với が chứ KHÔNG phải を. Ví dụ: 日本語がわかります (hiểu tiếng Nhật), テニスができます (chơi được tennis). Đây là mẫu quan trọng, là tiền đề cho thể khả năng (bài 27).",
+   "formation": "N が わかります／できます。",
+   "examples": [
+    {
+     "ja": "わたしは日本語がわかります。",
+     "kana": "わたしはにほんごがわかります。",
+     "vi": "Tôi hiểu tiếng Nhật."
+    },
+    {
+     "ja": "ミラーさんは漢字ができます。",
+     "kana": "みらーさんはかんじができます。",
+     "vi": "Anh Miller đọc/viết được chữ Hán."
+    },
+    {
+     "ja": "わたしはテニスができません。",
+     "kana": "わたしはてにすができません。",
+     "vi": "Tôi không chơi được tennis."
+    }
+   ],
+   "notes": "KHÔNG nói 日本語をわかります — sai. が là bắt buộc với わかります/できます. Liên hệ với mẫu N が + tính từ cảm xúc (bài 8): cùng logic \"đối tượng đi với が\".",
+   "compareWith": [
+    "g08-02"
+   ],
+   "tags": [
+    "ga",
+    "wakarimasu"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g09-02",
+   "lessonNo": 9,
+   "level": "N5",
+   "orderInLesson": 2,
+   "title": "N1 より Adjです",
+   "titleVi": "Hơn N1 (so sánh hơn với より)",
+   "pattern": "N1 より（ずっと／少し） Adjです",
+   "meaningVi": "\"Hơn N1\" — so sánh, N1 là mốc bị vượt qua.",
+   "explanation": "より đánh dấu mốc so sánh, đứng sau danh từ bị đem ra so. Ví dụ: 今日は昨日より暑いです (Hôm nay nóng hơn hôm qua). Có thể thêm ずっと (hơn nhiều) hoặc 少し (hơn một chút) trước tính từ để nhấn mạnh mức độ.",
+   "formation": "N1 より（ずっと／少し） Adjです。",
+   "examples": [
+    {
+     "ja": "今日は昨日より暑いです。",
+     "kana": "きょうはきのうよりあついです。",
+     "vi": "Hôm nay nóng hơn hôm qua."
+    },
+    {
+     "ja": "日本語は英語より難しいです。",
+     "kana": "にほんごはえいごよりむずかしいです。",
+     "vi": "Tiếng Nhật khó hơn tiếng Anh."
+    },
+    {
+     "ja": "このかばんはあのかばんより大きいです。",
+     "kana": "このかばんはあのかばんよりおおきいです。",
+     "vi": "Cái cặp này to hơn cái cặp kia."
+    }
+   ],
+   "notes": "より = \"hơn (mốc)\". Đừng nhầm với から (\"từ\"). Mốc so sánh luôn đứng TRƯỚC より.",
+   "compareWith": [
+    "g09-03"
+   ],
+   "tags": [
+    "yori",
+    "so-sanh"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g09-03",
+   "lessonNo": 9,
+   "level": "N5",
+   "orderInLesson": 3,
+   "title": "N1 のほうが Adjです",
+   "titleVi": "Phía N1 thì hơn (so sánh hai đối tượng)",
+   "pattern": "N1 と N2 では、N1 のほうが Adjです",
+   "meaningVi": "Khi so sánh 2 đối tượng, chỉ ra phía nào hơn: \"Xét A và B thì A hơn\".",
+   "explanation": "Cấu trúc đầy đủ: N1とN2では、N1のほうがAdjです. のほうが = \"phía N1 thì\". Thường dùng kết hợp với より: 日本語より英語のほうがやさしいです (So với tiếng Nhật thì tiếng Anh dễ hơn).",
+   "formation": "N1 と N2 では、N1 のほうが Adjです。",
+   "examples": [
+    {
+     "ja": "日本語と英語では、英語のほうがやさしいです。",
+     "kana": "にほんごとえいごでは、えいごのほうがやさしいです。",
+     "vi": "Giữa tiếng Nhật và tiếng Anh thì tiếng Anh dễ hơn."
+    },
+    {
+     "ja": "今日と昨日では、今日のほうが暑いです。",
+     "kana": "きょうときのうでは、きょうのほうがあついです。",
+     "vi": "Giữa hôm nay và hôm qua thì hôm nay nóng hơn."
+    },
+    {
+     "ja": "バスと電車では、電車のほうが速いです。",
+     "kana": "ばすとでんしゃでは、でんしゃのほうがはやいです。",
+     "vi": "Giữa xe buýt và tàu điện thì tàu điện nhanh hơn."
+    }
+   ],
+   "notes": "のほうが luôn cần ngữ cảnh so sánh 2 đối tượng (N1とN2では). Đứng một mình のほうが không đủ nghĩa.",
+   "compareWith": [
+    "g09-02"
+   ],
+   "tags": [
+    "nohouga",
+    "so-sanh"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g10-01",
+   "lessonNo": 10,
+   "level": "N5",
+   "orderInLesson": 1,
+   "title": "N が います・あります",
+   "titleVi": "Có N (phân biệt います / あります)",
+   "pattern": "N（người／động vật） が います ／ N（đồ vật） が あります",
+   "meaningVi": "\"Có...\" — diễn tả sự tồn tại của người, vật.",
+   "explanation": "います dùng cho NGƯỜI và ĐỘNG VẬT (vật có sự sống), あります dùng cho ĐỒ VẬT (vật vô tri). Ví dụ: 犬がいます (có con chó), 机があります (có cái bàn). Đây là phân biệt quan trọng nhất của bài 10 — chọn sai là sai hoàn toàn.",
+   "formation": "N（người／động vật） が います ／ N（đồ vật） が あります。",
+   "examples": [
+    {
+     "ja": "公園に犬がいます。",
+     "kana": "こうえんにいぬがいます。",
+     "vi": "Ở công viên có con chó."
+    },
+    {
+     "ja": "部屋に机があります。",
+     "kana": "へやにつくえがあります。",
+     "vi": "Trong phòng có cái bàn."
+    },
+    {
+     "ja": "教室に学生がいます。",
+     "kana": "きょうしつにがくせいがいます。",
+     "vi": "Trong lớp học có học sinh."
+    }
+   ],
+   "notes": "いる = có sự sống (người, chó, mèo); ある = vật vô tri (bàn, sách, nhà). Nói 犬があります là sai hoàn toàn.",
+   "compareWith": [
+    "g10-02"
+   ],
+   "tags": [
+    "imasu-arimasu",
+    "ton-tai"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g10-02",
+   "lessonNo": 10,
+   "level": "N5",
+   "orderInLesson": 2,
+   "title": "Place に N が います・あります",
+   "titleVi": "Ở (nơi chốn) có N",
+   "pattern": "N（nơi chốn） に N が います／あります",
+   "meaningVi": "\"Ở [nơi] có [vật/người]\" — に đánh dấu nơi tồn tại.",
+   "explanation": "に ở đây chỉ NƠI TỒN TẠI — khác に chỉ thời điểm (bài 4) và に chỉ đích đến (bài 5). Thứ tự: nơi chốn + に, rồi đến N + が + います/あります. Ví dụ: 机の上に本があります (Trên bàn có quyển sách).",
+   "formation": "N（nơi chốn） に N が います／あります。",
+   "examples": [
+    {
+     "ja": "机の上に本があります。",
+     "kana": "つくえのうえにほんがあります。",
+     "vi": "Trên bàn có quyển sách."
+    },
+    {
+     "ja": "公園に木があります。",
+     "kana": "こうえんにきがあります。",
+     "vi": "Ở công viên có cây."
+    },
+    {
+     "ja": "駅の近くにコンビニがあります。",
+     "kana": "えきのちかくにこんびにがあります。",
+     "vi": "Gần nhà ga có cửa hàng tiện lợi."
+    }
+   ],
+   "notes": "に (nơi tồn tại) + いる/ある là cặp bài trùng. Đừng nhầm với で (nơi diễn ra HÀNH ĐỘNG, bài 6): \"học ở thư viện\" = 図書館で勉強します (hành động) nhưng \"ở thư viện có sách\" = 図書館に本があります (tồn tại).",
+   "compareWith": [
+    "g06-02",
+    "g10-01"
+   ],
+   "tags": [
+    "ni",
+    "ton-tai"
+   ],
+   "active": true
+  },
+  {
+   "_id": "g10-03",
+   "lessonNo": 10,
+   "level": "N5",
+   "orderInLesson": 3,
+   "title": "N は Place に あります",
+   "titleVi": "N thì ở (nơi chốn) — hỏi và đáp vị trí",
+   "pattern": "N は Place に あります ／ N は どこに ありますか",
+   "meaningVi": "Nói vị trí cụ thể của một đồ vật đã xác định: \"N ở đâu\".",
+   "explanation": "Khi muốn hỏi/nói VỊ TRÍ của vật đã xác định, đưa N lên làm chủ đề với は. Hỏi: 本はどこにありますか (Quyển sách ở đâu?) — Đáp: 机の上にあります (Ở trên bàn). Chú ý どこに (ở đâu) luôn đi với に.",
+   "formation": "N は Place に あります。／ N は どこに ありますか。",
+   "examples": [
+    {
+     "ja": "本はどこにありますか。",
+     "kana": "ほんはどこにありますか。",
+     "vi": "Quyển sách ở đâu?"
+    },
+    {
+     "ja": "机の上にあります。",
+     "kana": "つくえのうえにあります。",
+     "vi": "Ở trên bàn."
+    },
+    {
+     "ja": "トイレはどこにありますか。",
+     "kana": "といれはどこにありますか。",
+     "vi": "Nhà vệ sinh ở đâu?"
+    },
+    {
+     "ja": "あそこにあります。",
+     "kana": "あそこにあります。",
+     "vi": "Ở đằng kia."
+    },
+    {
+     "ja": "駅はどこにありますか。",
+     "kana": "えきはどこにありますか。",
+     "vi": "Nhà ga ở đâu?"
+    },
+    {
+     "ja": "デパートの近くにあります。",
+     "kana": "でぱーとのちかくにあります。",
+     "vi": "Ở gần bách hóa."
+    }
+   ],
+   "notes": "Mẫu này dùng は (chủ đề đã biết) + に (nơi tồn tại). Khác điểm g10-02 ở chỗ N đã xác định nên được đưa lên đầu câu làm chủ đề.",
+   "compareWith": [
+    "g10-02"
+   ],
+   "tags": [
+    "ni",
+    "vi-tri",
+    "doko"
+   ],
+   "active": true
+  }
+ ]
+}
