@@ -421,3 +421,8 @@
 .grammar-modal .grammar-card { box-shadow: none; padding: 0; }
 .grammar-modal-close { position: sticky; top: 0; float: right; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--muted); padding: 4px 8px; }
 /* ===== /Ngữ pháp ===== */
+
+/* ===== ErrorBoundary ===== */
+.error-boundary-page { max-width: 640px; margin: 48px auto; text-align: center; }
+.error-boundary-page .error-details { text-align: left; margin: 16px auto; max-width: 520px; }
+.error-boundary-page .error-details pre { white-space: pre-wrap; word-break: break-word; background: #f6f6f6; padding: 10px; border-radius: 6px; font-size: 0.85rem; }
