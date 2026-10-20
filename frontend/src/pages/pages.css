@@ -382,3 +382,42 @@
 .kquiz-note { font-size: 0.88rem; }
 .kquiz-result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
 /* ===== /R3 ===== */
+
+/* ===== Ngữ pháp (grammar) ===== */
+.grammar-page { padding-bottom: 8px; }
+.grammar-list { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.grammar-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px; }
+.grammar-card.open { border: 1px solid var(--primary); }
+.grammar-card-head { display: flex; align-items: center; gap: 10px; width: 100%; padding: 0; background: none; border: none; cursor: pointer; text-align: left; }
+.grammar-card-chevron { color: var(--primary); font-weight: 700; width: 18px; flex-shrink: 0; }
+.grammar-card-main { flex: 1; min-width: 0; }
+.grammar-title { font-size: 1.15rem; font-weight: 700; }
+.grammar-title-vi { color: var(--muted); font-size: 0.98rem; }
+.grammar-lesson-badge { font-size: 0.78rem; font-weight: 700; color: var(--primary); background: #eef2ff; border-radius: 6px; padding: 2px 8px; white-space: nowrap; }
+.grammar-detail-link { font-size: 0.85rem; color: var(--primary); font-weight: 600; white-space: nowrap; }
+.grammar-summary { margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+.grammar-pattern { display: inline-block; align-self: flex-start; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 6px; padding: 4px 10px; font-family: monospace; font-size: 0.95rem; color: var(--text); }
+.grammar-meaning { font-size: 0.95rem; color: #374151; }
+.grammar-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.grammar-tag { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; }
+.grammar-detail { margin-top: 12px; border-top: 1px solid #eef1f6; padding-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+.grammar-label { font-weight: 700; font-size: 0.9rem; display: block; margin-bottom: 6px; }
+.grammar-explanation { margin: 0; font-size: 0.95rem; line-height: 1.6; }
+.grammar-formation .grammar-pattern { margin-top: 6px; }
+.grammar-examples ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.grammar-example { background: #f9fafb; border-radius: 8px; padding: 8px 12px; }
+.grammar-example-ja { font-size: 1.02rem; }
+.grammar-example-kana { margin-left: 8px; color: var(--muted); font-size: 0.88rem; }
+.grammar-example-vi { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
+.grammar-notes { display: flex; gap: 8px; align-items: flex-start; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 10px 12px; font-size: 0.92rem; color: #92400e; }
+.grammar-notes-icon { flex-shrink: 0; }
+.grammar-compare .grammar-label { margin-bottom: 8px; }
+.grammar-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.grammar-chip { font-size: 0.85rem; border: 1px dashed var(--border); border-radius: 999px; padding: 4px 12px; color: var(--muted); background: #fff; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.grammar-chip-btn { cursor: pointer; color: var(--primary); border-style: solid; border-color: #bfdbfe; background: #eff6ff; }
+.grammar-chip-btn:hover { background: #dbeafe; }
+/* Modal xem điểm ngữ pháp liên quan — dùng lại pattern modal-backdrop/modal (index.css) */
+.grammar-modal { max-width: 680px; max-height: 85vh; overflow-y: auto; position: relative; }
+.grammar-modal .grammar-card { box-shadow: none; padding: 0; }
+.grammar-modal-close { position: sticky; top: 0; float: right; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--muted); padding: 4px 8px; }
+/* ===== /Ngữ pháp ===== */

@@ -1,0 +1,1393 @@
+{
+ "version": 1,
+ "level": "N4",
+ "lessonRange": [
+  26,
+  38
+ ],
+ "grammar": [
+  {
+   "_id": "g26-01",
+   "active": true,
+   "compareWith": [
+    "g26-03"
+   ],
+   "examples": [
+    {
+     "ja": "バスに 間に合えますか。",
+     "kana": "ばすに まにあえますか。",
+     "vi": "Anh có kịp xe buýt không?"
+    },
+    {
+     "ja": "この 辞書が あれば、漢字が 読めます。",
+     "kana": "この じしょが あれば、かんじが よめます。",
+     "vi": "Có cuốn từ điển này thì đọc được chữ Hán."
+    },
+    {
+     "ja": "わたしは 泳げません。",
+     "kana": "わたしは およげません。",
+     "vi": "Tôi không biết bơi."
+    }
+   ],
+   "explanation": "Thể khả năng diễn tả việc ai đó có năng lực làm gì. Nhóm 1: chuyển âm cuối sang hàng え rồi thêm る (書きます→書けます, 話します→話せます). Nhóm 2: bỏ ます thêm られます (見ます→見られます, 食べます→食べられます). Nhóm 3: 来ます→来られます, します→できます. Dạng phủ định: V-可能ない (話せません). Có thể thay bằng V-ることができます nhưng thể khả năng ngắn gọn, tự nhiên hơn trong hội thoại.",
+   "formation": "Nhóm 1: え段 + る (かく→かける). Nhóm 2: ます→られる (たべる→たべられる). Nhóm 3: くる→こられる, する→できる.",
+   "lessonNo": 26,
+   "level": "N4",
+   "meaningVi": "Diễn tả khả năng \"có thể làm...\" của chủ ngữ.",
+   "notes": "Người Việt hay nhầm thể khả năng nhóm 1 (話せる) với thể bị động (話される) — khả năng KHÔNG có さ. Ngoài ra できます vừa là thể khả năng của します, vừa có nghĩa \"hoàn thành\".",
+   "orderInLesson": 1,
+   "pattern": "V-可能形",
+   "tags": [
+    "the-kha-nang",
+    "dong-tu"
+   ],
+   "title": "V khả năng (可能形)",
+   "titleVi": "Thể khả năng — có thể làm..."
+  },
+  {
+   "_id": "g26-02",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "さいふに 100円しか ありません。",
+     "kana": "さいふに ひゃくえんしか ありません。",
+     "vi": "Trong ví chỉ có 100 yên."
+    },
+    {
+     "ja": "バスが 1台しか ありません。",
+     "kana": "ばすが いちだいしか ありません。",
+     "vi": "Chỉ có một chiếc xe buýt."
+    },
+    {
+     "ja": "日本語が 少ししか 話せません。",
+     "kana": "にほんごが すこししか はなせません。",
+     "vi": "Tôi chỉ nói được một chút tiếng Nhật."
+    }
+   ],
+   "explanation": "しか nhấn mạnh sự giới hạn với sắc thái tiêu cực (ít quá, thiếu quá). BẮT BUỘC đi với phủ định (ません/ない). Khác với だけ (trung tính, dùng được với khẳng định): ビールしか 飲みません (chỉ uống bia thôi — chê ít) vs ビールだけ 飲みます (chỉ uống bia — trung tính).",
+   "formation": "N しか V-ません / V-ない.",
+   "lessonNo": 26,
+   "level": "N4",
+   "meaningVi": "\"Chỉ...\" với sắc thái ít ỏi, không đủ, đáng tiếc.",
+   "notes": "しか KHÔNG bao giờ đi với câu khẳng định — đây là lỗi kinh điển. Muốn nói trung tính thì dùng だけ.",
+   "orderInLesson": 2,
+   "pattern": "N しか + V-ない",
+   "tags": [
+    "shika",
+    "gioi-han"
+   ],
+   "title": "N しか V-ません",
+   "titleVi": "Chỉ có... (giới hạn, sắc thái thiếu thốn)"
+  },
+  {
+   "_id": "g26-03",
+   "active": true,
+   "compareWith": [
+    "g26-01"
+   ],
+   "examples": [
+    {
+     "ja": "ここから 富士山が 見えます。",
+     "kana": "ここから ふじさんが みえます。",
+     "vi": "Từ đây nhìn thấy núi Phú Sĩ."
+    },
+    {
+     "ja": "ピアノの 音が 聞こえます。",
+     "kana": "ぴあのの おとが きこえます。",
+     "vi": "Nghe thấy tiếng đàn piano."
+    },
+    {
+     "ja": "目が 悪いですから、よく 見えません。",
+     "kana": "めが わるいですから、よく みえません。",
+     "vi": "Vì mắt kém nên nhìn không rõ."
+    }
+   ],
+   "explanation": "見ます (nhìn) và 聞きます (nghe) là hành động chủ động, còn 見えます/聞こえます diễn tả khả năng cảm nhận tự nhiên (tự dưng thấy/nghe). Cả hai đều là tự động từ nhóm 2, chủ ngữ (vật được thấy/nghe) đi với が, KHÔNG dùng を. Ví dụ: テレビを見ます (chủ động xem TV) vs 山が見えます (tự nhiên nhìn thấy núi).",
+   "formation": "N が 見えます / 聞こえます. (Không có dạng を.)",
+   "lessonNo": 26,
+   "level": "N4",
+   "meaningVi": "Diễn tả việc \"nhìn thấy / nghe thấy được\" một cách tự nhiên, không chủ ý.",
+   "notes": "Lỗi thường gặp: dùng を với 見えます (×テレビが見えます → phải là が). Đừng nhầm với thể khả năng 見られます (có thể xem — chủ động).",
+   "orderInLesson": 3,
+   "pattern": "N が 見えます / N が 聞こえます",
+   "tags": [
+    "mieru",
+    "kikoeru",
+    "tu-dong-tu"
+   ],
+   "title": "見えます・聞こえます",
+   "titleVi": "Nhìn thấy được / nghe thấy được (tự nhiên)"
+  },
+  {
+   "_id": "g27-01",
+   "active": true,
+   "compareWith": [
+    "g27-02"
+   ],
+   "examples": [
+    {
+     "ja": "あしたは 雨が 降るかもしれません。",
+     "kana": "あしたは あめが ふるかもしれません。",
+     "vi": "Mai biết đâu lại mưa."
+    },
+    {
+     "ja": "彼は もう 寝たかもしれません。",
+     "kana": "かれは もう ねたかもしれません。",
+     "vi": "Biết đâu anh ấy đã ngủ rồi."
+    },
+    {
+     "ja": "この まんがは おもしろいかもしれません。",
+     "kana": "この まんがは おもしろいかもしれません。",
+     "vi": "Cuốn truyện tranh này biết đâu lại hay."
+    }
+   ],
+   "explanation": "かもしれません diễn tả phỏng đoán thiếu căn cứ chắc chắn, sắc thái \"biết đâu, có thể\". Đứng sau thể thường (Vる/Vない/Vた, Aい, Aな, N). Không dùng cho việc đã chắc chắn. Khi muốn phủ định thì không nói かもしれませんません mà diễn đạt lại (たぶん〜ないでしょう).",
+   "formation": "Thể thường + かもしれません. (N/Aな không thêm だ.)",
+   "lessonNo": 27,
+   "level": "N4",
+   "meaningVi": "Phỏng đoán với độ chắc chắn thấp (khoảng 50%).",
+   "notes": "かもしれません (không chắc) < でしょう (tương đối chắc) < はずです (rất chắc, có căn cứ). Xếp đúng thang độ chắc chắn này là chìa khóa.",
+   "orderInLesson": 1,
+   "pattern": "V(thường)・Aい・Aな・N + かもしれません",
+   "tags": [
+    "kamoshiremasen",
+    "phong-doan"
+   ],
+   "title": "〜かもしれません",
+   "titleVi": "Có lẽ..., biết đâu... (phỏng đoán thiếu chắc chắn)"
+  },
+  {
+   "_id": "g27-02",
+   "active": true,
+   "compareWith": [
+    "g27-01",
+    "g27-03"
+   ],
+   "examples": [
+    {
+     "ja": "あしたは 晴れるでしょう。",
+     "kana": "あしたは はれるでしょう。",
+     "vi": "Mai chắc là nắng."
+    },
+    {
+     "ja": "彼は 来ないでしょう。",
+     "kana": "かれは こないでしょう。",
+     "vi": "Chắc là anh ấy không đến đâu."
+    },
+    {
+     "ja": "この ケーキは おいしいでしょう。",
+     "kana": "この けーきは おいしいでしょう。",
+     "vi": "Cái bánh này chắc là ngon."
+    }
+   ],
+   "explanation": "でしょう diễn tả phỏng đoán tương đối chắc chắn, hay dùng trong dự báo thời tiết, nhận định. Dạng câu hỏi 〜でしょうか là cách hỏi lịch sự (いかがでしょうか). Văn nói thân mật dùng だろう.",
+   "formation": "Thể thường + でしょう.",
+   "lessonNo": 27,
+   "level": "N4",
+   "meaningVi": "Phỏng đoán với độ chắc chắn cao hơn かもしれません.",
+   "notes": "でしょう là cách nói lịch sự của だろう. Không dùng でしょう cho sự việc mình đã tận mắt chứng kiến trong quá khứ.",
+   "orderInLesson": 2,
+   "pattern": "V(thường)・Aい・Aな・N + でしょう",
+   "tags": [
+    "deshou",
+    "phong-doan"
+   ],
+   "title": "〜でしょう",
+   "titleVi": "Chắc là... (phỏng đoán)"
+  },
+  {
+   "_id": "g27-03",
+   "active": true,
+   "compareWith": [
+    "g27-02"
+   ],
+   "examples": [
+    {
+     "ja": "彼は 毎日 運動しますから、元気なはずです。",
+     "kana": "かれは まいにち うんどうしますから、げんきなはずです。",
+     "vi": "Vì anh ấy tập thể dục mỗi ngày nên hẳn là khỏe mạnh."
+    },
+    {
+     "ja": "田中さんは けさ 出かけましたから、うちに いないはずです。",
+     "kana": "たなかさんは けさ でかけましたから、うちに いないはずです。",
+     "vi": "Vì anh Tanaka đã ra ngoài sáng nay nên hẳn là không có ở nhà."
+    },
+    {
+     "ja": "かれは 約束を 守るはずです。",
+     "kana": "かれは やくそくを まもるはずです。",
+     "vi": "Hẳn là anh ấy sẽ giữ lời hứa."
+    }
+   ],
+   "explanation": "はずです khác でしょう ở chỗ: はず dựa trên lý lẽ, căn cứ rõ ràng (vì A nên hẳn là B), còn でしょう偏 về cảm tính. Ngoài ra はず còn diễn tả kỳ vọng: 彼は 来るはずです (đáng lẽ anh ấy phải đến — nhưng thực tế có thể không). Dạng phủ định: はずがありません (không thể nào).",
+   "formation": "Thể thường + はずです. (N/Aな thêm の: 学生のはずです.)",
+   "lessonNo": 27,
+   "level": "N4",
+   "meaningVi": "Phán đoán chắc chắn dựa trên căn cứ/logic, hoặc diễn tả kỳ vọng \"đáng lẽ phải...\".",
+   "notes": "Nhớ thêm の sau N/Aな (×元気はず → ○元気なはず). はずです (kỳ vọng logic) đừng nhầm với べきです (nên làm — nghĩa vụ, học ở N3).",
+   "orderInLesson": 3,
+   "pattern": "V(thường)・Aい・Aな・Nの + はずです",
+   "tags": [
+    "hazu",
+    "phong-doan"
+   ],
+   "title": "〜はずです",
+   "titleVi": "Hẳn là..., đáng lẽ phải... (kỳ vọng có căn cứ)"
+  },
+  {
+   "_id": "g28-01",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "音楽を 聞きながら 勉強します。",
+     "kana": "おんがくを ききながら べんきょうします。",
+     "vi": "Tôi vừa nghe nhạc vừa học."
+    },
+    {
+     "ja": "テレビを 見ながら ご飯を 食べます。",
+     "kana": "てれびを みながら ごはんを たべます。",
+     "vi": "Vừa xem TV vừa ăn cơm."
+    },
+    {
+     "ja": "歩きながら 話しましょう。",
+     "kana": "あるきながら はなしましょう。",
+     "vi": "Vừa đi bộ vừa nói chuyện nhé."
+    }
+   ],
+   "explanation": "ながら nối hai hành động diễn ra đồng thời, trong đó V2 là việc chính còn V1 là việc phụ kèm theo. V1 bỏ ます rồi thêm ながら, V1 không chia thì. Không dùng ながら cho hai hành động tức thời, ngắn (×死にながら).",
+   "formation": "V1 bỏ ます + ながら + V2.",
+   "lessonNo": 28,
+   "level": "N4",
+   "meaningVi": "Làm hai việc cùng lúc; V2 là hành động chính.",
+   "notes": "Phân biệt ながら (song song) với て (nối tiếp: 食べて、飲みます = ăn rồi uống). V1 trong ながら luôn là việc phụ.",
+   "orderInLesson": 1,
+   "pattern": "V1(ます→ながら) + V2",
+   "tags": [
+    "nagara",
+    "song-song"
+   ],
+   "title": "V1-ながら V2",
+   "titleVi": "Vừa... vừa... (hai hành động song song)"
+  },
+  {
+   "_id": "g28-02",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "母は 毎日 ジョギングを しています。",
+     "kana": "ははは まいにち じょぎんぐを しています。",
+     "vi": "Mẹ tôi chạy bộ mỗi ngày."
+    },
+    {
+     "ja": "田中さんは 大学に 通っています。",
+     "kana": "たなかさんは だいがくに かよっています。",
+     "vi": "Anh Tanaka đi học đại học hằng ngày."
+    },
+    {
+     "ja": "弟は ピアノを 習っています。",
+     "kana": "おとうとは ぴあのを なっています。",
+     "vi": "Em trai tôi học piano (thành thói quen)."
+    }
+   ],
+   "explanation": "〜ています có 3 nghĩa: (1) đang diễn ra (今 食べています), (2) thói quen (毎日 運動しています), (3) trạng thái kết quả còn lại (結婚しています). Ở bài này học nghĩa (2): hành động lặp đi lặp lại thành thói quen, thường đi kèm từ chỉ tần suất như 毎日・毎週・よく.",
+   "formation": "V-て + います.",
+   "lessonNo": 28,
+   "level": "N4",
+   "meaningVi": "Ngoài nghĩa \"đang làm\", 〜ています còn diễn tả thói quen.",
+   "notes": "Khi thấy 毎日・毎週 đi với ています thì hiểu là thói quen, không phải \"đang làm ngay lúc này\". Đây là bẫy hay gặp trong đề thi.",
+   "orderInLesson": 2,
+   "pattern": "V-て + います",
+   "tags": [
+    "teiru",
+    "thoi-quen"
+   ],
+   "title": "V-ています (thói quen)",
+   "titleVi": "Diễn tả thói quen lặp đi lặp lại"
+  },
+  {
+   "_id": "g28-03",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "この レストランは 安いし、おいしいし、よく 来ます。",
+     "kana": "この れすとらんは やすいし、おいしいし、よく きます。",
+     "vi": "Nhà hàng này vừa rẻ vừa ngon nên tôi hay đến."
+    },
+    {
+     "ja": "きのうは 頭が 痛いし、熱も あるし、会社を 休みました。",
+     "kana": "きのうは あたまが いたいし、ねつも あるし、かいしゃを やすみました。",
+     "vi": "Hôm qua vừa đau đầu vừa sốt nên tôi đã nghỉ làm."
+    },
+    {
+     "ja": "彼は まじめだし、熱心だし、いい 先生です。",
+     "kana": "かれは まじめだし、ねっしんだし、いい せんせいです。",
+     "vi": "Anh ấy vừa nghiêm túc vừa nhiệt tình, là thầy giáo tốt."
+    }
+   ],
+   "explanation": "し đứng sau thể thường để đưa ra nhiều lý do (thường từ 2 lý do trở lên), dẫn đến một kết luận ở cuối câu. Sắc thái: khi khen thì liệt kê ưu điểm, khi chê/phàn nàn thì liệt kê nhược điểm. Khác với と (liệt kê đơn thuần) — し nhấn mạnh tính chất \"lý do\".",
+   "formation": "Thể thường + し. (N/Aな giữ だ: 元気だし.)",
+   "lessonNo": 28,
+   "level": "N4",
+   "meaningVi": "Liệt kê nhiều lý do cho một kết luận/đánh giá.",
+   "notes": "し thường đi theo cặp trở lên; dùng một mình nghe cụt. Đừng nhầm với し (làm) trong します.",
+   "orderInLesson": 3,
+   "pattern": "V(thường)・Aい・Aな・N + し",
+   "tags": [
+    "shi",
+    "liet-ke-ly-do"
+   ],
+   "title": "〜し、〜し",
+   "titleVi": "Nào là... nào là... (liệt kê lý do)"
+  },
+  {
+   "_id": "g29-01",
+   "active": true,
+   "compareWith": [
+    "g29-02"
+   ],
+   "examples": [
+    {
+     "ja": "さいふを 落としてしまいました。",
+     "kana": "さいふを おとしてしまいました。",
+     "vi": "Tôi đã lỡ đánh rơi ví mất rồi."
+    },
+    {
+     "ja": "しゅくだいを 全部 してしまいました。",
+     "kana": "しゅくだいを ぜんぶ してしまいました。",
+     "vi": "Tôi đã làm xong hết bài tập rồi."
+    },
+    {
+     "ja": "コップを 割ってしまいました。",
+     "kana": "こっぷを わってしまいました。",
+     "vi": "Tôi lỡ làm vỡ cốc mất rồi."
+    }
+   ],
+   "explanation": "てしまいます có hai sắc thái: hoàn thành triệt để (全部 食べてしまいました = ăn sạch bách) và hối tiếc vì lỡ làm (財布を 落としてしまいました = lỡ đánh rơi ví mất rồi). Văn nói thân mật rút gọn thành 〜ちゃう/〜じゃう (食べちゃった, 飲んじゃった).",
+   "formation": "V-て + しまいます. (Văn nói: 〜ちゃいます/〜じゃいます.)",
+   "lessonNo": 29,
+   "level": "N4",
+   "meaningVi": "(1) Hoàn tất hẳn; (2) Lỡ làm gì với sắc thái hối tiếc.",
+   "notes": "てしまう (xong/hối tiếc) khác ておく (chuẩn bị trước). Trong đề thi, ngữ cảnh \"lỡ, mất rồi\" luôn là てしまう.",
+   "orderInLesson": 1,
+   "pattern": "V-て + しまいます",
+   "tags": [
+    "teshimau",
+    "hoan-tat"
+   ],
+   "title": "V-てしまいます",
+   "titleVi": "Lỡ... mất rồi / ... xong hẳn (hoàn tất, hối tiếc)"
+  },
+  {
+   "_id": "g29-02",
+   "active": true,
+   "compareWith": [
+    "g29-01",
+    "g30-01"
+   ],
+   "examples": [
+    {
+     "ja": "旅行の まえに、切符を 買っておきます。",
+     "kana": "りょこうの まえに、きっぷを かっておきます。",
+     "vi": "Trước chuyến du lịch tôi sẽ mua vé sẵn."
+    },
+    {
+     "ja": "へやを きれいに しておきます。",
+     "kana": "へやを きれいに しておきます。",
+     "vi": "Tôi sẽ dọn phòng sạch sẵn."
+    },
+    {
+     "ja": "この 書類を ここに 置いておきます。",
+     "kana": "この しょるいを ここに おいておきます。",
+     "vi": "Tôi để sẵn tài liệu này ở đây."
+    }
+   ],
+   "explanation": "ておきます có hai nghĩa: (1) chuẩn bị trước cho tương lai (切符を 買っておきます = mua vé sẵn), (2) để nguyên, giữ nguyên trạng thái (そのままに しておきます). Văn nói rút gọn thành 〜とく (買っとく). Đây là mẫu cực kỳ hay gặp trong đời sống.",
+   "formation": "V-て + おきます. (Văn nói: 〜ときます.)",
+   "lessonNo": 29,
+   "level": "N4",
+   "meaningVi": "Làm gì đó trước để chuẩn bị cho sau này, hoặc giữ nguyên trạng thái.",
+   "notes": "ておきます (nhấn mạnh HÀNH ĐỘNG chuẩn bị, hướng tới tương lai) vs てあります (nhấn mạnh TRẠNG THÁI kết quả ở hiện tại) — cặp dễ nhầm nhất N4, xem bài 30.",
+   "orderInLesson": 2,
+   "pattern": "V-て + おきます",
+   "tags": [
+    "teoku",
+    "chuan-bi"
+   ],
+   "title": "V-ておきます",
+   "titleVi": "Làm sẵn..., chuẩn bị trước"
+  },
+  {
+   "_id": "g29-03",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "この 料理を 食べてみます。",
+     "kana": "この りょうりを たべてみます。",
+     "vi": "Tôi thử ăn món này xem sao."
+    },
+    {
+     "ja": "新しい くつを はいてみます。",
+     "kana": "あたらしい くつを はいてみます。",
+     "vi": "Tôi thử đi đôi giày mới xem sao."
+    },
+    {
+     "ja": "日本語で 手紙を 書いてみます。",
+     "kana": "にほんごで てがみを かいてみます。",
+     "vi": "Tôi thử viết thư bằng tiếng Nhật."
+    }
+   ],
+   "explanation": "てみます (từ 見る = xem) diễn tả việc \"thử\" làm gì đó để trải nghiệm, đánh giá. Khác với つもりです (dự định chắc chắn) — てみます mang tính thử nghiệm, chưa chắc gắn bó lâu dài.",
+   "formation": "V-て + みます.",
+   "lessonNo": 29,
+   "level": "N4",
+   "meaningVi": "Thử làm gì để xem kết quả ra sao.",
+   "notes": "てみます (thử) khác ようとします (cố gắng, bài 47) — thử thì nhẹ nhàng, chưa quyết tâm cao.",
+   "orderInLesson": 3,
+   "pattern": "V-て + みます",
+   "tags": [
+    "temiru",
+    "thu-nghiem"
+   ],
+   "title": "V-てみます",
+   "titleVi": "Thử làm... xem sao"
+  },
+  {
+   "_id": "g30-01",
+   "active": true,
+   "compareWith": [
+    "g29-02",
+    "g30-02"
+   ],
+   "examples": [
+    {
+     "ja": "かべに ポスターが はってあります。",
+     "kana": "かべに ぽすたーが はってあります。",
+     "vi": "Trên tường có dán sẵn áp phích."
+    },
+    {
+     "ja": "つくえの 上に 本が ならべてあります。",
+     "kana": "つくえの うえに ほんが ならべてあります。",
+     "vi": "Trên bàn có xếp sẵn sách."
+    },
+    {
+     "ja": "まどに カーテンが かけてあります。",
+     "kana": "まどに かーてんが かけてあります。",
+     "vi": "Trên cửa sổ có treo sẵn rèm."
+    }
+   ],
+   "explanation": "てあります mô tả TRẠNG THÁI ở hiện tại do ai đó cố ý tạo ra trước đó. Chủ ngữ thường là vật đi với が (ポスターが はってあります). Chỉ dùng với tha động từ (động từ có tân ngữ). Không dùng てあります cho hành động của chính mình ở hiện tại (×窓を 開けてあります → ○窓を 開けておきます).",
+   "formation": "Tha động từ thể て + あります. Chủ ngữ: N(が).",
+   "lessonNo": 30,
+   "level": "N4",
+   "meaningVi": "Diễn tả trạng thái kết quả của hành động có chủ ý (ai đó đã làm và còn giữ nguyên).",
+   "notes": "てある chỉ đi với tha động từ; tự động từ thì dùng ている (ドアが 開いています). Đây là điểm phân biệt hay ra thi.",
+   "orderInLesson": 1,
+   "pattern": "V(tha động từ, thể て) + あります",
+   "tags": [
+    "tearu",
+    "trang-thai"
+   ],
+   "title": "V-てあります",
+   "titleVi": "(Đã) được... sẵn (trạng thái kết quả)"
+  },
+  {
+   "_id": "g30-02",
+   "active": true,
+   "compareWith": [
+    "g29-02",
+    "g30-01"
+   ],
+   "examples": [
+    {
+     "ja": "パーティーの ために、へやを そうじしておきます。",
+     "kana": "ぱーてぃーの ために、へやを そうじしておきます。",
+     "vi": "Để chuẩn bị cho bữa tiệc, tôi sẽ dọn phòng sẵn."
+    },
+    {
+     "ja": "へやが きれいに そうじしてあります。",
+     "kana": "へやが きれいに そうじしてあります。",
+     "vi": "Phòng đã được dọn sạch sẵn."
+    },
+    {
+     "ja": "かぎを ここに 置いておきます。",
+     "kana": "かぎを ここに おいておきます。",
+     "vi": "Tôi để chìa khóa sẵn ở đây. (→ かぎが ここに 置いてあります。)"
+    }
+   ],
+   "explanation": "ておきます nhấn mạnh HÀNH ĐỘNG chuẩn bị của người nói, hướng tới tương lai (tôi SẼ làm sẵn). てあります nhấn mạnh TRẠNG THÁI kết quả ở hiện tại (vật ĐÃ được... sẵn). Mẹo nhớ: おく (đặt trước) = hành động; ある (có) = trạng thái. Cùng một tình huống: かぎを ここに 置いておきます (tôi để chìa khóa sẵn ở đây — hành động) → かぎが ここに 置いてあります (chìa khóa được để sẵn ở đây — trạng thái).",
+   "formation": "V-て + おきます (hành động) / V-て + あります (trạng thái).",
+   "lessonNo": 30,
+   "level": "N4",
+   "meaningVi": "Cả hai đều liên quan đến \"chuẩn bị sẵn\" nhưng góc nhìn khác nhau.",
+   "notes": "Cặp dễ nhầm nhất N4. Khi đề hỏi \"ai đó đã làm gì trước\" → ておく; hỏi \"trạng thái hiện tại của vật\" → てある.",
+   "orderInLesson": 2,
+   "pattern": "V-ておきます / V-てあります",
+   "tags": [
+    "teoku",
+    "tearu",
+    "phan-biet"
+   ],
+   "title": "〜ておきます vs 〜てあります",
+   "titleVi": "Phân biệt \"làm sẵn\" và \"được... sẵn\""
+  },
+  {
+   "_id": "g30-03",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "休みには テレビとか、まんがとか 見ます。",
+     "kana": "やすみには てれびとか、まんがとか みます。",
+     "vi": "Ngày nghỉ tôi nào là xem TV nào là đọc truyện."
+    },
+    {
+     "ja": "パンとか、ご飯とか 買ってきました。",
+     "kana": "ぱんとか、ごはんとか かってきました。",
+     "vi": "Tôi đã mua nào bánh mì nào cơm về."
+    }
+   ],
+   "explanation": "とか dùng để liệt kê ví dụ tiêu biểu (không liệt kê hết), sắc thái thân mật, văn nói. Trang trọng hơn thì dùng や. Chỉ đi với danh từ, không dùng với động từ/tính từ.",
+   "formation": "N とか N とか.",
+   "lessonNo": 30,
+   "level": "N4",
+   "meaningVi": "Liệt kê ví dụ một cách không đầy đủ, thân mật.",
+   "notes": "とか (thân mật, ví dụ) vs や (trung tính hơn). Đừng dùng とか trong văn viết trang trọng.",
+   "orderInLesson": 3,
+   "pattern": "N とか N とか (する)",
+   "tags": [
+    "toka",
+    "liet-ke"
+   ],
+   "title": "N とか N とか",
+   "titleVi": "Nào là... nào là... (liệt kê ví dụ)"
+  },
+  {
+   "_id": "g31-01",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "あしたは 早く 起きよう。",
+     "kana": "あしたは はやく おきよう。",
+     "vi": "Mai tôi định dậy sớm."
+    },
+    {
+     "ja": "いっしょに 昼ご飯を 食べよう。",
+     "kana": "いっしょに ひるごはんを たべよう。",
+     "vi": "Cùng ăn trưa nhé."
+    },
+    {
+     "ja": "日本語を がんばろう。",
+     "kana": "にほんごを がんばろう。",
+     "vi": "Cố gắng học tiếng Nhật nào."
+    }
+   ],
+   "explanation": "Thể ý chí (Volitional form) là thể thường của 〜ましょう, diễn tả ý chí/quyết tâm của người nói hoặc rủ rê thân mật. Cách chia: Nhóm 1 chuyển âm cuối sang hàng お rồi thêm う (書く→書こう, 行く→行こう). Nhóm 2 bỏ る thêm よう (食べる→食べよう). Nhóm 3: する→しよう, 来る→来よう (こよう). Phụ âm: 行く→行こう (いこう) là trường hợp đặc biệt phải thuộc.",
+   "formation": "Nhóm 1: お段 + う. Nhóm 2: る→よう. Nhóm 3: する→しよう, くる→こよう.",
+   "lessonNo": 31,
+   "level": "N4",
+   "meaningVi": "Diễn tả ý chí/quyết tâm \"định làm...\" (thể thường của 〜ましょう).",
+   "notes": "行く→行こう đọc là \"いこう\" (không phải \"ゆこう\"). Thể ý chí dùng với bạn bè thân; nói với người trên thì dùng 〜ましょう cho lịch sự.",
+   "orderInLesson": 1,
+   "pattern": "V-ý chí (〜おう / 〜よう)",
+   "tags": [
+    "y-chi",
+    "dong-tu"
+   ],
+   "title": "V ý chí (Volitional form)",
+   "titleVi": "Thể ý chí — định làm..."
+  },
+  {
+   "_id": "g31-02",
+   "active": true,
+   "compareWith": [
+    "g31-03"
+   ],
+   "examples": [
+    {
+     "ja": "来年 日本へ 行こうと 思います。",
+     "kana": "らいねん にほんへ いこうと おもいます。",
+     "vi": "Sang năm tôi định đi Nhật."
+    },
+    {
+     "ja": "週末は 家で ゆっくりしようと 思います。",
+     "kana": "しゅうまつは いえで ゆっくりしようと おもいます。",
+     "vi": "Cuối tuần tôi định ở nhà nghỉ ngơi."
+    },
+    {
+     "ja": "日本語の 先生に なろうと 思います。",
+     "kana": "にほんごの せんせいに なろうと おもいます。",
+     "vi": "Tôi định trở thành giáo viên tiếng Nhật."
+    }
+   ],
+   "explanation": "ようと思います diễn tả ý định của NGƯỜI NÓI (ngôi thứ nhất). Không dùng mẫu này cho ý định của người khác (ngôi thứ 3 dùng 〜ようとしている hoặc 〜つもりだ). Ý định ở đây mang tính \"đang suy tính\", nhẹ hơn つもりです.",
+   "formation": "V-ý chí + と思います.",
+   "lessonNo": 31,
+   "level": "N4",
+   "meaningVi": "Diễn tả ý định của người nói: \"tôi định...\".",
+   "notes": "と ở đây là trợ từ trích dẫn (như と思います thông thường). Đừng dùng ようと思います cho người thứ ba — lỗi người Việt hay mắc.",
+   "orderInLesson": 2,
+   "pattern": "V-ý chí + と思います",
+   "tags": [
+    "youtoomou",
+    "y-dinh"
+   ],
+   "title": "V-ようと 思います",
+   "titleVi": "Định..., dự định... (ý định của mình)"
+  },
+  {
+   "_id": "g31-03",
+   "active": true,
+   "compareWith": [
+    "g31-02"
+   ],
+   "examples": [
+    {
+     "ja": "あしたは 休むつもりです。",
+     "kana": "あしたは やすむつもりです。",
+     "vi": "Mai tôi dự định nghỉ."
+    },
+    {
+     "ja": "来月 結婚するつもりです。",
+     "kana": "らいげつ けっこんするつもりです。",
+     "vi": "Tháng sau tôi dự định cưới."
+    },
+    {
+     "ja": "たばこは もう 吸わないつもりです。",
+     "kana": "たばこは もう すわないつもりです。",
+     "vi": "Tôi dự định không hút thuốc nữa."
+    }
+   ],
+   "explanation": "つもりです cũng diễn tả dự định nhưng sắc thái mạnh hơn, chắc chắn hơn ようと思います — kiểu \"đã quyết rồi\". Dùng được cho cả người thứ ba. Dạng phủ định dự định: V-ないつもりです (吸わないつもりです = dự định không hút).",
+   "formation": "V thể thường (る/ない) + つもりです.",
+   "lessonNo": 31,
+   "level": "N4",
+   "meaningVi": "Diễn tả dự định chắc chắn, quyết tâm cao.",
+   "notes": "ようと思う (ý định nhẹ, đang cân nhắc) < つもり (quyết tâm rõ ràng hơn). Cả hai đều khác かもしれません (phỏng đoán của người khác).",
+   "orderInLesson": 3,
+   "pattern": "V(る / ない) + つもりです",
+   "tags": [
+    "tsumori",
+    "du-dinh"
+   ],
+   "title": "V-る / V-ない + つもりです",
+   "titleVi": "Dự định... (quyết tâm)"
+  },
+  {
+   "_id": "g32-01",
+   "active": true,
+   "compareWith": [
+    "g32-02"
+   ],
+   "examples": [
+    {
+     "ja": "かぜを ひきましたから、早く 寝たほうがいいですよ。",
+     "kana": "かぜを ひきましたから、はやく ねたほうがいいですよ。",
+     "vi": "Vì bị cảm nên anh nên ngủ sớm thì tốt đấy."
+    },
+    {
+     "ja": "疲れたときは、ゆっくり 休んだほうがいいです。",
+     "kana": "つかれたときは、ゆっくり やすんだほうがいいです。",
+     "vi": "Khi mệt thì nên nghỉ ngơi thong thả."
+    },
+    {
+     "ja": "試験の まえに、よく 復習したほうがいいです。",
+     "kana": "しけんの まえに、よく ふくしゅうしたほうがいいです。",
+     "vi": "Trước kỳ thi nên ôn kỹ thì tốt."
+    }
+   ],
+   "explanation": "たほうがいいです là cách khuyên nhủ thông dụng nhất: \"nên làm X thì tốt\". Dùng thể quá khứ (〜た) dù sự việc chưa xảy ra. Khuyên nhẹ nhàng, lịch sự, dùng được với mọi đối tượng. Mạnh hơn thì có べきです (N3) — sắc thái nghĩa vụ, ít dùng trong hội thoại.",
+   "formation": "V-た + ほうがいいです.",
+   "lessonNo": 32,
+   "level": "N4",
+   "meaningVi": "Đưa ra lời khuyên \"nên làm... thì tốt\".",
+   "notes": "Phải dùng V-た (quá khứ) dù chưa làm: ×食べるほうがいい → ○食べたほうがいい. Đây là điểm người học hay sai.",
+   "orderInLesson": 1,
+   "pattern": "V-た + ほうがいいです",
+   "tags": [
+    "tahouga-ii",
+    "khuyen"
+   ],
+   "title": "V-た ほうがいいです",
+   "titleVi": "Nên... thì tốt (khuyên)"
+  },
+  {
+   "_id": "g32-02",
+   "active": true,
+   "compareWith": [
+    "g32-01"
+   ],
+   "examples": [
+    {
+     "ja": "無理を しないほうがいいですよ。",
+     "kana": "むりを しないほうがいいですよ。",
+     "vi": "Anh đừng cố quá sức thì tốt đấy."
+    },
+    {
+     "ja": "夜 おそくまで 起きていないほうがいいです。",
+     "kana": "よる おそくまで おきていないほうがいいです。",
+     "vi": "Đừng thức khuya quá thì tốt."
+    }
+   ],
+   "explanation": "ないほうがいいです là dạng phủ định của lời khuyên: \"không nên làm X\". Chú ý: ない đứng trước ほうがいい — しないほうがいい (không nên làm) khác hẳn しなければならない (phải làm).",
+   "formation": "V-ない + ほうがいいです.",
+   "lessonNo": 32,
+   "level": "N4",
+   "meaningVi": "Khuyên \"không nên làm...\".",
+   "notes": "Cặp đôi cần nhớ: V-たほうがいい (nên) vs V-ないほうがいい (không nên). Không có mẫu \"V-るほうがいい\".",
+   "orderInLesson": 2,
+   "pattern": "V-ない + ほうがいいです",
+   "tags": [
+    "nai-houga-ii",
+    "khuyen"
+   ],
+   "title": "V-ない ほうがいいです",
+   "titleVi": "Không nên... thì tốt"
+  },
+  {
+   "_id": "g32-03",
+   "active": true,
+   "compareWith": [
+    "g27-01"
+   ],
+   "examples": [
+    {
+     "ja": "もしかしたら、インフルエンザかもしれません。",
+     "kana": "もしかしたら、いんふるえんざかもしれません。",
+     "vi": "Biết đâu là cúm mùa."
+    },
+    {
+     "ja": "ストレスが たまっているのかもしれません。",
+     "kana": "すとれすが たまっているのかもしれません。",
+     "vi": "Biết đâu là do stress tích tụ."
+    }
+   ],
+   "explanation": "Ôn lại かもしれません trong ngữ cảnh lo lắng về sức khỏe, thời tiết. Đi kèm もしかしたら (biết đâu) càng tăng sắc thái phỏng đoán. Dạng 〜のかもしれません dùng khi phỏng đoán kèm giải thích (\"hình như là do...\").",
+   "formation": "Thể thường + かもしれません. (もしかしたら + 〜かもしれません.)",
+   "lessonNo": 32,
+   "level": "N4",
+   "meaningVi": "Ôn lại cách dùng かもしれません khi lo lắng/phỏng đoán.",
+   "notes": "もしかしたら + かもしれません là cặp hay đi cùng nhau. 〜のかもしれません khác 〜かもしれません ở chỗ có sắc thái \"có lẽ vì...\".",
+   "orderInLesson": 3,
+   "pattern": "(もしかしたら) 体 thường + かもしれません",
+   "tags": [
+    "kamoshiremasen",
+    "on-tap"
+   ],
+   "title": "〜かもしれません (ứng dụng)",
+   "titleVi": "Ôn lại: có lẽ... (khi lo lắng, phỏng đoán)"
+  },
+  {
+   "_id": "g33-01",
+   "active": true,
+   "compareWith": [
+    "g33-02",
+    "g33-03"
+   ],
+   "examples": [
+    {
+     "ja": "逃げろ！",
+     "kana": "にげろ！",
+     "vi": "Chạy đi!"
+    },
+    {
+     "ja": "静かにしろ！",
+     "kana": "しずかにしろ！",
+     "vi": "Im lặng!"
+    },
+    {
+     "ja": "徐行しろ。",
+     "kana": "じょこうしろ。",
+     "vi": "Hãy đi chậm lại."
+    }
+   ],
+   "explanation": "Thể mệnh lệnh là cách ra lệnh trực tiếp, rất mạnh và thô. Cách chia: Nhóm 1 chuyển âm cuối sang hàng え (書く→書け, 泳ぐ→泳げ). Nhóm 2 bỏ る thêm ろ (食べる→食べろ). Nhóm 3: する→しろ, 来る→来い (こい). Thường chỉ thấy trong: biển báo khẩn cấp, huấn luyện quân sự/thể thao, lời cha (nam) với con, phim ảnh. Phụ nữ và người lịch sự hiếm khi dùng trực tiếp.",
+   "formation": "Nhóm 1: え段. Nhóm 2: る→ろ. Nhóm 3: する→しろ, くる→こい.",
+   "lessonNo": 33,
+   "level": "N4",
+   "meaningVi": "Ra lệnh trực tiếp, mạnh.",
+   "notes": "Mệnh lệnh rất dễ gây mất lòng nếu dùng sai đối tượng. Trong giao tiếp thường ngày hãy dùng 〜てください hoặc 〜なさい thay thế.",
+   "orderInLesson": 1,
+   "pattern": "V-mệnh lệnh",
+   "tags": [
+    "menh-lenh",
+    "dong-tu"
+   ],
+   "title": "V mệnh lệnh (命令形)",
+   "titleVi": "Thể mệnh lệnh — Hãy...! (ra lệnh)"
+  },
+  {
+   "_id": "g33-02",
+   "active": true,
+   "compareWith": [
+    "g33-01"
+   ],
+   "examples": [
+    {
+     "ja": "ここで たばこを 吸うな。",
+     "kana": "ここで たばこを すうな。",
+     "vi": "Cấm hút thuốc ở đây."
+    },
+    {
+     "ja": "騒ぐな！",
+     "kana": "さわぐな！",
+     "vi": "Không được làm ồn!"
+    },
+    {
+     "ja": "あきらめるな。",
+     "kana": "あきらめるな。",
+     "vi": "Đừng bỏ cuộc."
+    }
+   ],
+   "explanation": "Cấm chỉ な đi sau thể từ điển (V-る + な). Hay gặp trên biển báo (立入禁止 còn dùng dạng Hán tự 禁止) và lời người lớn với trẻ em. Sắc thái: 吸うな (cấm, mạnh) nhẹ hơn thì 吸ってはいけません (không được hút — quy định).",
+   "formation": "V thể từ điển + な.",
+   "lessonNo": 33,
+   "level": "N4",
+   "meaningVi": "Cấm đoán trực tiếp, mạnh.",
+   "notes": "Đừng nhầm な (cấm) với なさい (yêu cầu) — một đằng cấm làm, một đằng bảo làm. Biển báo thường viết 禁止 thay cho な.",
+   "orderInLesson": 2,
+   "pattern": "V thể từ điển + な",
+   "tags": [
+    "cam-doan"
+   ],
+   "title": "V-る + な",
+   "titleVi": "Cấm... (cấm đoán mạnh)"
+  },
+  {
+   "_id": "g33-03",
+   "active": true,
+   "compareWith": [
+    "g33-01"
+   ],
+   "examples": [
+    {
+     "ja": "もっと ゆっくり 話しなさい。",
+     "kana": "もっと ゆっくり はなしなさい。",
+     "vi": "Hãy nói chậm lại một chút."
+    },
+    {
+     "ja": "規則を 守りなさい。",
+     "kana": "きそくを まもりなさい。",
+     "vi": "Hãy tuân thủ quy định."
+    },
+    {
+     "ja": "車に 注意しなさい。",
+     "kana": "くるまに ちゅういしなさい。",
+     "vi": "Hãy chú ý xe cộ."
+    }
+   ],
+   "explanation": "なさい là cách yêu cầu lịch sự hơn mệnh lệnh, thường do người trên nói với người dưới: thầy cô với học sinh, cha mẹ với con, hoặc trong đề thi/hướng dẫn. Cách tạo: V bỏ ます thêm なさい (話します→話しなさい, 食べます→食べなさい, します→しなさい).",
+   "formation": "V bỏ ます + なさい.",
+   "lessonNo": 33,
+   "level": "N4",
+   "meaningVi": "Yêu cầu lịch sự, thường với người dưới.",
+   "notes": "なさい KHÔNG dùng với người trên/người ngang hàng lạ — sẽ thành trịnh thượng. Với người trên thì dùng 〜てください.",
+   "orderInLesson": 3,
+   "pattern": "V(ます→なさい)",
+   "tags": [
+    "nasai",
+    "yeu-cau"
+   ],
+   "title": "V-なさい",
+   "titleVi": "Hãy... (yêu cầu lịch sự, với người dưới)"
+  },
+  {
+   "_id": "g34-01",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "説明書の とおりに 組み立てます。",
+     "kana": "せつめいしょの とおりに くみたてます。",
+     "vi": "Lắp ráp theo như sách hướng dẫn."
+    },
+    {
+     "ja": "図の とおりに 線を 引きます。",
+     "kana": "ずの とおりに せんを ひきます。",
+     "vi": "Kẻ đường thẳng như hình vẽ."
+    },
+    {
+     "ja": "先生に 言われたとおりに します。",
+     "kana": "せんせいに いわれたとおりに します。",
+     "vi": "Tôi làm theo như thầy đã dặn."
+    }
+   ],
+   "explanation": "とおりに diễn tả việc làm đúng y như một mẫu/hướng dẫn/lời nói có sẵn: 説明書のとおりに (theo sách hướng dẫn), 図のとおりに (theo hình), 言われたとおりに (theo như được dặn). Khác với ように (mục đích/nỗ lực) — とおりに nhấn mạnh sự \"khớp y hệt\".",
+   "formation": "V-た + とおりに / N + のとおりに.",
+   "lessonNo": 34,
+   "level": "N4",
+   "meaningVi": "Làm theo đúng như hướng dẫn/mẫu đã cho.",
+   "notes": "Sau V dùng thể た (作ったとおりに), sau N dùng の (本のとおりに). Đừng dùng V-る + とおり (sai).",
+   "orderInLesson": 1,
+   "pattern": "V-た + とおりに / N + のとおりに",
+   "tags": [
+    "toorini"
+   ],
+   "title": "V-た・N-の とおりに",
+   "titleVi": "Như..., theo như..."
+  },
+  {
+   "_id": "g34-02",
+   "active": true,
+   "compareWith": [],
+   "examples": [
+    {
+     "ja": "歯を みがいたあとで、寝ます。",
+     "kana": "はを みがいたあとで、ねます。",
+     "vi": "Sau khi đánh răng thì tôi đi ngủ."
+    },
+    {
+     "ja": "ご飯を 食べたあとで、薬を 飲みます。",
+     "kana": "ごはんを たべたあとで、くすりを のみます。",
+     "vi": "Sau khi ăn cơm thì uống thuốc."
+    }
+   ],
+   "explanation": "あとで diễn tả quan hệ trước-sau: việc 2 xảy ra sau khi việc 1 kết thúc. Dạng đối: V-るまえに (trước khi làm). あとで có thể lược bỏ で trong văn nói (食べたあと、寝ます).",
+   "formation": "V-た + あとで. (Đối nghĩa: V-る + まえに.)",
+   "lessonNo": 34,
+   "level": "N4",
+   "meaningVi": "Diễn tả hành động xảy ra sau khi hành động khác hoàn tất.",
+   "notes": "あとで vs てから: てから nhấn mạnh \"ngay sau đó\" và thường do cùng chủ thể; あとで trung tính, khoảng cách thời gian linh hoạt hơn.",
+   "orderInLesson": 2,
+   "pattern": "V-た + あとで",
+   "tags": [
+    "ato-de",
+    "thoi-gian"
+   ],
+   "title": "V-た あとで",
+   "titleVi": "Sau khi..."
+  },
+  {
+   "_id": "g34-03",
+   "active": true,
+   "compareWith": [
+    "g35-02"
+   ],
+   "examples": [
+    {
+     "ja": "お金が あれば、世界中を 旅行します。",
+     "kana": "おかねが あれば、せかいじゅうを りょこうします。",
+     "vi": "Nếu có tiền, tôi sẽ đi du lịch khắp thế giới."
+    },
+    {
+     "ja": "分からなければ、先生に 聞きます。",
+     "kana": "わからなければ、せんせいに ききます。",
+     "vi": "Nếu không hiểu thì hỏi thầy."
+    },
+    {
+     "ja": "安ければ、買います。",
+     "kana": "やすければ、かいます。",
+     "vi": "Nếu rẻ thì tôi mua."
+    }
+   ],
+   "explanation": "ば là điều kiện giả định chung chung: \"nếu A thì B\". Cách chia: Nhóm 1 chuyển âm cuối sang hàng え rồi thêm ば (書く→書けば, ある→あれば). Nhóm 2: る→れば (食べる→食べれば). Nhóm 3: する→すれば, 来る→来れば (くれば). Tính từ い: ければ (安い→安ければ). Tính từ な/N: なら(ば). Phủ định: V-なければ (分からなければ).",
+   "formation": "Nhóm 1: え段+ば. Nhóm 2: る→れば. Nhóm 3: する→すれば, くる→くれば. Aい→ければ, Aな/N→なら.",
+   "lessonNo": 34,
+   "level": "N4",
+   "meaningVi": "Điều kiện \"nếu...\" mang tính giả định, điều kiện chung.",
+   "notes": "ば không dùng khi vế sau là mệnh lệnh/yêu cầu trực tiếp với điều kiện đã xảy ra một lần (dùng たら). Tổng kết 4 loại điều kiện ở bài 35.",
+   "orderInLesson": 3,
+   "pattern": "V-ば / Aい-ければ / Aな・N-なら",
+   "tags": [
+    "ba",
+    "dieu-kien"
+   ],
+   "title": "V-ば (điều kiện)",
+   "titleVi": "Nếu... (điều kiện ば)"
+  },
+  {
+   "_id": "g35-01",
+   "active": true,
+   "compareWith": [
+    "g34-03",
+    "g35-02"
+   ],
+   "examples": [
+    {
+     "ja": "雨が 降っても、出かけます。",
+     "kana": "あめが ふっても、でかけます。",
+     "vi": "Dù mưa cũng đi."
+    },
+    {
+     "ja": "高くても、買います。",
+     "kana": "たかくても、かいます。",
+     "vi": "Dù đắt cũng mua."
+    },
+    {
+     "ja": "忙しくても、連絡します。",
+     "kana": "いそがしくても、れんらくします。",
+     "vi": "Dù bận cũng liên lạc."
+    }
+   ],
+   "explanation": "ても diễn tả nhượng bộ: \"dù A, vẫn B\". V: V-て + も (降っても). Tính từ い: くても (高くても). Tính từ な/N: でも (静かでも, 雨でも). Khác hẳn てもいいです (được phép làm — bài 15): 降っても đi (dù mưa vẫn đi) vs 降っても いいですか (mưa thì có đi được không).",
+   "formation": "V-て + も. Aい→くても. Aな/N→でも.",
+   "lessonNo": 35,
+   "level": "N4",
+   "meaningVi": "Diễn tả sự nhượng bộ \"dù... cũng...\".",
+   "notes": "Cặp bẫy kinh điển: 食べてもいいです (được ăn) vs 忙しくても (dù bận). Nhìn vào cấu trúc trước も là て của động từ + いい hay không.",
+   "orderInLesson": 1,
+   "pattern": "V-て + も",
+   "tags": [
+    "temo",
+    "nhuong-bo"
+   ],
+   "title": "V-ても",
+   "titleVi": "Dù... cũng..., cho dù..."
+  },
+  {
+   "_id": "g35-02",
+   "active": true,
+   "compareWith": [
+    "g34-03",
+    "g35-01"
+   ],
+   "examples": [
+    {
+     "ja": "春に なると、桜が 咲きます。",
+     "kana": "はるに なると、さくらが さきます。",
+     "vi": "Cứ đến mùa xuân là hoa anh đào nở."
+    },
+    {
+     "ja": "お金が あれば、海外へ 行きたいです。",
+     "kana": "おかねが あれば、かいがいへ いきたいです。",
+     "vi": "Nếu có tiền tôi muốn đi nước ngoài."
+    },
+    {
+     "ja": "病気が 治ったら、旅行します。",
+     "kana": "びょうきが なおったら、りょこうします。",
+     "vi": "Khi nào khỏi bệnh thì tôi sẽ đi du lịch."
+    },
+    {
+     "ja": "それなら、夜行バスで 行きましょう。",
+     "kana": "それなら、やこうばすで いきましょう。",
+     "vi": "Nếu vậy thì đi bằng xe buýt đêm nhé."
+    }
+   ],
+   "explanation": "Bốn cách nói \"nếu\" khác nhau: と (điều tất yếu, quy luật: 春になると桜が咲く — không dùng cho ý chí/mệnh lệnh ở vế sau). ば (giả định chung, điều kiện trừu tượng). たら (điều kiện cụ thể, sau khi việc trước HOÀN TẤT — đa năng nhất, dùng được với mệnh lệnh/ý chí). なら (dựa trên thông tin người nghe vừa nói: それなら). Mẹo: không chắc thì dùng たら thường an toàn nhất.",
+   "formation": "と: V từ điển + と. ば: xem g34-03. たら: V-た + ら. なら: thể thường + なら.",
+   "lessonNo": 35,
+   "level": "N4",
+   "meaningVi": "Tổng kết điều kiện: と (tất yếu), ば (giả định), たら (hoàn tất), なら (tiền đề).",
+   "notes": "Đây là điểm khó nhất N4. Nhớ 2 cấm kỵ: と không đi với mệnh lệnh/ý chí ở vế sau; ば không dùng cho sự việc cụ thể đã xảy ra trong quá khứ.",
+   "orderInLesson": 2,
+   "pattern": "V-と / V-ば / V-たら / V-なら",
+   "tags": [
+    "dieu-kien",
+    "phan-biet",
+    "tong-ket"
+   ],
+   "title": "と・ば・たら・なら (tổng kết điều kiện)",
+   "titleVi": "Phân biệt 4 cách nói \"nếu\""
+  },
+  {
+   "_id": "g36-01",
+   "active": true,
+   "compareWith": [
+    "g36-02"
+   ],
+   "examples": [
+    {
+     "ja": "毎日 運動するようにしています。",
+     "kana": "まいにち うんどうするようにしています。",
+     "vi": "Tôi đang cố gắng tập thể dục mỗi ngày."
+    },
+    {
+     "ja": "健康のために、たばこを 吸わないようにします。",
+     "kana": "けんこうのために、たばこを すわないようにします。",
+     "vi": "Vì sức khỏe, tôi sẽ cố không hút thuốc."
+    },
+    {
+     "ja": "遅れないように、早く 出ます。",
+     "kana": "おくれないように、はやく でます。",
+     "vi": "Để không bị muộn, tôi ra khỏi nhà sớm."
+    }
+   ],
+   "explanation": "ようにします diễn tả nỗ lực của chính mình: \"cố gắng làm / cố gắng không làm\". Khác với ようになります (thay đổi trạng thái khách quan — g36-02): 泳げるようになりました (đã bơi được — kết quả) vs 泳げるようにしています (đang cố để bơi được — nỗ lực).",
+   "formation": "V từ điển / V-ない + ようにします (thường dùng với しています).",
+   "lessonNo": 36,
+   "level": "N4",
+   "meaningVi": "Diễn tả nỗ lực \"cố gắng làm... / cố không làm...\".",
+   "notes": "ようにする (nỗ lực chủ quan của mình) vs ようになる (thay đổi khách quan). Đề thi hay bẫy cặp này: \"đang cố\" → ようにしている.",
+   "orderInLesson": 1,
+   "pattern": "V-る・V-ない + ようにします",
+   "tags": [
+    "younisuru",
+    "no-luc"
+   ],
+   "title": "V-る・V-ない ようにします",
+   "titleVi": "Cố gắng làm / không làm..."
+  },
+  {
+   "_id": "g36-02",
+   "active": true,
+   "compareWith": [
+    "g36-01"
+   ],
+   "examples": [
+    {
+     "ja": "練習して、泳げるようになりました。",
+     "kana": "れんしゅうして、およげるようになりました。",
+     "vi": "Luyện tập rồi tôi đã bơi được."
+    },
+    {
+     "ja": "日本に 慣れて、日本語が 話せるようになりました。",
+     "kana": "にほんに なれて、にほんごが はなせるようになりました。",
+     "vi": "Quen với Nhật Bản rồi, tôi đã nói được tiếng Nhật."
+    },
+    {
+     "ja": "子どもが 生まれて、早く 起きるようになりました。",
+     "kana": "こどもが うまれて、はやく おきるようになりました。",
+     "vi": "Từ khi có con, tôi đã trở nên dậy sớm."
+    }
+   ],
+   "explanation": "ようになります diễn tả sự thay đổi của khả năng/thói quen theo thời gian: \"trở nên có thể / không còn...\". Thường kết hợp với thể khả năng (泳げるようになる), V-ない (吸わないようになる), hoặc thói quen mới (早く起きるようになる). Bản chất là なります (trở nên) + mục đích.",
+   "formation": "V từ điển / V-ない / V-可能 + ようになります.",
+   "lessonNo": 36,
+   "level": "N4",
+   "meaningVi": "Diễn tả sự thay đổi: \"trở nên có thể / không còn...\".",
+   "notes": "ようになる (thay đổi trạng thái) khác くなる của tính từ (安くなる = trở nên rẻ). Cả hai đều là \"trở nên\" nhưng cấu trúc khác.",
+   "orderInLesson": 2,
+   "pattern": "V-る・V-ない + ようになります",
+   "tags": [
+    "youninaru",
+    "thay-doi"
+   ],
+   "title": "V-る・V-ない ようになります",
+   "titleVi": "Trở nên có thể / không còn..."
+  },
+  {
+   "_id": "g36-03",
+   "active": true,
+   "compareWith": [
+    "g42-01",
+    "g42-02"
+   ],
+   "examples": [
+    {
+     "ja": "健康のために、毎日 歩きます。",
+     "kana": "けんこうのために、まいにち あるきます。",
+     "vi": "Để khỏe mạnh, tôi đi bộ mỗi ngày."
+    },
+    {
+     "ja": "日本語を 勉強するために、日本へ 来ました。",
+     "kana": "にほんごを べんきょうするために、にほんへ きました。",
+     "vi": "Để học tiếng Nhật, tôi đã đến Nhật."
+    },
+    {
+     "ja": "家族のために、一生懸命 働きます。",
+     "kana": "かぞくのために、いっしょうけんめい はたらきます。",
+     "vi": "Vì gia đình, tôi làm việc hết mình."
+    }
+   ],
+   "explanation": "ために chỉ mục đích, với điều kiện chủ thể của hai vế GIỐNG nhau (tôi học → tôi đến Nhật). N + のために cũng là mục đích (健康のために = vì sức khỏe). Khác với ように (g42-02) — ように cho phép chủ thể khác nhau và không đòi hỏi ý chí mạnh.",
+   "formation": "V từ điển + ために / N + のために.",
+   "lessonNo": 36,
+   "level": "N4",
+   "meaningVi": "Diễn tả mục đích \"để...\" (chủ thể hai vế giống nhau).",
+   "notes": "ために vs ように là cặp so sánh kinh điển (chi tiết ở g42-02). Mẹo: mục đích có ý chí của chính mình → ために thường tự nhiên hơn.",
+   "orderInLesson": 3,
+   "pattern": "V-る + ために / N + のために",
+   "tags": [
+    "tameni",
+    "muc-dich"
+   ],
+   "title": "V-る・N-の ために",
+   "titleVi": "Để..., vì (mục đích)"
+  },
+  {
+   "_id": "g37-01",
+   "active": true,
+   "compareWith": [
+    "g37-02"
+   ],
+   "examples": [
+    {
+     "ja": "わたしは 母に ほめられました。",
+     "kana": "わたしは ははに ほめられました。",
+     "vi": "Tôi được mẹ khen."
+    },
+    {
+     "ja": "弟は 父に しかられました。",
+     "kana": "おとうとは ちちに しかられました。",
+     "vi": "Em trai tôi bị bố mắng."
+    },
+    {
+     "ja": "わたしは 友だちに パーティーに さそわれました。",
+     "kana": "わたしは ともだちに ぱーてぃーに さそわれました。",
+     "vi": "Tôi được bạn rủ đi dự tiệc."
+    }
+   ],
+   "explanation": "Thể bị động diễn tả việc \"bị/được\" ai đó tác động. Cách chia: Nhóm 1 chuyển âm cuối sang hàng あ rồi thêm れる (書く→書かれる, 話す→話される). Nhóm 2 bỏ る thêm られる (食べる→食べられる, 見る→見られる). Nhóm 3: する→される, 来る→来られる (こられる). Cấu trúc: N(người chịu) は N(người gây) に V-bị động. Trợ từ に chỉ tác nhân gây ra — đây là điểm người Việt hay nhầm nhất.",
+   "formation": "Nhóm 1: あ段+れる. Nhóm 2: る→られる. Nhóm 3: する→される, くる→こられる.",
+   "lessonNo": 37,
+   "level": "N4",
+   "meaningVi": "Diễn tả \"bị/được\" ai làm gì (bị động trực tiếp).",
+   "notes": "Trong câu bị động, tác nhân đi với に (母に ほめられました), KHÔNG phải は/が. Nhầm trợ từ ở đây là lỗi mất điểm oan. Chú ý: 見られる vừa là bị động vừa là khả năng của 見る — phân biệt bằng ngữ cảnh.",
+   "orderInLesson": 1,
+   "pattern": "N1 は N2 に V-bị động",
+   "tags": [
+    "bi-dong",
+    "dong-tu"
+   ],
+   "title": "V bị động (受身形)",
+   "titleVi": "Thể bị động — bị/được..."
+  },
+  {
+   "_id": "g37-02",
+   "active": true,
+   "compareWith": [
+    "g37-01"
+   ],
+   "examples": [
+    {
+     "ja": "わたしは どろぼうに さいふを とられました。",
+     "kana": "わたしは どろぼうに さいふを とられました。",
+     "vi": "Tôi bị kẻ trộm lấy mất ví."
+    },
+    {
+     "ja": "わたしは 子どもに ケーキを 食べられました。",
+     "kana": "わたしは こどもに けーきを たべられました。",
+     "vi": "Tôi bị đứa trẻ ăn mất bánh."
+    },
+    {
+     "ja": "となりの 人に 足を 踏まれました。",
+     "kana": "となりの ひとに あしを ふまれました。",
+     "vi": "Tôi bị người bên cạnh giẫm lên chân."
+    }
+   ],
+   "explanation": "Bị động gián tiếp (còn gọi là \"bị động chịu thiệt\"): hành động không trực tiếp nhắm vào người nói, nhưng người nói bị ảnh hưởng tiêu cực. Đặc điểm: tân ngữ gốc vẫn giữ を (さいふを とられました). Sắc thái luôn là phiền phức/thiệt hại — không dùng cho việc tốt.",
+   "formation": "N(người bị hại) は N(người gây) に N(vật) を V-bị động.",
+   "lessonNo": 37,
+   "level": "N4",
+   "meaningVi": "Bị ai đó làm gì gây phiền phức/thiệt hại (dù không trực tiếp nhắm vào mình).",
+   "notes": "Dấu hiệu nhận biết: có を cho vật + sắc thái tiêu cực. Bị động trực tiếp (ほめられました) có thể tích cực, nhưng gián tiếp thì luôn tiêu cực.",
+   "orderInLesson": 2,
+   "pattern": "N は N に N を V-bị động",
+   "tags": [
+    "bi-dong",
+    "gian-tiep"
+   ],
+   "title": "Bị động gián tiếp (迷惑の受身)",
+   "titleVi": "Bị... (làm phiền, thiệt hại)"
+  },
+  {
+   "_id": "g37-03",
+   "active": true,
+   "compareWith": [
+    "g37-01"
+   ],
+   "examples": [
+    {
+     "ja": "この 法律は 国会によって 作られました。",
+     "kana": "この ほうりつは こっかいによって つくられました。",
+     "vi": "Luật này được Quốc hội ban hành."
+    },
+    {
+     "ja": "電話は グラハム・ベルによって 発明されました。",
+     "kana": "でんわは ぐらはむ・べるによって はつめいされました。",
+     "vi": "Điện thoại được Graham Bell phát minh."
+    },
+    {
+     "ja": "人によって、考え方が 違います。",
+     "kana": "ひとによって、かんがえかたが ちがいます。",
+     "vi": "Tùy người mà cách nghĩ khác nhau."
+    }
+   ],
+   "explanation": "によって có hai nghĩa: (1) chỉ tác nhân trong văn viết, trang trọng — thay cho に trong câu bị động (国会によって作られました); (2) \"tùy theo...\" (人によって違います = tùy người mà khác nhau). Văn nói thường ngày chỉ dùng に.",
+   "formation": "N + によって. (Văn viết.)",
+   "lessonNo": 37,
+   "level": "N4",
+   "meaningVi": "(1) Chỉ tác nhân trong văn viết (\"bởi...\"); (2) \"Tùy theo...\".",
+   "notes": "によって là dấu hiệu của văn viết trang trọng. Trong hội thoại thường ngày, cứ dùng に cho tác nhân bị động.",
+   "orderInLesson": 3,
+   "pattern": "N + によって",
+   "tags": [
+    "niyotte",
+    "tac-nhan",
+    "van-viet"
+   ],
+   "title": "N によって",
+   "titleVi": "Bởi..., tùy theo..."
+  },
+  {
+   "_id": "g38-01",
+   "active": true,
+   "compareWith": [
+    "g38-02"
+   ],
+   "examples": [
+    {
+     "ja": "薬を 飲んだのに、治りません。",
+     "kana": "くすりを のんだのに、なおりません。",
+     "vi": "Uống thuốc rồi vậy mà không khỏi."
+    },
+    {
+     "ja": "毎日 勉強しているのに、試験に 合格しません。",
+     "kana": "まいにち べんきょうしているのに、しけんに ごうかくしません。",
+     "vi": "Học mỗi ngày vậy mà thi không đỗ."
+    },
+    {
+     "ja": "彼は 来ると 言ったのに、来ませんでした。",
+     "kana": "かれは くると いったのに、きませんでした。",
+     "vi": "Anh ấy đã nói sẽ đến vậy mà lại không đến."
+    }
+   ],
+   "explanation": "のに diễn tả sự việc trái với kỳ vọng: \"vậy mà..., thế mà...\". Vế trước là điều kiện/kỳ vọng, vế sau là kết quả ngược lại, thường kèm sắc thái bất mãn, ngạc nhiên, tiếc nuối. Khác với ので (lý do khách quan) — のに luôn mang cảm xúc.",
+   "formation": "V(thường)・Aい・Aな・N + なのに.",
+   "lessonNo": 38,
+   "level": "N4",
+   "meaningVi": "Diễn tả sự việc trái với kỳ vọng, mang sắc thái bất mãn/ngạc nhiên.",
+   "notes": "のに (cảm xúc, ngược kỳ vọng) vs ので (lý do khách quan). Câu có のに thì vế sau KHÔNG bao giờ là mệnh lệnh/yêu cầu.",
+   "orderInLesson": 1,
+   "pattern": "V・A・N-な + のに",
+   "tags": [
+    "noni",
+    "nguoc-ky-vong"
+   ],
+   "title": "〜のに",
+   "titleVi": "Vậy mà..., thế mà... (ngược kỳ vọng)"
+  },
+  {
+   "_id": "g38-02",
+   "active": true,
+   "compareWith": [
+    "g38-01"
+   ],
+   "examples": [
+    {
+     "ja": "病気なので、会社を 休みます。",
+     "kana": "びょうきなので、かいしゃを やすみます。",
+     "vi": "Vì bị ốm nên tôi nghỉ làm."
+    },
+    {
+     "ja": "時間が ないので、タクシーで 行きます。",
+     "kana": "じかんが ないので、たくしーで いきます。",
+     "vi": "Vì không có thời gian nên tôi đi taxi."
+    },
+    {
+     "ja": "この 機械は 使い方が むずかしいので、説明書を 読みます。",
+     "kana": "この きかいは つかいかたが むずかしいので、せつめいしょを よみます。",
+     "vi": "Vì máy này khó dùng nên tôi đọc sách hướng dẫn."
+    }
+   ],
+   "explanation": "ので diễn tả lý do một cách khách quan, mềm mại và lịch sự hơn から. Vì mềm mại nên ので thường dùng trong văn viết, thông báo, xin phép. Lưu ý: sau ので không dùng mệnh lệnh/cấm đoán mạnh (×安いので、買いなさい).",
+   "formation": "V(thường)・Aい・Aな・N + な + ので.",
+   "lessonNo": 38,
+   "level": "N4",
+   "meaningVi": "Diễn tả lý do một cách khách quan, lịch sự hơn から.",
+   "notes": "ので (lịch sự, khách quan) vs から (trực tiếp, mạnh). Trong thư từ, thông báo trang trọng thì dùng ので.",
+   "orderInLesson": 2,
+   "pattern": "V・A・N-な + ので",
+   "tags": [
+    "node",
+    "ly-do"
+   ],
+   "title": "〜ので",
+   "titleVi": "Vì... (lý do, cách nói lịch sự)"
+  }
+ ]
+}
