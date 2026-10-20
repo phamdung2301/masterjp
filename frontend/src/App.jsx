@@ -27,6 +27,7 @@ import Register from './pages/Register.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import AdminOverview from './pages/admin/AdminOverview.jsx';
 import AdminLessons from './pages/admin/AdminLessons.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 import AdminWords from './pages/admin/AdminWords.jsx';
 import AdminImport from './pages/admin/AdminImport.jsx';
 import AdminUsers from './pages/admin/AdminUsers.jsx';
@@ -40,6 +41,8 @@ export default function App() {
         <div className="app-shell">
           <Header />
           <main className="main-content">
+            {/* ErrorBoundary: 1 trang crash không được làm trắng toàn app. */}
+            <ErrorBoundary>
             <Routes>
               {/* Public: guest xem read-only */}
               <Route path="/" element={<Home />} />
@@ -85,6 +88,7 @@ export default function App() {
 
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+            </ErrorBoundary>
           </main>
           <Footer />
         </div>
