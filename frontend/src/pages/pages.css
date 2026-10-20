@@ -422,7 +422,6 @@
 .grammar-modal-close { position: sticky; top: 0; float: right; background: none; border: none; font-size: 1.1rem; cursor: pointer; color: var(--muted); padding: 4px 8px; }
 /* ===== /Ngữ pháp ===== */
 
-/* ===== ErrorBoundary ===== */
-.error-boundary-page { max-width: 640px; margin: 48px auto; text-align: center; }
-.error-boundary-page .error-details { text-align: left; margin: 16px auto; max-width: 520px; }
-.error-boundary-page .error-details pre { white-space: pre-wrap; word-break: break-word; background: #f6f6f6; padding: 10px; border-radius: 6px; font-size: 0.85rem; }
+/* ===== Kanji: luồng cấp độ → bài ===== */
+.kanji-empty-hint { border: 1px dashed var(--border, #d8d8d8); border-radius: 10px; padding: 28px 20px; text-align: center; margin: 12px 0; }
+.kanji-empty-hint p { margin: 4px 0; }

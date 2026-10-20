@@ -49,7 +49,9 @@ export default function Kanji() {
   const [error, setError] = useState('');
 
   // --- filter & pick kanji ---
-  const [jlpt, setJlpt] = useState('');
+  // Luồng theo user chốt: chọn CẤP ĐỘ trước (tab N5/N4) → chọn bài/chủ đề
+  // → lưới CHỈ hiện kanji thuộc bài/chủ đề đã chọn của cấp độ đó (không xổ hết 988 chữ).
+  const [level, setLevel] = useState('N5');
   const [search, setSearch] = useState('');
   const [selLessons, setSelLessons] = useState([]); // number[]
   const [selTopics, setSelTopics] = useState([]); // topic code[]
@@ -135,16 +137,37 @@ export default function Kanji() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selLessons, lessonIdByNo]);
 
-  // Lưới kanji hiển thị: lọc cấp độ + tìm chữ.
+  // Đổi cấp độ = bắt đầu lại sạch: bỏ chọn bài/chủ đề/chữ/từ của cấp độ cũ
+  // (mỗi chữ kanji thuộc đúng 1 cấp độ nên giữ chọn cũ = trạng thái ẩn gây rối).
+  const switchLevel = (lv) => {
+    if (lv === level) return;
+    setLevel(lv);
+    setSelLessons([]);
+    setSelTopics([]);
+    setExtra(new Set());
+    setDropped(new Set());
+    setSelWordClusters({});
+    setSelWords({});
+    setDroppedWords(new Set());
+    setSearch('');
+  };
+
+  // Lưới kanji HIỂN THỊ: theo cấp độ đang chọn.
+  // - Đang gõ tìm kiếm: tìm trong cấp độ (không cần chọn bài trước).
+  // - Chưa chọn bài/chủ đề nào: TRỐNG (UI hiện hướng dẫn) — không xổ hết.
+  // - Đã chọn: chỉ hiện kanji thuộc (bài đã chọn ∪ chủ đề đã chọn).
   const filtered = useMemo(() => {
     const q = search.trim();
     return items.filter((k) => {
       if (!k.character) return false;
-      if (jlpt && k.jlpt !== jlpt) return false;
-      if (q && !k.character.includes(q)) return false;
-      return true;
+      if (k.jlpt !== level) return false;
+      if (q) return k.character.includes(q);
+      if (lessonSet.size === 0 && topicSet.size === 0) return false;
+      const inLesson = (k.lessonNos || []).some((n) => lessonSet.has(n));
+      const inTopic = k.topic && topicSet.has(k.topic);
+      return inLesson || inTopic;
     });
-  }, [items, jlpt, search]);
+  }, [items, level, search, lessonSet, topicSet]);
 
   // Tập chữ kanji đang chọn: coverage(bài ∪ chủ đề) ∪ tick tay − bỏ tick tay.
   const picked = useMemo(() => {
@@ -167,12 +190,17 @@ export default function Kanji() {
       || (k.topic && topicSet.has(k.topic));
   };
 
+  const levelLessonNos = useMemo(
+    () => LESSON_OPTIONS.filter((n) => (level === 'N5' ? n <= 25 : n > 25)),
+    [level]
+  );
+
   const toggleLesson = (n) => {
     setSelLessons((prev) => (prev.includes(n) ? prev.filter((x) => x !== n) : [...prev, n]));
   };
 
   const toggleAllLessons = () => {
-    setSelLessons((prev) => (prev.length === LESSON_OPTIONS.length ? [] : [...LESSON_OPTIONS]));
+    setSelLessons((prev) => (prev.length === levelLessonNos.length ? [] : [...levelLessonNos]));
   };
 
   const toggleTopic = (code) => {
@@ -379,20 +407,30 @@ export default function Kanji() {
         </div>
       </div>
 
+      <div className="tabs level-tabs" role="tablist" aria-label="Chọn cấp độ">
+        {['N5', 'N4'].map((lv) => (
+          <button
+            key={lv}
+            type="button"
+            role="tab"
+            aria-selected={level === lv}
+            className={`tab${level === lv ? ' active' : ''}`}
+            onClick={() => switchLevel(lv)}
+          >
+            {lv === 'N5' ? 'N5 — Bài 1–25' : 'N4 — Bài 26–50'}
+          </button>
+        ))}
+      </div>
+
       <div className="lesson-pick">
         <div className="lesson-pick-head">
-          <span className="lesson-pick-title">Tick bài để chọn toàn bộ kanji của bài ({selLessons.length}/50)</span>
+          <span className="lesson-pick-title">Tick bài để xem và chọn toàn bộ kanji của bài ({selLessons.length}/{levelLessonNos.length})</span>
           <button type="button" className="btn btn-ghost btn-sm" onClick={toggleAllLessons}>
-            {selLessons.length === LESSON_OPTIONS.length ? 'Bỏ chọn hết' : 'Chọn tất cả'}
+            {selLessons.length === levelLessonNos.length ? 'Bỏ chọn hết' : 'Chọn tất cả'}
           </button>
         </div>
-        <div className="lesson-pick-grid-label muted">N5 · Bài 1–25</div>
         <div className="lesson-pick-grid">
-          {LESSON_OPTIONS.slice(0, 25).map(lessonBtn)}
-        </div>
-        <div className="lesson-pick-grid-label muted">N4 · Bài 26–50</div>
-        <div className="lesson-pick-grid">
-          {LESSON_OPTIONS.slice(25).map(lessonBtn)}
+          {levelLessonNos.map(lessonBtn)}
         </div>
       </div>
 
@@ -421,11 +459,6 @@ export default function Kanji() {
       </div>
 
       <div className="toolbar kanji-filters">
-        <select className="select-inline" value={jlpt} onChange={(e) => setJlpt(e.target.value)} aria-label="Lọc theo cấp độ">
-          <option value="">Cấp độ N5–N4</option>
-          <option value="N5">N5</option>
-          <option value="N4">N4</option>
-        </select>
         <input
           type="text"
           className="kanji-search"
@@ -447,7 +480,14 @@ export default function Kanji() {
       {loading ? (
         <p className="muted">Đang tải…</p>
       ) : filtered.length === 0 ? (
-        <p className="muted">Không tìm thấy chữ kanji nào phù hợp.</p>
+        selLessons.length === 0 && selTopics.length === 0 && !search.trim() ? (
+          <div className="kanji-empty-hint">
+            <p>👆 Hãy <strong>tick chọn bài</strong> ở trên (hoặc tick một chủ đề) để xem kanji của {level}.</p>
+            <p className="muted">Hoặc gõ chữ kanji vào ô tìm kiếm để tra nhanh.</p>
+          </div>
+        ) : (
+          <p className="muted">Không tìm thấy chữ kanji nào phù hợp.</p>
+        )
       ) : (
         <div className="kanji-grid">
           {filtered.map((k) => (
