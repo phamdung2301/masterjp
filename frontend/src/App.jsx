@@ -15,6 +15,7 @@ import ReviewDue from './pages/ReviewDue.jsx';
 import Sets from './pages/Sets.jsx';
 import SetDetail from './pages/SetDetail.jsx';
 import Kanji from './pages/Kanji.jsx';
+import Grammar from './pages/Grammar.jsx';
 import KanjiDetail from './pages/KanjiDetail.jsx';
 import KanjiFlashcard from './pages/KanjiFlashcard.jsx';
 import KanjiQuiz from './pages/KanjiQuiz.jsx';
@@ -50,6 +51,9 @@ export default function App() {
               {/* F-B: kanji — public, xem read-only */}
               <Route path="/kanji" element={<Kanji />} />
               <Route path="/kanji/:char" element={<KanjiDetail />} />
+
+              {/* Ngữ pháp — public, xem read-only */}
+              <Route path="/ngu-phap" element={<Grammar />} />
 
               {/* Auth */}
               <Route path="/dang-nhap" element={<Login />} />
