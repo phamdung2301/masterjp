@@ -65,6 +65,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/lessons", "/api/lessons/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/words/search").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/kanji", "/api/kanji/**").permitAll() // F-B
+                        .requestMatchers(HttpMethod.GET, "/api/grammar", "/api/grammar/**").permitAll() // Ngu phap v1 read-only
                         .requestMatchers(HttpMethod.GET, "/api/sets/public", "/api/sets/*").permitAll()
                         .requestMatchers("/audio/**").permitAll()
                         // Admin
