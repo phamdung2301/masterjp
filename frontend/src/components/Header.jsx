@@ -20,6 +20,7 @@ export default function Header() {
         <nav className="main-nav">
           <NavLink to="/bai-hoc">Bài học</NavLink>
           <NavLink to="/kanji">Kanji</NavLink>
+          <NavLink to="/ngu-phap">Ngữ pháp</NavLink>
           <NavLink to="/tu-dien">Từ điển</NavLink>
           <NavLink to="/luyen-tap-nhanh">Luyện nhanh</NavLink>
           <NavLink to="/on-tap">Ôn tập</NavLink>

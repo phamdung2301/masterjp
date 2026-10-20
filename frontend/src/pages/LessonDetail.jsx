@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { fetchLesson, fetchLessonClusters, fetchLessonWords } from '../api/lessons.js';
+import { fetchGrammar } from '../api/grammar.js';
 import { getErrorMessage } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import WordCard from '../components/WordCard.jsx';
+import GrammarPointCard from '../components/GrammarPointCard.jsx';
+import GrammarRelatedModal from '../components/GrammarRelatedModal.jsx';
 import AudioButton from '../components/AudioButton.jsx';
 import LoginPrompt from '../components/LoginPrompt.jsx';
 import AddToSetModal from '../components/AddToSetModal.jsx';
@@ -36,9 +39,15 @@ export default function LessonDetail() {
   ];
 
   // F-A: chế độ xem theo cụm
-  const [viewMode, setViewMode] = useState('section'); // 'section' | 'cluster'
+  const [viewMode, setViewMode] = useState('section'); // 'section' | 'cluster' | 'grammar'
   const [clusters, setClusters] = useState([]); // [{ cluster, label, count }]
   const [selectedClusters, setSelectedClusters] = useState({});
+
+  // Ngữ pháp: view đọc, fetch 1 lần khi chọn tab (cache theo bài).
+  const [grammarItems, setGrammarItems] = useState(null);
+  const [grammarLoading, setGrammarLoading] = useState(false);
+  const [grammarError, setGrammarError] = useState('');
+  const [relatedId, setRelatedId] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -54,6 +63,12 @@ export default function LessonDetail() {
         })
         .catch((e) => setError(getErrorMessage(e, 'Không tải được bài học.')))
         .finally(() => setLoading(false));
+    } else if (viewMode === 'grammar') {
+      // Tab ngữ pháp: chỉ cần lesson (để có lessonNo), không fetch từ vựng.
+      fetchLesson(id)
+        .then((l) => setLesson(l))
+        .catch((e) => setError(getErrorMessage(e, 'Không tải được bài học.')))
+        .finally(() => setLoading(false));
     } else {
       Promise.all([fetchLesson(id), fetchLessonWords(id, section)])
         .then(([l, w]) => { setLesson(l); setWords(w); setSelected({}); })
@@ -61,6 +76,33 @@ export default function LessonDetail() {
         .finally(() => setLoading(false));
     }
   }, [id, section, viewMode]);
+
+  // Đổi bài → reset cache ngữ pháp của bài cũ.
+  useEffect(() => {
+    setGrammarItems(null);
+    setGrammarError('');
+    setRelatedId(null);
+  }, [id]);
+
+  // Ngữ pháp: fetch 1 lần khi lesson đã tải và tab grammar đang chọn (cache theo bài).
+  useEffect(() => {
+    if (viewMode !== 'grammar') return;
+    const lessonNo = lesson?.lessonNo;
+    if (lessonNo == null || grammarItems) return;
+    setGrammarLoading(true);
+    setGrammarError('');
+    fetchGrammar({ lessonNo })
+      .then((items) => setGrammarItems(items || []))
+      .catch((e) => setGrammarError(getErrorMessage(e, 'Không tải được ngữ pháp bài này.')))
+      .finally(() => setGrammarLoading(false));
+  }, [viewMode, lesson, grammarItems]);
+
+  // Map id → title cho chip compareWith (từ list ngữ pháp của bài này).
+  const grammarTitles = useMemo(() => {
+    const map = {};
+    for (const p of grammarItems || []) if (p?.id && p?.title) map[p.id] = p.title;
+    return map;
+  }, [grammarItems]);
 
   const toggleSelect = useCallback((word) => {
     setSelected((prev) => {
@@ -166,6 +208,7 @@ export default function LessonDetail() {
             </div>
           </div>
 
+          {viewMode !== 'grammar' && (
           <div className="practice-bar">
             <div className="practice-group">
               <span className="practice-label">Luyện cả bài:</span>
@@ -220,6 +263,7 @@ export default function LessonDetail() {
               </div>
             )}
           </div>
+          )}
 
           {/* R2: thanh luyện tập thống nhất — hiện khi đã chọn từ (tick lẻ và/hoặc cụm). */}
           {selectionWords.length > 0 && (
@@ -266,9 +310,35 @@ export default function LessonDetail() {
               onClick={() => setViewMode('cluster')}>
               Theo cụm chủ đề
             </button>
+            <button type="button" className={`tab${viewMode === 'grammar' ? ' active' : ''}`}
+              onClick={() => setViewMode('grammar')}>
+              Ngữ pháp
+            </button>
           </div>
 
-          {viewMode === 'section' ? (
+          {viewMode === 'grammar' ? (
+            <>
+              {/* Ngữ pháp: view đọc — không có danh sách từ, không thanh luyện tập */}
+              {grammarLoading ? (
+                <p className="muted">Đang tải ngữ pháp…</p>
+              ) : grammarError ? (
+                <div className="alert alert-error">{grammarError}</div>
+              ) : !grammarItems || grammarItems.length === 0 ? (
+                <p className="muted">Bài này chưa có dữ liệu ngữ pháp.</p>
+              ) : (
+                <div className="grammar-list">
+                  {grammarItems.map((p) => (
+                    <GrammarPointCard
+                      key={p.id}
+                      point={p}
+                      relatedTitles={grammarTitles}
+                      onRelated={(id) => setRelatedId(id)}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          ) : viewMode === 'section' ? (
             <>
               <div className="tabs tabs-sub">
                 {SECTION_TABS.map((t) => (
@@ -380,6 +450,12 @@ export default function LessonDetail() {
           )}
         </>
       )}
+      <GrammarRelatedModal
+        grammarId={relatedId}
+        relatedTitles={grammarTitles}
+        onClose={() => setRelatedId(null)}
+        onRelated={(id) => setRelatedId(id)}
+      />
       <LoginPrompt open={!!loginPrompt} onClose={() => setLoginPrompt('')} message={loginPrompt} />
       <AddToSetModal open={addSetOpen} onClose={() => setAddSetOpen(false)} words={selectedWords} />
     </div>
