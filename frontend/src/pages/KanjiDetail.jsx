@@ -68,7 +68,7 @@ export default function KanjiDetail() {
       <div className="word-list">
         {words.map((w) => (
           w.lessonId ? (
-            <Link key={w.id} to={`/bai-hoc/${w.lessonId}`} className="word-link">
+            <Link key={w.id} to={`/hoc/bai/${w.lessonId}`} className="word-link">
               <WordCard word={w} />
             </Link>
           ) : (

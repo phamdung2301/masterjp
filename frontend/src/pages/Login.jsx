@@ -21,7 +21,7 @@ export default function Login() {
     setLoading(true);
     try {
       await login(email.trim(), password);
-      navigate('/tong-quan', { replace: true });
+      navigate('/ca-nhan', { replace: true });
     } catch (err) {
       setError(getErrorMessage(err, 'Đăng nhập thất bại. Kiểm tra lại email và mật khẩu.'));
     } finally {

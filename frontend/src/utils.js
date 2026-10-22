@@ -14,14 +14,14 @@ export const SECTION_TABS = [
 export const QUIZ_MODE_LABELS = {
   JP_VI: 'Nhật → Việt',
   VI_JP: 'Việt → Nhật',
-  LISTENING: 'Nghe → chọn',
-  TYPING: 'Gõ phiên âm',
+  LISTENING: 'Luyện nghe',
+  TYPING: 'Gõ từ',
 };
 
 export const QUIZ_MODES = [
   { value: 'JP_VI', label: 'Nhật → Việt', desc: 'Nhìn từ tiếng Nhật, chọn nghĩa đúng' },
   { value: 'VI_JP', label: 'Việt → Nhật', desc: 'Nhìn nghĩa tiếng Việt, chọn từ đúng' },
-  { value: 'LISTENING', label: 'Nghe → chọn', desc: 'Nghe phát âm, chọn từ đúng' },
+  { value: 'LISTENING', label: 'Luyện nghe', desc: 'Nghe phát âm, chọn từ đúng' },
 ];
 
 export const STATUS_LABELS = {

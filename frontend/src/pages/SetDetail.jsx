@@ -5,6 +5,7 @@ import { getErrorMessage } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import WordCard from '../components/WordCard.jsx';
 import { QUIZ_MODES } from '../utils.js';
+import { CardIcon, PencilIcon } from '../components/icons.jsx';
 import './pages.css';
 
 // US-007/US-013/US-014: chi tiết bộ thẻ — danh sách từ, luyện flashcard/quiz theo bộ,
@@ -75,7 +76,7 @@ export default function SetDetail() {
 
   return (
     <div className="page">
-      <Link to="/bo-the" className="back-link">← Bộ thẻ của tôi</Link>
+      <Link to="/ca-nhan?tab=bo-the" className="back-link">← Bộ thẻ của tôi</Link>
       {error && <div className="alert alert-error">{error}</div>}
       {notice && <div className="alert alert-success">{notice}</div>}
 
@@ -95,7 +96,7 @@ export default function SetDetail() {
             {set.description && <p className="muted">{set.description}</p>}
             <div className="set-card-meta">
               <span>{words.length} từ</span>
-              {set.isPublic && <span className="badge badge-public">🌐 Công khai</span>}
+              {set.isPublic && <span className="badge badge-public">Công khai</span>}
             </div>
           </div>
           <button type="button" className="btn btn-outline btn-sm" onClick={() => setEditing(true)}>Sửa tên/mô tả</button>
@@ -105,14 +106,14 @@ export default function SetDetail() {
       <div className="practice-bar">
         <span className="practice-label">Luyện theo bộ này:</span>
         <button type="button" className="btn btn-primary btn-sm"
-          onClick={() => navigate(`/luyen-tap/flashcard?scopeType=SET&scopeId=${id}`)}>🃏 Flashcard</button>
+          onClick={() => navigate(`/luyen-nhanh/the?scopeType=SET&scopeId=${id}`)}><CardIcon size={15} /> Flashcard</button>
         <select className="select-inline" value={quizMode} onChange={(e) => setQuizMode(e.target.value)} aria-label="Dạng quiz">
           {QUIZ_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
         </select>
         <button type="button" className="btn btn-outline btn-sm"
-          onClick={() => navigate(`/luyen-tap/quiz?mode=${quizMode.toLowerCase()}&scopeType=SET&scopeId=${id}`)}>✏️ Quiz</button>
+          onClick={() => navigate(`/luyen-nhanh/quiz?mode=${quizMode.toLowerCase()}&scopeType=SET&scopeId=${id}`)}><PencilIcon size={15} /> Quiz</button>
         <button type="button" className="btn btn-outline btn-sm"
-          onClick={() => navigate(`/luyen-tap/go-phien-am?scopeType=SET&scopeId=${id}`)}>⌨️ Gõ phiên âm</button>
+          onClick={() => navigate(`/luyen-nhanh/go?scopeType=SET&scopeId=${id}`)}>Gõ phiên âm</button>
       </div>
 
       {canSharePublic ? (
@@ -126,14 +127,14 @@ export default function SetDetail() {
             className={`btn btn-sm ${set.isPublic ? 'btn-outline' : 'btn-primary'}`}
             onClick={() => handleShare(!set.isPublic)}
           >
-            {set.isPublic ? 'Chuyển về riêng tư' : '🌐 Chia sẻ công khai'}
+            {set.isPublic ? 'Chuyển về riêng tư' : 'Chia sẻ công khai'}
           </button>
         </div>
       ) : (
         <div className="card share-card muted">
           <div>
             <strong>Chia sẻ công khai</strong>
-            <p className="muted">Chỉ thành viên Premium mới chia sẻ bộ thẻ công khai. <Link to="/tong-quan">Xem gói của bạn →</Link></p>
+            <p className="muted">Chỉ thành viên Premium mới chia sẻ bộ thẻ công khai. <Link to="/#bang-gia">Xem bảng giá →</Link></p>
           </div>
         </div>
       )}

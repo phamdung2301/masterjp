@@ -10,7 +10,7 @@ export default function AdminAudit() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    adminFetchAuditLogs({ limit: 100 })
+    adminFetchAuditLogs()
       .then((data) => setLogs(Array.isArray(data) ? data : data.items || []))
       .catch((e) => setError(getErrorMessage(e, 'Không tải được nhật ký.')))
       .finally(() => setLoading(false));

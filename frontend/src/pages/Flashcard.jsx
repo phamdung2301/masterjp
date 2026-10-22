@@ -1,27 +1,43 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchLessonWords } from '../api/lessons.js';
 import { fetchSet } from '../api/sets.js';
 import { answerProgress, recordSession } from '../api/study.js';
 import { getErrorMessage } from '../api/client.js';
 import AudioButton from '../components/AudioButton.jsx';
+import Confetti from '../components/Confetti.jsx';
+import { CardIcon, CheckIcon, CrossIcon, RestartIcon } from '../components/icons.jsx';
 import { SECTION_LABELS, shuffle } from '../utils.js';
 import './pages.css';
 
-// US-005 (F-020, F-027): flashcard — lật thẻ, Nhớ/Chưa nhớ.
+// US-005 (F-020, F-027): flashcard — lật thẻ 3D, Nhớ/Chưa nhớ.
 // PATCH /api/progress/answer NGAY sau mỗi thẻ (không dồn cuối phiên).
-// Hết thẻ → POST /api/sessions → màn kết quả.
+// Hết thẻ → POST /api/sessions → màn kết quả + confetti.
 // R2: chế độ luyện tập đã chọn (?quick=1) — mirror pattern Quiz.jsx: lấy danh
-// sách full word objects từ sessionStorage (trang chi tiết bài lưu trước khi
-// chuyển sang, key chung 'mjp_quick_quiz'), KHÔNG gọi API.
+// sách full word objects từ sessionStorage (key chung 'mjp_quick_quiz'), KHÔNG gọi API.
+// v2.0 (A3/A5): nhúng trong Lesson Hub — truyền scopeType/scopeId/direction qua
+// props thay vì query string; logic chấm điểm / SM-2 giữ nguyên 100%.
+// Props:
+// - scopeType, scopeId: 'LESSON'|'SECTION'|'SET' (+id) hoặc 'QUICK'/'quick'
+// - direction: 'jp_vi' | 'vi_jp' (mặt trước thẻ) — trước đây param bị bỏ qua, nay dùng thật
+// - embedded: true khi render trong Lesson Hub (không đổi URL)
+// - onExit: callback nút "thoát" khi embedded (mặc định: navigate(-1))
 const QUICK_KEY = 'mjp_quick_quiz';
 
-export default function Flashcard() {
+export default function Flashcard({
+  scopeType: pScopeType,
+  scopeId: pScopeId,
+  direction: pDirection,
+  embedded = false,
+  onExit,
+}) {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const isQuick = params.get('quick') === '1';
-  const scopeType = isQuick ? 'QUICK' : params.get('scopeType');
-  const scopeId = isQuick ? 'quick' : params.get('scopeId');
+  const isQuick = embedded ? pScopeType === 'QUICK' : params.get('quick') === '1';
+  const scopeType = pScopeType ?? (isQuick ? 'QUICK' : params.get('scopeType'));
+  const scopeId = pScopeId ?? (isQuick ? 'quick' : params.get('scopeId'));
+  const direction = ((pDirection ?? params.get('direction')) || 'jp_vi').toLowerCase();
+  const viFirst = direction === 'vi_jp';
 
   const [words, setWords] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -36,6 +52,11 @@ export default function Flashcard() {
   const [returnTo, setReturnTo] = useState(null);
   const [cardStart, setCardStart] = useState(Date.now());
   const startedAt = useMemo(() => new Date().toISOString(), []);
+
+  const goBack = () => {
+    if (onExit) { onExit(); return; }
+    navigate(returnTo || -1);
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -56,7 +77,7 @@ export default function Flashcard() {
         } else if (scopeType === 'LESSON') {
           const ws = await fetchLessonWords(scopeId);
           setWords(shuffle(ws));
-          setScopeName(`Bài học`);
+          setScopeName('Bài học');
         } else if (scopeType === 'SECTION') {
           const [lessonId, section] = scopeId.split(':');
           const ws = await fetchLessonWords(lessonId, section);
@@ -137,15 +158,9 @@ export default function Flashcard() {
   if (error) return (
     <div className="page">
       <div className="alert alert-error">{error}</div>
-      {isQuick ? (
-        <button type="button" className="btn btn-outline" onClick={() => navigate(returnTo || -1)}>
-          ✏️ Chọn lại từ
-        </button>
-      ) : (
-        <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>
-          ← Quay lại
-        </button>
-      )}
+      <button type="button" className="btn btn-outline" onClick={goBack}>
+        <CardIcon size={16} /> Chọn lại từ
+      </button>
     </div>
   );
 
@@ -154,13 +169,7 @@ export default function Flashcard() {
       <div className="page">
         <h1>Flashcard</h1>
         <p className="muted">Phạm vi này chưa có từ nào để luyện.</p>
-        {isQuick ? (
-          <button type="button" className="btn btn-outline" onClick={() => navigate(returnTo || -1)}>
-            ✏️ Chọn lại từ
-          </button>
-        ) : (
-          <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>Quay lại</button>
-        )}
+        <button type="button" className="btn btn-outline" onClick={goBack}>Quay lại</button>
       </div>
     );
   }
@@ -169,31 +178,32 @@ export default function Flashcard() {
     const wrongCount = (result.items || []).filter((i) => !i.correct).length;
     return (
       <div className="page result-page">
-        <h1>Hoàn thành! 🎉</h1>
+        <Confetti run />
+        <h1>Hoàn thành!</h1>
         <div className="result-summary">
           <div className="result-big">{result.correctCount}/{result.total}</div>
           <div className="muted">thẻ bạn đánh giá "Nhớ" {scopeName && `· ${scopeName}`}</div>
-          {result.streakDays != null && <div className="streak-line">🔥 Chuỗi ngày học: {result.streakDays} ngày</div>}
+          {result.streakDays != null && <div className="streak-line">Chuỗi ngày học: {result.streakDays} ngày</div>}
         </div>
         <div className="result-actions">
           <button type="button" className="btn btn-primary" onClick={() => restart(false)}>
-            🔁 Luyện lại toàn bộ
+            <RestartIcon size={16} /> Luyện lại toàn bộ
           </button>
           {wrongCount > 0 ? (
             <button type="button" className="btn btn-outline" onClick={() => restart(true)}>
-              📝 Luyện lại {wrongCount} từ chưa nhớ
+              <CardIcon size={16} /> Luyện lại {wrongCount} từ chưa nhớ
             </button>
           ) : (
-            <span className="muted">Tuyệt vời, nhớ hết rồi! 🎉</span>
+            <span className="muted">Tuyệt vời, nhớ hết rồi!</span>
           )}
           {isQuick ? (
-            <button type="button" className="btn btn-outline" onClick={() => navigate(returnTo || -1)}>
-              ✏️ Chọn lại từ
+            <button type="button" className="btn btn-outline" onClick={goBack}>
+              <CardIcon size={16} /> Chọn lại từ
             </button>
           ) : (
             <>
-              <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
-              <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
+              <Link to="/on-tap" className="btn btn-outline">Ôn tập đến hạn</Link>
+              <Link to="/hoc" className="btn btn-primary">Học bài khác</Link>
             </>
           )}
         </div>
@@ -203,6 +213,42 @@ export default function Flashcard() {
 
   const word = words[idx];
 
+  // Mặt trước/sau theo hướng thẻ (jp_vi mặc định; vi_jp đảo lại).
+  const frontJa = (
+    <>
+      <div className="flash-ja">{word.kanji || word.kana}</div>
+      {word.kanji && <div className="flash-kana">{word.kana}</div>}
+      <div className="flash-romaji">{word.romaji}</div>
+      <AudioButton url={word.audioUrl} />
+    </>
+  );
+  const frontVi = <div className="flash-meaning" style={{ color: '#fff' }}>{word.meaningVi}</div>;
+  const backJa = (
+    <>
+      <div className="flash-ja">{word.kanji || word.kana}</div>
+      {word.kanji && <div className="flash-kana">{word.kana}</div>}
+      <div className="flash-romaji">{word.romaji}</div>
+      {word.exampleJa && (
+        <div className="flash-example">
+          <div>{word.exampleJa}</div>
+          {word.exampleVi && <div className="muted">{word.exampleVi}</div>}
+        </div>
+      )}
+    </>
+  );
+  const backVi = (
+    <>
+      <div className="flash-meaning">{word.meaningVi}</div>
+      {word.pos && <div className="flash-pos">{word.pos}</div>}
+      {word.exampleJa && (
+        <div className="flash-example">
+          <div>{word.exampleJa}</div>
+          {word.exampleVi && <div className="muted">{word.exampleVi}</div>}
+        </div>
+      )}
+    </>
+  );
+
   return (
     <div className="page practice-page">
       <div className="practice-top">
@@ -210,35 +256,25 @@ export default function Flashcard() {
         <div className="progress-bar slim"><div className="progress-fill" style={{ width: `${((idx) / words.length) * 100}%` }} /></div>
       </div>
 
-      <div className={`flash-card${flipped ? ' flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
-        {!flipped ? (
-          <div className="flash-front">
-            <div className="flash-ja">{word.kanji || word.kana}</div>
-            {word.kanji && <div className="flash-kana">{word.kana}</div>}
-            <div className="flash-romaji">{word.romaji}</div>
-            <AudioButton url={word.audioUrl} />
+      {/* A5: lật 3D — .fc-scene(perspective) > .fc-3d(preserve-3d) > .fc-face(front/back). */}
+      <div className="fc-scene">
+        <div className={`fc-3d${flipped ? ' fc-flipped' : ''}`} onClick={() => setFlipped(!flipped)} role="button" aria-label="Lật thẻ">
+          <div className="fc-face fc-front">
+            {viFirst ? frontVi : frontJa}
             <div className="flash-hint">Chạm để lật thẻ</div>
           </div>
-        ) : (
-          <div className="flash-back">
-            <div className="flash-meaning">{word.meaningVi}</div>
-            {word.pos && <div className="flash-pos">{word.pos}</div>}
-            {word.exampleJa && (
-              <div className="flash-example">
-                <div>{word.exampleJa}</div>
-                {word.exampleVi && <div className="muted">{word.exampleVi}</div>}
-              </div>
-            )}
+          <div className="fc-face fc-back">
+            {viFirst ? backJa : backVi}
           </div>
-        )}
+        </div>
       </div>
 
-      <div className="flash-actions">
-        <button type="button" className="btn btn-outline btn-lg" onClick={() => answer(false)} disabled={saving}>
-          😕 Chưa nhớ
+      <div className="grade-row">
+        <button type="button" className="gbtn no" onClick={() => answer(false)} disabled={saving}>
+          <CrossIcon size={18} /> Chưa nhớ
         </button>
-        <button type="button" className="btn btn-primary btn-lg" onClick={() => answer(true)} disabled={saving}>
-          😊 Nhớ rồi
+        <button type="button" className="gbtn yes" onClick={() => answer(true)} disabled={saving}>
+          <CheckIcon size={18} /> Nhớ rồi
         </button>
       </div>
       {!flipped && <p className="muted center">Hãy tự nhớ nghĩa trước khi lật thẻ nhé!</p>}

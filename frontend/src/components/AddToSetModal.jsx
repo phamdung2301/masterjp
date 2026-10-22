@@ -92,7 +92,7 @@ export default function AddToSetModal({ open, onClose, words, onDone }) {
         )}
         <div className="modal-actions">
           {result && doneSetId && (
-            <Link to={`/bo-the/${doneSetId}`} className="btn btn-primary btn-sm">Xem bộ thẻ</Link>
+            <Link to={`/ca-nhan/bo-the/${doneSetId}`} className="btn btn-primary btn-sm">Xem bộ thẻ</Link>
           )}
           <button type="button" className="btn btn-ghost" onClick={onClose}>Đóng</button>
         </div>

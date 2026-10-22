@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toHiragana } from 'wanakana';
 import { answerProgress, generateQuiz, recordSession } from '../api/study.js';
 import { generateQuickQuiz } from '../api/quickPractice.js';
 import { getErrorMessage } from '../api/client.js';
 import { playAudio } from '../utils.js';
+import { CardIcon, FlameIcon, RestartIcon, SpeakerIcon } from '../components/icons.jsx';
 import './pages.css';
 
 // US-017 (F-037, F-027): gõ phiên âm — hiện kanji (+ nghĩa Việt), user gõ romaji
@@ -12,6 +13,9 @@ import './pages.css';
 // R2: chế độ luyện tập đã chọn (?quick=1) — mirror pattern Quiz.jsx: nhận
 // wordIds từ sessionStorage (trang chi tiết bài lưu trước khi chuyển sang),
 // gọi POST /api/quiz/quick với mode 'TYPING', ghi session scopeType 'QUICK'.
+// v2.0 (A3): nhúng trong Lesson Hub — truyền scopeType/scopeId/quick qua props;
+// logic chấm điểm / SM-2 giữ nguyên 100%.
+// Props: scopeType, scopeId, quick (bool), embedded (bool), onExit (callback khi embedded).
 const SESSION_MODE = 'TYPING';
 const QUICK_KEY = 'mjp_quick_quiz';
 
@@ -21,12 +25,18 @@ function normalizeKana(s) {
   return toHiragana((s || '').trim().toLowerCase()).replace(/[\s　・〜～~\-‐]/g, '');
 }
 
-export default function Typing() {
+export default function Typing({
+  scopeType: pScopeType,
+  scopeId: pScopeId,
+  quick: pQuick,
+  embedded = false,
+  onExit,
+}) {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const isQuick = params.get('quick') === '1';
-  const scopeType = isQuick ? 'QUICK' : params.get('scopeType');
-  const scopeId = isQuick ? 'quick' : params.get('scopeId');
+  const isQuick = pQuick ?? (params.get('quick') === '1');
+  const scopeType = pScopeType ?? (isQuick ? 'QUICK' : params.get('scopeType'));
+  const scopeId = pScopeId ?? (isQuick ? 'quick' : params.get('scopeId'));
 
   // R2: đọc payload luyện tập đã chọn (do trang chi tiết bài lưu vào sessionStorage).
   const [quick, setQuick] = useState(() => {
@@ -55,6 +65,13 @@ export default function Typing() {
   const [qStart, setQStart] = useState(Date.now());
   const [startedAt, setStartedAt] = useState(() => new Date().toISOString());
   const inputRef = useRef(null);
+
+  // Embedded (Lesson Hub): nút "chọn lại từ" thoát khỏi khối luyện tập;
+  // standalone: về trang nguồn (payload returnTo) hoặc trang trước.
+  const goBack = () => {
+    if (onExit) { onExit(); return; }
+    navigate(quick?.returnTo || -1);
+  };
 
   useEffect(() => {
     if (isQuick && (!wordIds || wordIds.length === 0)) {
@@ -173,8 +190,8 @@ export default function Typing() {
     <div className="page">
       <div className="alert alert-error">{error}</div>
       {isQuick ? (
-        <button type="button" className="btn btn-outline" onClick={() => navigate(quick?.returnTo || -1)}>
-          ✏️ Chọn lại từ
+        <button type="button" className="btn btn-outline" onClick={goBack}>
+          <CardIcon size={16} /> Chọn lại từ
         </button>
       ) : (
         <button type="button" className="btn btn-outline" onClick={() => navigate(-1)}>
@@ -189,10 +206,12 @@ export default function Typing() {
     const wrongIds = result.wrong.map((q) => q.wordId);
     return (
       <div className="page result-page">
-        <h1>Kết quả Gõ phiên âm</h1>
+        <h1>Kết quả Gõ từ</h1>
         <div className="result-summary">
           <div className="result-big">{result.correctCount}/{result.total} <span className="result-pct">({pctScore}%)</span></div>
-          {result.streakDays != null && <div className="streak-line">🔥 Chuỗi ngày học: {result.streakDays} ngày</div>}
+          {result.streakDays != null && (
+            <div className="streak-line"><FlameIcon size={16} /> Chuỗi ngày học: {result.streakDays} ngày</div>
+          )}
         </div>
         {result.wrong.length > 0 && (
           <>
@@ -205,7 +224,9 @@ export default function Typing() {
                     <span className="quiz-wrong-answer"> → {q.kana} ({q.meaningVi})</span>
                   </div>
                   {q.promptAudioUrl && (
-                    <button type="button" className="btn btn-sm btn-outline" onClick={() => playAudio(q.promptAudioUrl)}>🔊 Nghe lại</button>
+                    <button type="button" className="btn btn-sm btn-outline" onClick={() => playAudio(q.promptAudioUrl)}>
+                      <SpeakerIcon size={14} /> Nghe lại
+                    </button>
                   )}
                 </div>
               ))}
@@ -215,22 +236,22 @@ export default function Typing() {
         <div className="result-actions">
           {wrongIds.length > 0 ? (
             <button type="button" className="btn btn-primary" onClick={() => restart(wrongIds)}>
-              📝 Luyện lại {wrongIds.length} từ gõ sai
+              <CardIcon size={16} /> Luyện lại {wrongIds.length} từ gõ sai
             </button>
           ) : (
-            <span className="muted">Tuyệt vời, nhớ hết rồi! 🎉</span>
+            <span className="muted">Tuyệt vời, nhớ hết rồi!</span>
           )}
           <button type="button" className="btn btn-outline" onClick={() => restart(null)}>
-            🔁 Luyện lại toàn bộ
+            <RestartIcon size={16} /> Luyện lại toàn bộ
           </button>
           {isQuick ? (
-            <button type="button" className="btn btn-outline" onClick={() => navigate(quick?.returnTo || -1)}>
-              ✏️ Chọn lại từ
+            <button type="button" className="btn btn-outline" onClick={goBack}>
+              <CardIcon size={16} /> Chọn lại từ
             </button>
           ) : (
             <>
-              <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
-              <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
+              <Link to="/on-tap" className="btn btn-outline">Ôn tập đến hạn</Link>
+              <Link to="/hoc" className="btn btn-primary">Học bài khác</Link>
             </>
           )}
         </div>
@@ -279,16 +300,16 @@ export default function Typing() {
           <div className="typing-answer">Đáp án đúng: <strong>{q.kana}</strong></div>
         )}
         {checked && checked.correct && (
-          <div className="typing-answer typing-ok">Chính xác! 🎉</div>
+          <div className="typing-answer typing-ok">Chính xác!</div>
         )}
         <div className="typing-actions">
           {!checked ? (
             <button type="button" className="btn btn-primary" onClick={check} disabled={!input.trim() || saving}>
-              Kiểm tra ⏎
+              Kiểm tra
             </button>
           ) : (
             <button type="button" className="btn btn-primary" onClick={next} disabled={saving}>
-              {idx + 1 >= questions.length ? 'Xem kết quả' : 'Tiếp ⏎'}
+              {idx + 1 >= questions.length ? 'Xem kết quả' : 'Tiếp'}
             </button>
           )}
         </div>

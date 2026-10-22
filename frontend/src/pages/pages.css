@@ -425,3 +425,384 @@
 /* ===== Kanji: luồng cấp độ → bài ===== */
 .kanji-empty-hint { border: 1px dashed var(--border, #d8d8d8); border-radius: 10px; padding: 28px 20px; text-align: center; margin: 12px 0; }
 .kanji-empty-hint p { margin: 4px 0; }
+
+/* =====================================================================
+   v2.0 (Phase A) — Washi theme · 4-tab IA · Lesson Hub · Flashcard 3D
+   ===================================================================== */
+
+/* ---------- A5: Flashcard 3D — CSS y hệt pv-luyen-tap.html ---------- */
+.fc-scene { perspective: 1400px; margin: 10px auto 26px; max-width: 520px; }
+.fc-3d {
+  position: relative;
+  width: 100%;
+  min-height: 340px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1.2);
+  cursor: pointer;
+}
+.fc-3d.fc-flipped { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 24px 60px rgba(31, 58, 95, 0.2);
+  padding: 30px;
+  text-align: center;
+  overflow-y: auto;
+}
+.fc-face.fc-front {
+  background: linear-gradient(135deg, #1F3A5F 0%, #3d5f8a 100%);
+  color: #fff;
+}
+.fc-face.fc-back {
+  background: #fff;
+  transform: rotateY(180deg);
+  border: 3px solid #EADFC8;
+  color: var(--washi-ink);
+}
+.fc-face .flash-ja { font-size: 2.6rem; font-weight: 800; }
+.fc-face .flash-kana { color: inherit; opacity: 0.85; font-size: 1.1rem; margin-top: 4px; }
+.fc-face .flash-romaji { opacity: 0.75; font-style: italic; margin-top: 6px; }
+.fc-face .flash-meaning { font-size: 1.8rem; font-weight: 700; color: var(--washi-ink); }
+.fc-face .flash-hint { margin-top: 16px; opacity: 0.7; font-size: 0.85rem; }
+.fc-face .audio-btn { margin-top: 16px; }
+.fc-face .kanji-flash-char { color: inherit; }
+
+/* Nút chấm điểm kiểu preview (xanh/đỏ nhạt). */
+.grade-row { display: flex; gap: 14px; justify-content: center; margin-top: 24px; }
+.gbtn {
+  flex: 1;
+  max-width: 230px;
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+  font-size: 1.02rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.gbtn.no { background: #FDECE8; color: #C0392B; }
+.gbtn.yes { background: #E7F2E2; color: #3d6b35; }
+.gbtn:hover:not(:disabled) { transform: translateY(-3px); }
+.gbtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Confetti canvas (A5) — phủ toàn màn hình, không chặn thao tác. */
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 200;
+}
+
+/* ---------- A4: Trang chủ guest (theo pv-trang-chu.html) ---------- */
+.home2-hero { display: flex; align-items: center; gap: 40px; max-width: 1200px; margin: 0 auto; padding: 70px 48px 50px; }
+.home2-hero-text { flex: 1; }
+.home2-badge {
+  display: inline-block;
+  background: var(--washi-ink);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.home2-title { font-size: 3.2rem; line-height: 1.15; font-weight: 900; margin: 0 0 18px; color: var(--washi-ink); }
+.home2-title .jp-accent { color: var(--washi-shu); }
+.home2-sub { font-size: 1.1rem; color: #4a5a70; line-height: 1.7; margin: 0 0 32px; max-width: 520px; }
+.home2-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+.home2-stats { display: flex; gap: 36px; margin-top: 36px; flex-wrap: wrap; }
+.home2-stat b { font-size: 1.75rem; color: var(--washi-shu); display: block; }
+.home2-stat span { font-size: 0.88rem; color: #6b7a90; }
+.home2-hero-media { flex: 1; text-align: center; }
+/* Fallback nền màu khi ảnh /assets/* chưa được upload (404). */
+.safe-img {
+  background: linear-gradient(135deg, #1F3A5F 0%, #3d5f8a 60%, #E2482B 130%);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  min-height: 200px;
+}
+.safe-img::before {
+  content: '漢';
+  position: absolute;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 5rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.25);
+}
+.safe-img img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
+.home2-hero-media .safe-img { max-width: 460px; margin: 0 auto; aspect-ratio: 1; }
+
+.home2-section { max-width: 1200px; margin: 0 auto; padding: 60px 48px; }
+.home2-section h2 { font-size: 2.2rem; font-weight: 900; text-align: center; margin: 0 0 8px; color: var(--washi-ink); }
+.home2-section .sub { text-align: center; color: #6b7a90; margin: 0 0 44px; font-size: 1.05rem; }
+.home2-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.home2-card {
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(31, 58, 95, 0.1);
+  border: 1px solid var(--washi-line);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.home2-card:hover { transform: translateY(-8px); box-shadow: 0 20px 44px rgba(31, 58, 95, 0.18); }
+.home2-card .safe-img { border-radius: 0; aspect-ratio: 16/9; min-height: 0; }
+.home2-card .safe-img::before { font-size: 3.4rem; }
+.home2-card-body { padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; }
+.home2-card-body h3 { font-size: 1.2rem; margin: 0 0 8px; color: var(--washi-ink); display: flex; align-items: center; gap: 10px; }
+.home2-card-body p { font-size: 0.92rem; color: #5a6a82; line-height: 1.65; margin: 0 0 16px; flex: 1; }
+.home2-card-link { color: var(--washi-shu); font-weight: 700; font-size: 0.95rem; }
+.home2-card-link:hover { text-decoration: underline; }
+
+.home2-pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; align-items: stretch; }
+.home2-price-card {
+  background: #fff;
+  border-radius: 22px;
+  padding: 36px 30px;
+  border: 2px solid var(--washi-line);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.home2-price-card.hot { border-color: var(--washi-shu); box-shadow: 0 18px 44px rgba(226, 72, 43, 0.18); position: relative; }
+.home2-price-card .tag {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--washi-shu);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.home2-price-card h3 { font-size: 1.25rem; margin: 0 0 10px; color: var(--washi-ink); }
+.home2-price { font-size: 2.6rem; font-weight: 900; color: var(--washi-ink); margin: 12px 0 4px; }
+.home2-price-card .per { color: var(--washi-muted); font-size: 0.88rem; margin-bottom: 20px; }
+.home2-price-card ul { list-style: none; text-align: left; margin: 0 0 26px; padding: 0; flex: 1; }
+.home2-price-card li { padding: 8px 0; font-size: 0.95rem; color: #4a5a70; border-bottom: 1px dashed var(--washi-line); }
+.home2-price-card li::before { content: '✓ '; color: var(--washi-matcha); font-weight: 800; }
+
+@media (max-width: 900px) {
+  .home2-hero { flex-direction: column; padding: 48px 24px 36px; }
+  .home2-title { font-size: 2.3rem; }
+  .home2-cards, .home2-pricing { grid-template-columns: 1fr; }
+  .home2-section { padding: 44px 24px; }
+}
+
+/* ---------- A3: Tab Học /hoc — lộ trình 50 bài ---------- */
+.hoc-continue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: linear-gradient(135deg, #1F3A5F, #3d5f8a);
+  color: #fff;
+  border-radius: 18px;
+  padding: 22px 26px;
+  margin: 20px 0 26px;
+  box-shadow: 0 12px 30px rgba(31, 58, 95, 0.25);
+}
+.hoc-continue h2 { margin: 0 0 4px; font-size: 1.3rem; color: #fff; }
+.hoc-continue p { margin: 0; color: #c9d6e8; font-size: 0.95rem; }
+.hoc-continue .btn-primary { background: var(--washi-shu); }
+.hoc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.hoc-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 2px solid var(--washi-line);
+  padding: 18px;
+  color: var(--washi-ink);
+  display: block;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.hoc-card:hover { text-decoration: none; transform: translateY(-3px); border-color: var(--washi-shu); box-shadow: 0 10px 24px rgba(31, 58, 95, 0.12); }
+.hoc-card.done { border-color: var(--washi-matcha); }
+.hoc-card .lesson-no { font-size: 0.78rem; font-weight: 800; color: var(--washi-shu); text-transform: uppercase; letter-spacing: 0.4px; }
+.hoc-card .lesson-ja { font-size: 1.25rem; font-weight: 700; margin: 6px 0 2px; font-family: 'Noto Sans JP', sans-serif; }
+.hoc-card .lesson-vi { font-size: 0.9rem; color: var(--washi-muted); min-height: 2.4em; }
+.hoc-card .lesson-meta { font-size: 0.82rem; color: var(--washi-muted); margin: 8px 0 4px; }
+.hoc-done-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--washi-matcha);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- A3: Lesson Hub /hoc/bai/:id (theo pv-bai-hoc.html) ---------- */
+.hub-crumb { font-size: 0.88rem; color: var(--washi-muted); margin-bottom: 6px; }
+.hub-crumb b { color: var(--washi-ink); }
+.hub-head { display: flex; gap: 24px; align-items: center; margin: 8px 0 4px; flex-wrap: wrap; }
+.hub-num {
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #1F3A5F, #3d5f8a);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+.hub-num small { font-size: 0.7rem; opacity: 0.75; font-weight: 600; }
+.hub-num b { font-size: 2rem; }
+.hub-head h1 { font-size: 1.9rem; font-weight: 900; margin: 0; color: var(--washi-ink); }
+.hub-head .hub-sub { color: #6b7a90; margin-top: 6px; font-size: 0.95rem; }
+.hub-progress { height: 10px; background: #EADFC8; border-radius: 99px; margin-top: 12px; overflow: hidden; max-width: 420px; }
+.hub-progress i { display: block; height: 100%; background: linear-gradient(90deg, #7A9B57, #A9C46B); border-radius: 99px; }
+
+/* Tab gạch chân kiểu preview. */
+.hub-tabs { display: flex; gap: 10px; border-bottom: 3px solid #EADFC8; margin: 26px 0 0; flex-wrap: wrap; }
+.hub-tab {
+  padding: 14px 22px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--washi-muted);
+  border-bottom: 4px solid transparent;
+  margin-bottom: -3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.hub-tab .n { font-size: 0.72rem; background: #EADFC8; border-radius: 99px; padding: 2px 10px; color: var(--washi-ink); font-weight: 800; }
+.hub-tab.active { color: var(--washi-shu); border-bottom-color: var(--washi-shu); }
+.hub-tab.active .n { background: var(--washi-shu); color: #fff; }
+.hub-panel { padding: 26px 0 10px; animation: hub-fade 0.3s; }
+@keyframes hub-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+
+/* Bảng từ vựng kiểu preview. */
+.hub-words { width: 100%; border-collapse: collapse; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(31, 58, 95, 0.08); }
+.hub-words th { background: var(--washi-ink); color: #fff; text-align: left; padding: 13px 16px; font-size: 0.85rem; }
+.hub-words td { padding: 12px 16px; border-bottom: 1px solid #F1EAD8; font-size: 0.95rem; vertical-align: middle; }
+.hub-words tr:last-child td { border-bottom: none; }
+.hub-words tbody tr:hover td { background: #FDF9F0; }
+.hub-jp { font-size: 1.2rem; font-weight: 700; font-family: 'Noto Sans JP', sans-serif; }
+.hub-kana { color: var(--washi-matcha); font-size: 0.85rem; margin-left: 8px; }
+.hub-romaji { color: #6b7a90; font-style: italic; }
+.hub-words input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--washi-shu); cursor: pointer; }
+.hub-toolbar { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
+
+/* Cụm chủ đề kiểu preview. */
+.hub-cluster-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.hub-cluster {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px;
+  border: 2px solid var(--washi-line);
+  cursor: pointer;
+  transition: transform 0.25s, border-color 0.25s;
+  text-align: left;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+}
+.hub-cluster:hover { border-color: var(--washi-shu); transform: translateY(-4px); }
+.hub-cluster.selected { border-color: var(--washi-shu); background: #FFF8F5; }
+.hub-cluster h4 { font-size: 1.02rem; margin: 0 0 6px; color: var(--washi-ink); }
+.hub-cluster p { font-size: 0.85rem; color: var(--washi-muted); margin: 0; }
+.hub-cluster .cnt { float: right; background: var(--washi-ink); color: #fff; font-size: 0.72rem; font-weight: 800; border-radius: 99px; padding: 4px 12px; }
+@media (max-width: 860px) { .hub-cluster-grid { grid-template-columns: 1fr; } }
+
+/* Khối luyện tập — mode picker. */
+.hub-practice { margin: 34px 0 10px; background: #fff; border: 2px solid var(--washi-line); border-radius: 20px; padding: 26px; box-shadow: 0 10px 28px rgba(31, 58, 95, 0.08); }
+.hub-practice-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.hub-practice-head h2 { margin: 0; font-size: 1.3rem; color: var(--washi-ink); }
+.hub-modes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 16px; }
+@media (max-width: 900px) { .hub-modes { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .hub-modes { grid-template-columns: 1fr; } }
+.hub-mode {
+  border: 2px solid var(--washi-line);
+  border-radius: 16px;
+  padding: 18px 16px;
+  background: #FDFBF6;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hub-mode:hover { border-color: var(--washi-shu); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(31, 58, 95, 0.1); }
+.hub-mode.active { border-color: var(--washi-shu); background: #FFF6F2; }
+.hub-mode h4 { margin: 0; font-size: 1rem; color: var(--washi-ink); display: flex; align-items: center; gap: 10px; }
+.hub-mode p { margin: 0; font-size: 0.83rem; color: var(--washi-muted); line-height: 1.5; flex: 1; }
+.hub-mode select { margin-top: 4px; }
+.hub-practice-view { margin-top: 22px; border-top: 2px dashed var(--washi-line); padding-top: 22px; }
+.hub-practice-view .page { padding: 0; max-width: none; }
+
+/* Kanji grid kiểu preview. */
+.hub-kanji-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+@media (max-width: 860px) { .hub-kanji-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 560px) { .hub-kanji-grid { grid-template-columns: repeat(3, 1fr); } }
+.hub-kanji {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px 10px;
+  text-align: center;
+  border: 2px solid var(--washi-line);
+  color: var(--washi-ink);
+  transition: transform 0.2s, border-color 0.2s;
+  display: block;
+}
+.hub-kanji:hover { border-color: var(--washi-ink); transform: scale(1.06); text-decoration: none; }
+.hub-kanji .ch { font-size: 2.6rem; font-weight: 700; font-family: 'Noto Sans JP', sans-serif; line-height: 1.2; }
+.hub-kanji .rd { font-size: 0.75rem; color: var(--washi-muted); margin-top: 6px; }
+
+/* ---------- A3: Cá nhân /ca-nhan ---------- */
+.canhan-tabs { display: flex; gap: 8px; margin: 20px 0 6px; flex-wrap: wrap; border-bottom: 3px solid #EADFC8; }
+.canhan-hello { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+.canhan-hello h1 { margin: 0; }
+.ach-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+@media (max-width: 900px) { .ach-grid { grid-template-columns: repeat(2, 1fr); } }
+.ach-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 12px;
+  text-align: center;
+  border: 2px solid var(--washi-line);
+}
+.ach-card.got { border-color: var(--washi-gold); background: #FFFDF6; box-shadow: 0 8px 22px rgba(232, 169, 61, 0.15); }
+.ach-card.locked { opacity: 0.5; filter: grayscale(0.7); }
+.ach-card .jp-badge { width: 46px; height: 46px; font-size: 24px; border-radius: 14px; margin-bottom: 10px; }
+.ach-card p { font-size: 0.9rem; font-weight: 700; margin: 0 0 4px; color: var(--washi-ink); }
+.ach-card small { color: var(--washi-muted); font-size: 0.75rem; }
+.settings-card { background: #fff; border-radius: 16px; border: 2px solid var(--washi-line); padding: 24px; margin-top: 16px; }
+.settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--washi-line); flex-wrap: wrap; }
+.settings-row:last-child { border-bottom: none; }

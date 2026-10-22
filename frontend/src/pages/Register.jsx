@@ -51,7 +51,7 @@ export default function Register() {
     setLoading(true);
     try {
       await register({ email: email.trim(), code: code.trim(), password, name: name.trim() });
-      navigate('/tong-quan', { replace: true });
+      navigate('/ca-nhan', { replace: true });
     } catch (err) {
       setError(getErrorMessage(err, 'Mã xác thực không đúng hoặc đã hết hạn.'));
     } finally {

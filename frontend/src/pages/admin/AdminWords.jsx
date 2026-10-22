@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { adminAudioJob, adminCreateWord, adminDeleteWord, adminFetchWords, adminRegenerateAudio, adminUpdateWord } from '../../api/admin.js';
+import { fetchLessons } from '../../api/lessons.js';
 import { getErrorMessage } from '../../api/client.js';
 import { SECTION_LABELS, CLUSTER_LIST, clusterLabel } from '../../utils.js';
 
@@ -17,20 +18,35 @@ export default function AdminWords() {
   const [form, setForm] = useState(EMPTY);
   const [showForm, setShowForm] = useState(false);
   const [jobStatus, setJobStatus] = useState({});
+  // BE AdminController.listWords chỉ nhận lessonId (không có lessonNo) →
+  // nạp danh sách bài một lần để quy số bài thành lessonId.
+  const [lessons, setLessons] = useState([]);
 
   const load = (params = {}) => {
     setLoading(true);
+    setError('');
     adminFetchWords(params)
       .then((data) => setWords(Array.isArray(data) ? data : data.items || []))
       .catch((e) => setError(getErrorMessage(e, 'Không tải được danh sách từ vựng.')))
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load();
+    Promise.all([fetchLessons('N5'), fetchLessons('N4')])
+      .then(([n5, n4]) => setLessons([...(n5 || []), ...(n4 || [])]))
+      .catch(() => setLessons([]));
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    load({ q: q.trim() || undefined, lessonNo: lessonNo || undefined });
+    const no = Number(lessonNo);
+    const lessonId = lessonNo ? (lessons.find((l) => Number(l.lessonNo) === no)?.id || null) : undefined;
+    if (lessonNo && !lessonId) {
+      setError(`Không tìm thấy bài số ${lessonNo}.`);
+      return;
+    }
+    load({ q: q.trim() || undefined, lessonId: lessonId || undefined });
   };
 
   const handleSubmit = async (e) => {

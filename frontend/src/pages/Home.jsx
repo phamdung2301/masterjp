@@ -1,84 +1,151 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import './pages.css';
 
-// US-001: trang chủ giới thiệu Master JP cho guest — hero, tính năng, CTA đăng ký.
+// v2.0 (A4): trang chủ guest theo pv-trang-chu.html — hero, 6 card tính năng,
+// bảng giá 3 gói (chỉ hiển thị), footer dùng chung.
+// Ảnh /assets/* do user upload tay sau merge; mỗi <img> nằm trong .safe-img
+// (nền màu + chữ 漢 mờ) nên layout vẫn đẹp khi file 404.
+function SafeImg({ src, alt, className }) {
+  const [ok, setOk] = useState(true);
+  return (
+    <div className={`safe-img${className ? ` ${className}` : ''}`}>
+      {ok && <img src={src} alt={alt} onError={() => setOk(false)} loading="lazy" />}
+    </div>
+  );
+}
+
+const FEATURES = [
+  {
+    img: '/assets/card-vocab.jpeg', badge: '語', title: 'Từ vựng theo bài',
+    desc: '50 bài Minna no Nihongo, mỗi từ có audio phát âm chuẩn, ví dụ và cụm chủ đề thông minh.',
+    link: '/hoc', linkText: 'Khám phá',
+  },
+  {
+    img: '/assets/card-flashcard.jpeg', badge: '札', title: 'Flashcard 3D',
+    desc: 'Thẻ lật 3D mượt mà. Tự đánh giá Nhớ / Chưa nhớ — thoát giữa chừng cũng không mất tiến trình.',
+    link: '/hoc', linkText: 'Thử ngay',
+  },
+  {
+    img: '/assets/card-quiz.jpeg', badge: '問', title: 'Quiz 4 dạng',
+    desc: 'Nhật → Việt, Việt → Nhật, Luyện nghe, Gõ từ. Chấm ngay từng câu, tổng hợp câu sai để ôn lại.',
+    link: '/hoc', linkText: 'Làm thử',
+  },
+  {
+    img: '/assets/card-grammar.jpeg', badge: '文', title: 'Ngữ pháp 145 điểm',
+    desc: 'Công thức + ví dụ + bài tập cho từng điểm ngữ pháp N5–N4, tra cứu theo bài học.',
+    link: '/ngu-phap', linkText: 'Xem ngữ pháp',
+  },
+  {
+    img: '/assets/card-kanji.jpeg', badge: '漢', title: 'Kanji 988 chữ',
+    desc: 'Học kanji theo từng bài, xem âm đọc và nghĩa từng chữ, flashcard và quiz kanji riêng.',
+    link: '/kanji', linkText: 'Học kanji',
+  },
+  {
+    img: '/assets/card-review.jpeg', badge: '復', title: 'Ôn tập SM-2',
+    desc: 'Hệ thống nhớ từng từ của bạn và nhắc ôn đúng lúc — từ khó ôn nhiều, từ thuộc giãn dần.',
+    link: '/on-tap', linkText: 'Ôn ngay',
+  },
+];
+
+const PLANS = [
+  {
+    name: 'Free', price: '0đ', per: 'mãi mãi',
+    features: ['20 từ vựng / ngày', 'Flashcard & Quiz cơ bản', 'Ôn tập SM-2'],
+    cta: 'Bắt đầu', hot: false,
+  },
+  {
+    name: 'Premium tháng', price: '49k', per: '/ tháng', tag: 'PHỔ BIẾN NHẤT',
+    features: ['Không giới hạn từ vựng', 'Luyện nghe + Gõ từ', 'Chia sẻ bộ thẻ công khai', 'Thống kê chi tiết'],
+    cta: 'Nâng cấp ngay', hot: true,
+  },
+  {
+    name: 'Premium năm', price: '390k', per: '/ năm · tiết kiệm 34%',
+    features: ['Mọi quyền lợi Premium tháng', 'Huy hiệu Người ủng hộ', 'Ưu tiên tính năng mới'],
+    cta: 'Chọn gói năm', hot: false,
+  },
+];
+
 export default function Home() {
   const { isLoggedIn } = useAuth();
+
   return (
     <div>
-      <section className="hero">
-        <div className="hero-inner">
-          <div className="hero-badge">Minna no Nihongo · N5–N4</div>
-          <h1>Học từ vựng tiếng Nhật<br />đúng tiến trình giáo trình</h1>
-          <p className="hero-sub">
-            Master JP giúp bạn học từ vựng theo từng bài Minna no Nihongo: flashcard,
-            quiz 3 dạng (Nhật → Việt, Việt → Nhật, Nghe), bộ thẻ tự chọn và ôn tập
-            ngắt quãng nhắc đúng lúc — không bao giờ quên từ đã học.
+      {/* Hero */}
+      <section className="home2-hero">
+        <div className="home2-hero-text">
+          <span className="home2-badge">MINNA NO NIHONGO · N5–N4 · 50 BÀI</span>
+          <h1 className="home2-title">
+            Học tiếng Nhật <span className="jp-accent">vui như chơi,</span><br />
+            nhớ lâu như in
+          </h1>
+          <p className="home2-sub">
+            Cùng Tanu-chan chinh phục 2.692 từ vựng, 145 điểm ngữ pháp và 988 kanji
+            theo đúng tiến trình giáo trình — với flashcard 3D, quiz thông minh
+            và ôn tập ngắt quãng SM-2.
           </p>
-          <div className="hero-actions">
+          <div className="home2-actions">
             {isLoggedIn ? (
               <>
-                <Link to="/bai-hoc" className="btn btn-primary btn-lg">Tiếp tục học</Link>
+                <Link to="/hoc" className="btn btn-primary btn-lg">Tiếp tục học</Link>
                 <Link to="/on-tap" className="btn btn-outline btn-lg">Ôn tập đến hạn</Link>
               </>
             ) : (
               <>
-                <Link to="/dang-ky" className="btn btn-primary btn-lg">Đăng ký miễn phí</Link>
-                <Link to="/bai-hoc" className="btn btn-outline btn-lg">Xem thử bài học</Link>
+                <Link to="/dang-ky" className="btn btn-primary btn-lg">Bắt đầu miễn phí</Link>
+                <Link to="/hoc" className="btn btn-outline btn-lg">Xem thử bài 1</Link>
               </>
             )}
           </div>
+          <div className="home2-stats">
+            <div className="home2-stat"><b>2.692</b><span>từ vựng có audio</span></div>
+            <div className="home2-stat"><b>145</b><span>điểm ngữ pháp</span></div>
+            <div className="home2-stat"><b>988</b><span>kanji</span></div>
+          </div>
+        </div>
+        <div className="home2-hero-media">
+          <SafeImg src="/assets/mascot-hero.png" alt="Tanu-chan — linh vật Master JP" />
         </div>
       </section>
 
-      <section className="features">
-        <div className="page">
-          <h2>Tại sao học với Master JP?</h2>
-          <div className="feature-grid">
-            <div className="feature-card">
-              <div className="feature-icon">📚</div>
-              <h3>Đúng giáo trình Minna no Nihongo</h3>
-              <p>50 bài N5–N4, mỗi bài chia rõ Từ vựng chính, Từ tham khảo và Cụm từ. Audio phát âm chuẩn cho từng từ.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🃏</div>
-              <h3>Flashcard lật thẻ</h3>
-              <p>Tự đánh giá Nhớ / Chưa nhớ. Mỗi lần đánh giá được lưu ngay — thoát giữa chừng cũng không mất.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">✏️</div>
-              <h3>Quiz 3 dạng</h3>
-              <p>Nhật → Việt, Việt → Nhật và Nghe → chọn. Chấm ngay từng câu, cuối phiên có danh sách câu sai để ôn.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🧠</div>
-              <h3>Ôn ngắt quãng (SM-2)</h3>
-              <p>Hệ thống nhớ từng từ của bạn và nhắc ôn đúng lúc: từ càng khó càng được ôn nhiều, từ đã thuộc giãn dần.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">🏷️</div>
-              <h3>Bộ thẻ tự chọn</h3>
-              <p>Gom từ khó từ nhiều bài vào bộ thẻ riêng. Thành viên Premium có thể chia sẻ công khai cho cộng đồng.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">📈</div>
-              <h3>Theo dõi tiến trình</h3>
-              <p>Streak ngày học liên tiếp, số từ đã thuộc theo từng bài và cấp độ, lịch sử các phiên học.</p>
-            </div>
-          </div>
+      {/* 6 card tính năng */}
+      <section className="home2-section">
+        <h2>Tại sao học với Master JP?</h2>
+        <p className="sub">Mọi thứ bạn cần để từ N5 lên N4 — trong một nơi duy nhất</p>
+        <div className="home2-cards">
+          {FEATURES.map((f) => (
+            <article key={f.title} className="home2-card">
+              <SafeImg src={f.img} alt={f.title} />
+              <div className="home2-card-body">
+                <h3><span className="jp-badge">{f.badge}</span> {f.title}</h3>
+                <p>{f.desc}</p>
+                <Link to={f.link} className="home2-card-link">{f.linkText} →</Link>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      {!isLoggedIn && (
-        <section className="cta">
-          <div className="page cta-inner">
-            <h2>Bắt đầu học miễn phí ngay hôm nay</h2>
-            <p>Đăng ký chỉ cần email — hệ thống gửi mã xác thực trong vài giây.</p>
-            <Link to="/dang-ky" className="btn btn-primary btn-lg">Tạo tài khoản miễn phí</Link>
-          </div>
-        </section>
-      )}
+      {/* Bảng giá — chỉ hiển thị (Phase D mới gắn thanh toán) */}
+      <section className="home2-section" id="bang-gia">
+        <h2>Bảng giá đơn giản</h2>
+        <p className="sub">Bắt đầu miễn phí — nâng cấp khi bạn sẵn sàng bứt phá</p>
+        <div className="home2-pricing">
+          {PLANS.map((p) => (
+            <div key={p.name} className={`home2-price-card${p.hot ? ' hot' : ''}`}>
+              {p.tag && <span className="tag">{p.tag}</span>}
+              <h3>{p.name}</h3>
+              <div className="home2-price">{p.price}</div>
+              <div className="per">{p.per}</div>
+              <ul>
+                {p.features.map((ft) => <li key={ft}>{ft}</li>)}
+              </ul>
+              <Link to="/dang-ky" className={`btn ${p.hot ? 'btn-primary' : 'btn-outline'}`}>{p.cta}</Link>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
