@@ -4,16 +4,17 @@ import { fetchProgressSummary } from '../api/study.js';
 import { getErrorMessage } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { formatDateTime } from '../utils.js';
+import { FlameIcon } from '../components/icons.jsx';
 import './pages.css';
 
 // US-009 (F-028, F-029): dashboard — streak, NEW/LEARNING/MASTERED theo N5/N4,
 // % hoàn thành từng bài, 10 phiên học gần nhất. Cần login.
 const MODE_LABELS = {
   FLASHCARD: 'Flashcard',
-  QUIZ_JP_VI: 'Quiz Nhật → Việt',
-  QUIZ_VI_JP: 'Quiz Việt → Nhật',
-  LISTENING: 'Quiz Nghe',
-  TYPING: 'Gõ phiên âm',
+  QUIZ_JP_VI: 'Quiz — Nhật → Việt',
+  QUIZ_VI_JP: 'Quiz — Việt → Nhật',
+  LISTENING: 'Quiz — Luyện nghe',
+  TYPING: 'Quiz — Gõ từ',
   REVIEW_DUE: 'Ôn tập đến hạn',
 };
 
@@ -53,7 +54,7 @@ export default function Dashboard() {
 
       <div className="stat-grid">
         <div className="stat-card highlight">
-          <div className="stat-value">🔥 {streakDays}</div>
+          <div className="stat-value"><FlameIcon size={22} /> {streakDays}</div>
           <div className="stat-label">ngày học liên tiếp</div>
         </div>
         {['N5', 'N4'].map((lv) => {
@@ -74,12 +75,12 @@ export default function Dashboard() {
 
       <div className="dashboard-actions">
         <Link to="/on-tap" className="btn btn-primary">Ôn tập đến hạn</Link>
-        <Link to="/bai-hoc" className="btn btn-outline">Học bài mới</Link>
+        <Link to="/hoc" className="btn btn-outline">Học bài mới</Link>
       </div>
 
       <h2>Tiến độ từng bài</h2>
       {lessons.length === 0 ? (
-        <p className="muted">Bạn chưa học bài nào — <Link to="/bai-hoc">bắt đầu bài đầu tiên</Link> nhé!</p>
+        <p className="muted">Bạn chưa học bài nào — <Link to="/hoc">bắt đầu bài đầu tiên</Link> nhé!</p>
       ) : (
         <div className="lesson-progress-list">
           {lessons.map((l) => {
@@ -87,7 +88,7 @@ export default function Dashboard() {
             const total = l.total || 0;
             const pct = total > 0 ? Math.round(((l.mastered || 0) / total) * 100) : 0;
             return (
-              <Link key={l.lessonId || l.id} to={`/bai-hoc/${l.lessonId || l.id}`} className="lesson-progress-row">
+              <Link key={l.lessonId || l.id} to={`/hoc/bai/${l.lessonId || l.id}`} className="lesson-progress-row">
                 <span className="lp-no">Bài {l.lessonNo}</span>
                 <span className="lp-title">{l.titleVi || l.titleJa}</span>
                 <div className="progress-bar"><div className="progress-fill" style={{ width: `${pct}%` }} /></div>

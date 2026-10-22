@@ -1,18 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+
 /* Master JP — global styles */
+/* v2.0 (A2): Washi theme — bảng màu giấy washi + mực chàm ai-iro. */
 :root {
-  --primary: #b91c1c;
-  --primary-dark: #991b1b;
-  --primary-light: #fef2f2;
-  --accent: #1e40af;
-  --bg: #faf7f2;
+  /* --- Design tokens v2.0 (theo DOC-10 §2) --- */
+  --washi-bg: #FAF6EE;      /* nền giấy washi */
+  --washi-ink: #1F3A5F;     /* chàm ai-iro — chữ chính, header */
+  --washi-shu: #E2482B;     /* đỏ shu-iro — CTA, nhấn */
+  --washi-gold: #E8A93D;    /* vàng mù tạt — badge, cảnh báo nhẹ */
+  --washi-matcha: #7A9B57;  /* xanh matcha — thành công */
+  --washi-line: #EFE6D2;    /* viền nhạt */
+  --washi-muted: #8a97a8;   /* chữ phụ */
+
+  /* --- Biến cũ: remap sang palette washi để các trang cũ đồng bộ giao diện --- */
+  --primary: #E2482B;
+  --primary-dark: #C43A22;
+  --primary-light: #FDECE8;
+  --accent: #1F3A5F;
+  --bg: #FAF6EE;
   --card-bg: #ffffff;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --success: #15803d;
-  --success-bg: #f0fdf4;
-  --error: #dc2626;
-  --error-bg: #fef2f2;
+  --text: #1F3A5F;
+  --muted: #8a97a8;
+  --border: #EFE6D2;
+  --success: #7A9B57;
+  --success-bg: #EDF4E4;
+  --error: #E2482B;
+  --error-bg: #FDECE8;
   --radius: 12px;
   --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
 }
@@ -21,10 +34,48 @@
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', system-ui, sans-serif;
+  /* Tiếng Việt: font hệ thống · Tiếng Nhật: Noto Sans JP (A2). */
+  font-family: 'Segoe UI', 'Be Vietnam Pro', 'Noto Sans JP', 'Hiragino Sans', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+}
+
+/* Badge ký tự Nhật dùng thay emoji làm icon (A2): 語 札 問 文 漢 復 … */
+.jp-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: var(--washi-ink);
+  color: #fff;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.jp-badge.shu { background: var(--washi-shu); }
+.jp-badge.matcha { background: var(--washi-matcha); }
+.jp-badge.gold { background: var(--washi-gold); }
+
+/* Icon SVG inline: căn giữa theo dòng chữ. */
+.btn svg, .tab svg, .main-nav svg, .header-user svg, .stat-value svg {
+  vertical-align: -3px;
+}
+
+/* Truy cập: ẩn khỏi mắt nhưng screen reader vẫn đọc. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .app-shell { min-height: 100vh; display: flex; flex-direction: column; }
@@ -116,25 +167,38 @@ label input, label select { margin-top: 4px; font-weight: 400; }
 .new-set-row { display: flex; gap: 8px; margin-top: 12px; }
 .new-set-row input { flex: 1; }
 
-/* Header / Footer */
-.site-header { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+/* Header / Footer — v2.0 washi */
+.site-header {
+  background: rgba(250, 246, 238, 0.96);
+  border-bottom: 2px solid #EADFC8;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
 .header-inner { max-width: 1100px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-.brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 1.3rem; color: var(--primary); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.3rem; color: var(--washi-ink); }
 .brand:hover { text-decoration: none; }
+.brand-name .jp-accent { color: var(--washi-shu); }
 .brand-icon { font-size: 1.5rem; }
 .main-nav { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
-.main-nav a { padding: 8px 12px; border-radius: 8px; color: var(--text); font-weight: 500; font-size: 0.92rem; }
-.main-nav a:hover { background: #f3f4f6; text-decoration: none; }
-.main-nav a.active { background: var(--primary-light); color: var(--primary); font-weight: 700; }
-.admin-link { color: var(--primary) !important; font-weight: 700 !important; }
+.main-nav a { padding: 8px 14px; border-radius: 999px; color: var(--washi-ink); font-weight: 600; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 7px; }
+.main-nav a:hover { background: #F3ECDB; text-decoration: none; }
+.main-nav a.active { background: var(--washi-shu); color: #fff; font-weight: 700; }
+.admin-link { color: var(--washi-shu) !important; font-weight: 700 !important; }
 .header-auth { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-.header-user { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
-.streak-badge { background: #fef3c7; color: #92400e; border-radius: 999px; padding: 2px 10px; font-size: 0.8rem; font-weight: 700; }
+.header-user { font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; color: var(--washi-ink); }
+.streak-badge { background: #FDF3E3; color: #b07a1e; border-radius: 999px; padding: 2px 10px; font-size: 0.8rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
 
-.site-footer { background: #1f2937; color: #d1d5db; margin-top: auto; }
-.footer-inner { max-width: 1100px; margin: 0 auto; padding: 24px 20px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.site-footer { background: var(--washi-ink); color: #D8E2EE; margin-top: auto; }
+.footer-inner { max-width: 1100px; margin: 0 auto; padding: 40px 20px 28px; display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; align-items: center; }
 .footer-inner strong { color: #fff; }
-.footer-note { font-size: 0.85rem; color: #9ca3af; }
+.footer-brand { display: flex; gap: 18px; align-items: center; max-width: 520px; }
+.footer-mascot { width: 110px; height: 110px; border-radius: 20px; object-fit: cover; background: #2c4a73; flex-shrink: 0; }
+.footer-links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.92rem; }
+.footer-links a { color: #D8E2EE; font-weight: 600; }
+.footer-links a:hover { color: #fff; }
+.footer-note { font-size: 0.85rem; color: #9fb0c8; margin-top: 6px; }
+.footer-copy { text-align: center; padding: 16px; font-size: 0.82rem; color: #7c8ea8; border-top: 1px solid #2c4a73; }
 
 /* Responsive */
 @media (max-width: 720px) {

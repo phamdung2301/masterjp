@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { toHiragana } from 'wanakana';
 import { generateKanjiQuiz } from '../api/kanji.js';
 import { getErrorMessage } from '../api/client.js';
+import { CheckIcon, CrossIcon, PencilIcon, RestartIcon } from '../components/icons.jsx';
 import './pages.css';
 
 // R3 (F-D): quiz kanji — trắc nghiệm (KANJI_MEANING / MEANING_KANJI) + gõ cách
@@ -16,6 +17,7 @@ import './pages.css';
 //   chấp nhận bất kỳ cách đọc nào trong đó. Normalize: trim/lowercase,
 //   romaji→hiragana (wanakana), bỏ ký tự ngoặc (giữ phần chữ bên trong).
 //   Gõ rút gọn `ひと` cho data `ひと(つ)` → SAI (strict theo data — chủ ý).
+// v2.0 (A3): nhúng trong Lesson Hub qua prop onExit (không đổi URL, logic giữ nguyên).
 const KANJI_QUIZ_KEY = 'mjp_kanji_quiz';
 
 const MODE_LABEL = {
@@ -43,7 +45,7 @@ function checkTyping(input, kana) {
   return acceptedReadings(kana).includes(n);
 }
 
-export default function KanjiQuiz() {
+export default function KanjiQuiz({ onExit }) {
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const [payload, setPayload] = useState(null); // { questions, mode, count }
@@ -64,7 +66,7 @@ export default function KanjiQuiz() {
       const data = raw ? JSON.parse(raw) : null;
       const questions = data?.questions || [];
       if (questions.length === 0) {
-        setLoadError('Chưa có bộ câu hỏi. Hãy tick chọn chữ kanji rồi bấm luyện tập.');
+        setLoadError('Chưa có bộ câu hỏi. Hãy chọn chữ kanji rồi bấm luyện tập.');
         return;
       }
       setPayload({ questions, mode: data.mode || params.get('mode') || 'KANJI_MEANING' });
@@ -83,9 +85,13 @@ export default function KanjiQuiz() {
   if (loadError || !payload) {
     return (
       <div className="page">
-        <h1>✏️ Quiz kanji</h1>
+        <h1><PencilIcon size={24} /> Quiz kanji</h1>
         {loadError && <div className="alert alert-error">{loadError}</div>}
-        <Link to="/kanji" className="btn btn-primary">← Về trang Kanji</Link>
+        {onExit ? (
+          <button type="button" className="btn btn-primary" onClick={onExit}>← Thoát luyện tập</button>
+        ) : (
+          <Link to="/kanji" className="btn btn-primary">← Về trang Kanji</Link>
+        )}
       </div>
     );
   }
@@ -160,11 +166,11 @@ export default function KanjiQuiz() {
     const pct = questions.length > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
     return (
       <div className="page">
-        <h1>✏️ Quiz kanji — Kết quả</h1>
+        <h1><PencilIcon size={24} /> Quiz kanji — Kết quả</h1>
         <div className="kquiz-result">
           <div className="kquiz-score">{correctCount}/{questions.length}</div>
           <p className="muted">Đúng {pct}% · {MODE_LABEL[mode] || mode}</p>
-          <p className="muted kquiz-note">v1 chưa lưu tiến trình SM-2 cho kanji (theo contract F-D).</p>
+          <p className="muted kquiz-note">Tiến trình ôn tập (SM-2) cho kanji sẽ có trong bản cập nhật tới.</p>
           {regenError && <div className="alert alert-error">{regenError}</div>}
           <div className="kquiz-result-actions">
             {wrongChars.length > 0 ? (
@@ -173,21 +179,27 @@ export default function KanjiQuiz() {
                 disabled={regenerating}
                 onClick={() => regenerate(wrongChars)}
               >
-                {regenerating ? 'Đang tạo…' : `🔁 Luyện lại ${wrongChars.length} chữ sai`}
+                {regenerating ? 'Đang tạo…' : (<><RestartIcon size={16} /> Luyện lại {wrongChars.length} chữ sai</>)}
               </button>
             ) : (
-              <span className="muted">Tuyệt vời, nhớ hết rồi! 🎉</span>
+              <span className="muted">Tuyệt vời, nhớ hết rồi!</span>
             )}
             <button
               type="button" className="btn btn-outline"
               disabled={regenerating}
               onClick={() => regenerate(questions.map((x) => x.wordId))}
             >
-              {regenerating ? 'Đang tạo…' : '🔁 Luyện lại toàn bộ'}
+              {regenerating ? 'Đang tạo…' : (<><RestartIcon size={16} /> Luyện lại toàn bộ</>)}
             </button>
-            <button type="button" className="btn btn-primary" onClick={() => navigate('/kanji')}>
-              ← Về trang Kanji
-            </button>
+            {onExit ? (
+              <button type="button" className="btn btn-primary" onClick={onExit}>
+                ← Thoát luyện tập
+              </button>
+            ) : (
+              <button type="button" className="btn btn-primary" onClick={() => navigate('/kanji')}>
+                ← Về trang Kanji
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -196,7 +208,7 @@ export default function KanjiQuiz() {
 
   return (
     <div className="page">
-      <h1>✏️ Quiz kanji <span className="muted kquiz-mode-label">· {MODE_LABEL[mode] || mode}</span></h1>
+      <h1><PencilIcon size={24} /> Quiz kanji <span className="muted kquiz-mode-label">· {MODE_LABEL[mode] || mode}</span></h1>
       <div className="kquiz-progress">
         <span>Câu {idx + 1}/{questions.length}</span>
         <span className="muted">Đúng {correctCount}</span>
@@ -225,8 +237,8 @@ export default function KanjiQuiz() {
               </button>
             ) : (
               <div className={`kquiz-feedback${checked.correct ? ' correct' : ' wrong'}`}>
-                {checked.correct ? '✅ Đúng!' : (
-                  <>❌ Sai. Các cách đọc: <strong>{q.kana}</strong></>
+                {checked.correct ? (<><CheckIcon size={18} /> Đúng!</>) : (
+                  <><CrossIcon size={18} /> Sai. Các cách đọc: <strong>{q.kana}</strong></>
                 )}
               </div>
             )}

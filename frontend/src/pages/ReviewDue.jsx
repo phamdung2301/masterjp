@@ -1,11 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { answerProgress, fetchDueWords, recordSession } from '../api/study.js';
 import { getErrorMessage } from '../api/client.js';
 import AudioButton from '../components/AudioButton.jsx';
+import Confetti from '../components/Confetti.jsx';
+import { CheckIcon, CrossIcon, FlameIcon } from '../components/icons.jsx';
 import './pages.css';
 
 // US-008 (F-026, F-027): ôn từ đến hạn theo SM-2, kiểu flashcard.
 // PATCH progress ngay mỗi thẻ; hết → POST sessions (mode REVIEW_DUE).
+// v2.0 (A3/A5): lật thẻ 3D + confetti khi xong; icon SVG thay emoji.
+// 3.4: gom hiển thị — số từ đến hạn + thời gian ước tính + streak (logic SM-2 giữ nguyên).
 export default function ReviewDue() {
   const [words, setWords] = useState([]);
   const [idx, setIdx] = useState(0);
@@ -71,15 +76,18 @@ export default function ReviewDue() {
   if (finished && result) {
     return (
       <div className="page result-page">
-        <h1>Ôn tập xong! 🎉</h1>
+        <Confetti run />
+        <h1>Ôn tập xong!</h1>
         <div className="result-summary">
           <div className="result-big">{result.correctCount}/{result.total}</div>
           <div className="muted">từ bạn còn nhớ</div>
-          {result.streakDays != null && <div className="streak-line">🔥 Chuỗi ngày học: {result.streakDays} ngày</div>}
+          {result.streakDays != null && (
+            <div className="streak-line"><FlameIcon size={16} /> Chuỗi ngày học: {result.streakDays} ngày</div>
+          )}
         </div>
         <div className="result-actions">
-          <a href="/bai-hoc" className="btn btn-primary">Học bài mới</a>
-          <a href="/tong-quan" className="btn btn-outline">Xem tiến trình</a>
+          <Link to="/hoc" className="btn btn-primary">Học bài mới</Link>
+          <Link to="/ca-nhan" className="btn btn-outline">Xem tiến trình</Link>
         </div>
       </div>
     );
@@ -90,41 +98,52 @@ export default function ReviewDue() {
       <div className="page">
         <h1>Ôn tập đến hạn</h1>
         <div className="empty-state">
-          <div className="empty-icon">🎉</div>
+          <div className="empty-icon"><span className="jp-badge matcha">復</span></div>
           <p>Không có từ nào đến hạn ôn hôm nay. Bạn đang theo kịp tiến độ — tuyệt vời!</p>
-          <a href="/bai-hoc" className="btn btn-primary">Học từ mới</a>
+          <Link to="/hoc" className="btn btn-primary">Học từ mới</Link>
         </div>
       </div>
     );
   }
 
   const word = words[idx];
+  // Ước tính: ~8 giây / từ còn lại.
+  const etaMin = Math.max(1, Math.round(((words.length - idx) * 8) / 60));
 
   return (
     <div className="page practice-page">
       <div className="practice-top">
-        <span className="muted">Từ {idx + 1}/{words.length} đến hạn ôn</span>
+        <span className="muted">Từ {idx + 1}/{words.length} đến hạn ôn · còn khoảng {etaMin} phút</span>
         <div className="progress-bar slim"><div className="progress-fill" style={{ width: `${(idx / words.length) * 100}%` }} /></div>
       </div>
-      <div className={`flash-card${flipped ? ' flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
-        {!flipped ? (
-          <div className="flash-front">
+      {/* A5: lật thẻ 3D — .fc-scene(perspective) > .fc-3d(preserve-3d) > .fc-face(front/back). */}
+      <div className="fc-scene">
+        <div className={`fc-3d${flipped ? ' fc-flipped' : ''}`} onClick={() => setFlipped(!flipped)} role="button" aria-label="Lật thẻ">
+          <div className="fc-face fc-front">
             <div className="flash-ja">{word.kanji || word.kana}</div>
             {word.kanji && <div className="flash-kana">{word.kana}</div>}
             <div className="flash-romaji">{word.romaji}</div>
             <AudioButton url={word.audioUrl} />
             <div className="flash-hint">Chạm để lật thẻ</div>
           </div>
-        ) : (
-          <div className="flash-back">
+          <div className="fc-face fc-back">
             <div className="flash-meaning">{word.meaningVi}</div>
-            {word.exampleJa && <div className="flash-example"><div>{word.exampleJa}</div>{word.exampleVi && <div className="muted">{word.exampleVi}</div>}</div>}
+            {word.exampleJa && (
+              <div className="flash-example">
+                <div>{word.exampleJa}</div>
+                {word.exampleVi && <div className="muted">{word.exampleVi}</div>}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
-      <div className="flash-actions">
-        <button type="button" className="btn btn-outline btn-lg" onClick={() => answer(false)} disabled={saving}>😕 Quên rồi</button>
-        <button type="button" className="btn btn-primary btn-lg" onClick={() => answer(true)} disabled={saving}>😊 Còn nhớ</button>
+      <div className="grade-row">
+        <button type="button" className="gbtn no" onClick={() => answer(false)} disabled={saving}>
+          <CrossIcon size={18} /> Quên rồi
+        </button>
+        <button type="button" className="gbtn yes" onClick={() => answer(true)} disabled={saving}>
+          <CheckIcon size={18} /> Còn nhớ
+        </button>
       </div>
     </div>
   );
