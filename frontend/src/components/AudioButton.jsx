@@ -1,4 +1,5 @@
 import { playAudio } from '../utils.js';
+import { SpeakerIcon } from './icons.jsx';
 
 // Nút phát audio của từng từ. audioUrl có thể null (phase 1) → ẩn nút.
 export default function AudioButton({ url, size = 'md', title = 'Nghe phát âm' }) {
@@ -11,7 +12,7 @@ export default function AudioButton({ url, size = 'md', title = 'Nghe phát âm'
       title={title}
       aria-label={title}
     >
-      🔊
+      <SpeakerIcon size={size === 'md' ? 18 : 16} />
     </button>
   );
 }

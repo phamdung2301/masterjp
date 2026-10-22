@@ -5,6 +5,7 @@ import { getErrorMessage } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import LoginPrompt from '../components/LoginPrompt.jsx';
 import './pages.css';
+import { UsersIcon } from '../components/icons.jsx';
 
 // US-013 (F-035): Khám phá bộ thẻ công khai — không cần login để xem;
 // nút "Sao chép về" cần login (guest → mời đăng nhập).
@@ -54,7 +55,7 @@ export default function Explore() {
       <h1>Khám phá</h1>
       <p className="muted">Bộ thẻ công khai do cộng đồng chia sẻ — sao chép về để luyện theo cách của bạn.</p>
       {error && <div className="alert alert-error">{error}</div>}
-      {notice && <div className="alert alert-success">{notice} <Link to="/bo-the">Xem bộ thẻ của tôi →</Link></div>}
+      {notice && <div className="alert alert-success">{notice} <Link to="/ca-nhan?tab=bo-the">Xem bộ thẻ của tôi →</Link></div>}
       <form className="search-box" onSubmit={(e) => { e.preventDefault(); load(q); }}>
         <input type="text" placeholder="Tìm bộ thẻ theo tên…" value={q} onChange={(e) => setQ(e.target.value)} />
         <button type="submit" className="btn btn-primary">Tìm</button>
@@ -63,7 +64,7 @@ export default function Explore() {
         <p className="muted">Đang tải…</p>
       ) : sets.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-icon">🌐</div>
+          <div className="empty-icon"><UsersIcon size={44} /></div>
           <p>Chưa có bộ thẻ công khai nào{ q.trim() ? ' khớp tìm kiếm' : '' }.</p>
         </div>
       ) : (
@@ -75,12 +76,12 @@ export default function Explore() {
               <div className="set-card-meta">
                 <span>{s.wordCount ?? s.wordIds?.length ?? 0} từ</span>
                 {s.authorName && <span className="muted">bởi {s.authorName}</span>}
-                {(s.forkCount ?? 0) > 0 && <span className="muted">📋 {s.forkCount} lượt sao chép</span>}
+                {(s.forkCount ?? 0) > 0 && <span className="muted">{s.forkCount} lượt sao chép</span>}
               </div>
               <div className="set-card-actions">
                 <button type="button" className="btn btn-sm btn-primary"
                   onClick={() => handleFork(s)} disabled={forking === s.id}>
-                  {forking === s.id ? 'Đang sao chép…' : '📋 Sao chép về'}
+                  {forking === s.id ? 'Đang sao chép…' : 'Sao chép về'}
                 </button>
               </div>
             </div>

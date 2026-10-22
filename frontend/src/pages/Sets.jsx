@@ -44,7 +44,7 @@ export default function Sets() {
   };
 
   const handleDelete = async (s) => {
-    if (!window.confirm(`Xóa bộ thẻ "${s.name}"? Các từ bên trong sẽ không bị xóa khỏi hệ thống.`)) return;
+    if (!window.confirm(`Xóa bộ thẻ "${s.name}"? Các từ bên trong vẫn giữ nguyên trong bài học của bạn.`)) return;
     try {
       await deleteSet(s.id);
       setSets(sets.filter((x) => x.id !== s.id));
@@ -76,22 +76,22 @@ export default function Sets() {
         <p className="muted">Đang tải…</p>
       ) : sets.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-icon">🏷️</div>
+          <div className="empty-icon"><span className="jp-badge">札</span></div>
           <p>Bạn chưa có bộ thẻ nào. Tạo bộ đầu tiên, hoặc từ trang bài học / từ điển bấm "＋ Bộ thẻ" để thêm từ vào.</p>
         </div>
       ) : (
         <div className="set-grid">
           {sets.map((s) => (
             <div key={s.id} className="set-card">
-              <Link to={`/bo-the/${s.id}`} className="set-card-title">{s.name}</Link>
+              <Link to={`/ca-nhan/bo-the/${s.id}`} className="set-card-title">{s.name}</Link>
               {s.description && <p className="muted set-card-desc">{s.description}</p>}
               <div className="set-card-meta">
                 <span>{s.wordCount ?? s.wordIds?.length ?? 0} từ</span>
-                {s.isPublic && <span className="badge badge-public">🌐 Công khai</span>}
+                {s.isPublic && <span className="badge badge-public">Công khai</span>}
                 <span className="muted">{formatDate(s.updatedAt || s.createdAt)}</span>
               </div>
               <div className="set-card-actions">
-                <Link to={`/bo-the/${s.id}`} className="btn btn-sm btn-outline">Xem & luyện</Link>
+                <Link to={`/ca-nhan/bo-the/${s.id}`} className="btn btn-sm btn-outline">Xem & luyện</Link>
                 <button type="button" className="btn btn-sm btn-ghost danger" onClick={() => handleDelete(s)}>Xóa</button>
               </div>
             </div>
