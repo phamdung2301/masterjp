@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import WordCard from '../components/WordCard.jsx';
 import AddToSetModal from '../components/AddToSetModal.jsx';
 import LoginPrompt from '../components/LoginPrompt.jsx';
+import { CardIcon, PencilIcon } from '../components/icons.jsx';
 import { QUIZ_MODES, clusterLabel } from '../utils.js';
 import './pages.css';
 
@@ -91,7 +92,9 @@ export default function Kanji() {
     Promise.all([
       fetchKanji({}),
       fetchKanjiTopics().catch(() => []),
-      fetchLessons().catch(() => []),
+      Promise.all([fetchLessons('N5'), fetchLessons('N4')])
+        .then(([n5, n4]) => [...(n5 || []), ...(n4 || [])])
+        .catch(() => []),
     ])
       .then(([kanjiData, topicData, lessonData]) => {
         setItems(Array.isArray(kanjiData) ? kanjiData : []);
@@ -336,7 +339,7 @@ export default function Kanji() {
         count: questions.length,
         totalChars: chars.length,
       }));
-      navigate(`/luyen-tap/kanji-quiz?mode=${mode}`);
+      navigate(`/kanji/quiz?mode=${mode}`);
     } catch (e) {
       setPracticeError(getErrorMessage(e, 'Không tạo được quiz kanji.'));
     } finally {
@@ -358,11 +361,11 @@ export default function Kanji() {
           jlpt: k.jlpt,
         }));
       sessionStorage.setItem(KANJI_PICK_KEY, JSON.stringify(arr));
-      navigate('/luyen-tap/kanji?pick=1');
+      navigate('/kanji/the?pick=1');
       return;
     }
     if (!window.confirm(`Bạn sắp luyện toàn bộ ${items.length} chữ. Tiếp tục?`)) return;
-    navigate('/luyen-tap/kanji');
+    navigate('/kanji/the');
   };
 
   // --- luyện tập từ vựng (pattern ?quick=1 + sessionStorage như LessonDetail) ---
@@ -373,20 +376,20 @@ export default function Kanji() {
     const returnTo = '/kanji';
     if (target === 'quiz') {
       sessionStorage.setItem(WORD_QUICK_KEY, JSON.stringify({ wordIds, words, mode: wordQuizMode, returnTo }));
-      navigate(`/luyen-tap/quiz?quick=1&mode=${QUIZ_URL_MODE[wordQuizMode] || 'jp_vi'}`);
+      navigate(`/luyen-nhanh/quiz?quick=1&mode=${QUIZ_URL_MODE[wordQuizMode] || 'jp_vi'}`);
     } else if (target === 'typing') {
       sessionStorage.setItem(WORD_QUICK_KEY, JSON.stringify({ wordIds, words, mode: 'TYPING', returnTo }));
-      navigate('/luyen-tap/go-phien-am?quick=1');
+      navigate('/luyen-nhanh/go?quick=1');
     } else {
       sessionStorage.setItem(WORD_QUICK_KEY, JSON.stringify({ wordIds, words, mode: 'FLASHCARD', returnTo }));
-      navigate(`/luyen-tap/flashcard?quick=1&direction=${flashcardDir.toLowerCase()}`);
+      navigate(`/luyen-nhanh/the?quick=1&direction=${flashcardDir.toLowerCase()}`);
     }
   };
 
   const kanjiPracticeHint = picked.size === 0
-    ? 'Tick chọn chữ kanji ở lưới bên dưới để luyện.'
+    ? 'Chọn chữ kanji ở lưới bên dưới để luyện.'
     : picked.size < MIN_MCQ_CHARS
-      ? `Trắc nghiệm cần ít nhất ${MIN_MCQ_CHARS} chữ (để đủ đáp án nhiễu); gõ cách đọc đã sẵn sàng.`
+      ? `Trắc nghiệm cần ít nhất ${MIN_MCQ_CHARS} chữ (để đủ đáp án lựa chọn); gõ cách đọc đã sẵn sàng.`
       : '';
 
   const lessonBtn = (n) => (
@@ -424,7 +427,7 @@ export default function Kanji() {
 
       <div className="lesson-pick">
         <div className="lesson-pick-head">
-          <span className="lesson-pick-title">Tick bài để xem và chọn toàn bộ kanji của bài ({selLessons.length}/{levelLessonNos.length})</span>
+          <span className="lesson-pick-title">Chọn bài để xem và chọn toàn bộ kanji của bài ({selLessons.length}/{levelLessonNos.length})</span>
           <button type="button" className="btn btn-ghost btn-sm" onClick={toggleAllLessons}>
             {selLessons.length === levelLessonNos.length ? 'Bỏ chọn hết' : 'Chọn tất cả'}
           </button>
@@ -436,7 +439,7 @@ export default function Kanji() {
 
       <div className="topic-pick">
         <div className="lesson-pick-head">
-          <span className="lesson-pick-title">Tick chủ đề để chọn kanji theo chủ đề ({selTopics.length}/{topics.length})</span>
+          <span className="lesson-pick-title">Chọn chủ đề để chọn kanji theo chủ đề ({selTopics.length}/{topics.length})</span>
           {topics.length > 0 && (
             <button type="button" className="btn btn-ghost btn-sm" onClick={toggleAllTopics}>
               {selTopics.length === topics.length ? 'Bỏ chọn hết' : 'Chọn tất cả'}
@@ -482,7 +485,7 @@ export default function Kanji() {
       ) : filtered.length === 0 ? (
         selLessons.length === 0 && selTopics.length === 0 && !search.trim() ? (
           <div className="kanji-empty-hint">
-            <p>👆 Hãy <strong>tick chọn bài</strong> ở trên (hoặc tick một chủ đề) để xem kanji của {level}.</p>
+            <p>Hãy <strong>chọn bài</strong> ở trên (hoặc chọn một chủ đề) để xem kanji của {level}.</p>
             <p className="muted">Hoặc gõ chữ kanji vào ô tìm kiếm để tra nhanh.</p>
           </div>
         ) : (
@@ -591,7 +594,7 @@ export default function Kanji() {
               <span className="selection-count">Đã chọn <strong>{picked.size}</strong> chữ</span>
               <div className="selection-actions">
                 <button type="button" className="btn btn-primary btn-sm" onClick={goFlashcard}>
-                  🃏 Flashcard
+                  <CardIcon size={16} /> Flashcard
                 </button>
                 <span className="practice-pair">
                   <button
@@ -600,7 +603,7 @@ export default function Kanji() {
                     disabled={picked.size < MIN_MCQ_CHARS || practicing}
                     onClick={() => requireLogin('Đăng nhập để làm quiz kanji.', () => startKanjiQuiz(kanjiQuizMode))}
                   >
-                    {practicing ? 'Đang tạo…' : '✏️ Quiz kanji'}
+                    {practicing ? 'Đang tạo…' : 'Quiz kanji'}
                   </button>
                   <select
                     className="select-inline"
@@ -617,7 +620,7 @@ export default function Kanji() {
                   disabled={picked.size < 1 || practicing}
                   onClick={() => requireLogin('Đăng nhập để luyện gõ cách đọc kanji.', () => startKanjiQuiz('KANJI_TYPING'))}
                 >
-                  {practicing ? 'Đang tạo…' : '⌨️ Gõ cách đọc'}
+                  {practicing ? 'Đang tạo…' : '<PencilIcon size={16} /> Gõ cách đọc'}
                 </button>
               </div>
               {kanjiPracticeHint && <div className="muted kanji-practice-hint">{kanjiPracticeHint}</div>}
@@ -633,7 +636,7 @@ export default function Kanji() {
                     className="btn btn-primary btn-sm"
                     onClick={() => requireLogin('Đăng nhập để luyện flashcard và lưu tiến trình.', () => startWordPractice('flashcard'))}
                   >
-                    🃏 Flashcard
+                    <CardIcon size={16} /> Flashcard
                   </button>
                   <select
                     className="select-inline"
@@ -650,7 +653,7 @@ export default function Kanji() {
                     className="btn btn-outline btn-sm"
                     onClick={() => requireLogin('Đăng nhập để làm quiz và lưu tiến trình.', () => startWordPractice('quiz'))}
                   >
-                    ✏️ Quiz
+                    Quiz
                   </button>
                   <select
                     className="select-inline"
@@ -666,7 +669,7 @@ export default function Kanji() {
                   className="btn btn-outline btn-sm"
                   onClick={() => requireLogin('Đăng nhập để luyện gõ phiên âm và lưu tiến trình.', () => startWordPractice('typing'))}
                 >
-                  ⌨️ Gõ phiên âm
+                  <PencilIcon size={16} /> Gõ phiên âm
                 </button>
                 <button
                   type="button"
