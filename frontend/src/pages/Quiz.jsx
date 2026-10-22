@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { answerProgress, generateQuiz, recordSession } from '../api/study.js';
 import { generateQuickQuiz } from '../api/quickPractice.js';
 import { getErrorMessage } from '../api/client.js';
 import { playAudio, resolveAssetUrl, QUIZ_MODE_LABELS } from '../utils.js';
+import { CardIcon, FlameIcon, RestartIcon, SpeakerIcon } from '../components/icons.jsx';
 import './pages.css';
 
 // US-006 (F-021/022/023, F-027): quiz 20 câu, chấm tại chỗ, PATCH progress mỗi câu.
@@ -12,20 +13,31 @@ import './pages.css';
 // (trang /luyen-tap-nhanh lưu trước khi chuyển sang), gọi POST /api/quiz/quick,
 // ghi session với scopeType 'QUICK' / scopeId 'quick', kết quả có 3 nút
 // (luyện lại từ sai / luyện lại toàn bộ / chọn lại từ). KHÔNG tạo bộ thẻ.
+// v2.0 (A3): nhúng trong Lesson Hub — truyền mode/scopeType/scopeId/quick qua
+// props thay vì query string; logic chấm điểm / SM-2 giữ nguyên 100%.
+// Props: mode ('JP_VI'|'VI_JP'|'LISTENING'), scopeType, scopeId, quick (bool),
+// embedded (bool), onExit (callback nút thoát khi embedded).
 const MODE_MAP = { jp_vi: 'JP_VI', vi_jp: 'VI_JP', listening: 'LISTENING' };
 const SESSION_MODE = { JP_VI: 'QUIZ_JP_VI', VI_JP: 'QUIZ_VI_JP', LISTENING: 'LISTENING' };
 const QUICK_KEY = 'mjp_quick_quiz';
 
-export default function Quiz() {
+export default function Quiz({
+  mode: pMode,
+  scopeType: pScopeType,
+  scopeId: pScopeId,
+  quick: pQuick,
+  embedded = false,
+  onExit,
+}) {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const isQuick = params.get('quick') === '1';
+  const isQuick = pQuick ?? (params.get('quick') === '1');
 
   const urlMode = MODE_MAP[params.get('mode')] || 'JP_VI';
-  const scopeType = isQuick ? 'QUICK' : params.get('scopeType');
-  const scopeId = isQuick ? 'quick' : params.get('scopeId');
+  const scopeType = pScopeType ?? (isQuick ? 'QUICK' : params.get('scopeType'));
+  const scopeId = pScopeId ?? (isQuick ? 'quick' : params.get('scopeId'));
 
-  // F-C: đọc payload luyện nhanh (do QuickPractice lưu vào sessionStorage).
+  // F-C: đọc payload luyện nhanh (do QuickPractice / LessonHub lưu vào sessionStorage).
   const [quick, setQuick] = useState(() => {
     if (!isQuick) return null;
     try {
@@ -38,7 +50,7 @@ export default function Quiz() {
   });
   const [runKey, setRunKey] = useState(0);
 
-  const mode = isQuick ? (quick?.mode || 'JP_VI') : urlMode;
+  const mode = pMode ?? (isQuick ? (quick?.mode || 'JP_VI') : urlMode);
   const wordIds = isQuick ? quick?.wordIds : null;
 
   const [questions, setQuestions] = useState([]);
@@ -56,10 +68,15 @@ export default function Quiz() {
   // Non-quick: vòng luyện lại từ sai dùng API quick với wordIds (ghi session QUICK).
   const [retryIds, setRetryIds] = useState(null);
 
+  const goBack = () => {
+    if (onExit) { onExit(); return; }
+    navigate(-1);
+  };
+
   useEffect(() => {
     if (isQuick && (!wordIds || wordIds.length === 0)) {
       setLoading(false);
-      setError('Không tìm thấy danh sách từ để luyện nhanh. Hãy chọn lại từ trang Luyện tập nhanh.');
+      setError('Không tìm thấy danh sách từ để luyện. Hãy quay lại và chọn từ nhé.');
       return;
     }
     setLoading(true);
@@ -180,7 +197,7 @@ export default function Quiz() {
   if (error) return (
     <div className="page">
       <div className="alert alert-error">{error}</div>
-      <button type="button" className="btn btn-outline" onClick={() => navigate(isQuick ? '/luyen-tap-nhanh' : -1)}>
+      <button type="button" className="btn btn-outline" onClick={goBack}>
         ← Quay lại
       </button>
     </div>
@@ -195,7 +212,9 @@ export default function Quiz() {
         <div className="result-summary">
           <div className="result-big">{result.correctCount}/{result.total} <span className="result-pct">({pctScore}%)</span></div>
           <div className="muted">Dạng: {QUIZ_MODE_LABELS[mode]}</div>
-          {result.streakDays != null && <div className="streak-line">🔥 Chuỗi ngày học: {result.streakDays} ngày</div>}
+          {result.streakDays != null && (
+            <div className="streak-line"><FlameIcon size={16} /> Chuỗi ngày học: {result.streakDays} ngày</div>
+          )}
         </div>
         {result.wrong.length > 0 && (
           <>
@@ -206,11 +225,13 @@ export default function Quiz() {
                 return (
                   <div key={q.wordId} className="quiz-wrong-item">
                     <div>
-                      <strong>{q.promptText || '🎧 Nghe'}</strong>
+                      <strong>{q.promptText || 'Nghe'}</strong>
                       <span className="quiz-wrong-answer"> → Đáp án đúng: {right?.text}</span>
                     </div>
                     {q.promptAudioUrl && (
-                      <button type="button" className="btn btn-sm btn-outline" onClick={() => playAudio(q.promptAudioUrl)}>🔊 Nghe lại</button>
+                      <button type="button" className="btn btn-sm btn-outline" onClick={() => playAudio(q.promptAudioUrl)}>
+                        <SpeakerIcon size={14} /> Nghe lại
+                      </button>
                     )}
                   </div>
                 );
@@ -223,16 +244,16 @@ export default function Quiz() {
             {/* Quiz cần ít nhất 4 từ để tạo đáp án nhiễu — ẩn nút thay vì rơi vào trang lỗi. */}
             {wrongIds.length >= 4 ? (
               <button type="button" className="btn btn-primary" onClick={() => restartQuick(wrongIds)}>
-                🔁 Luyện lại từ sai ({wrongIds.length})
+                <RestartIcon size={16} /> Luyện lại từ sai ({wrongIds.length})
               </button>
             ) : wrongIds.length > 0 ? (
               <span className="muted">Còn {wrongIds.length} từ sai — cần ít nhất 4 từ để tạo quiz mới, hãy luyện lại toàn bộ.</span>
             ) : null}
             <button type="button" className="btn btn-outline" onClick={() => restartQuick(quick.allWordIds)}>
-              🔁 Luyện lại toàn bộ
+              <RestartIcon size={16} /> Luyện lại toàn bộ
             </button>
-            <button type="button" className="btn btn-outline" onClick={() => navigate('/luyen-tap-nhanh')}>
-              ✏️ Chọn lại từ
+            <button type="button" className="btn btn-outline" onClick={goBack}>
+              <CardIcon size={16} /> Chọn lại từ
             </button>
           </div>
         ) : (
@@ -240,18 +261,18 @@ export default function Quiz() {
             {/* Quiz cần ít nhất 4 từ để tạo đáp án nhiễu — ẩn nút thay vì rơi vào trang lỗi. */}
             {wrongIds.length >= 4 ? (
               <button type="button" className="btn btn-primary" onClick={() => restartRun(wrongIds)}>
-                🔁 Luyện lại từ sai ({wrongIds.length})
+                <RestartIcon size={16} /> Luyện lại từ sai ({wrongIds.length})
               </button>
             ) : wrongIds.length > 0 ? (
               <span className="muted">Còn {wrongIds.length} từ sai — cần ít nhất 4 từ để tạo quiz mới, hãy luyện lại toàn bộ.</span>
             ) : (
-              <span className="muted">Tuyệt vời, nhớ hết rồi! 🎉</span>
+              <span className="muted">Tuyệt vời, nhớ hết rồi!</span>
             )}
             <button type="button" className="btn btn-outline" onClick={() => restartRun(null)}>
-              🔁 Luyện lại toàn bộ
+              <RestartIcon size={16} /> Luyện lại toàn bộ
             </button>
-            <a href="/on-tap" className="btn btn-outline">Ôn tập đến hạn</a>
-            <a href="/bai-hoc" className="btn btn-primary">Học bài khác</a>
+            <Link to="/on-tap" className="btn btn-outline">Ôn tập đến hạn</Link>
+            <Link to="/hoc" className="btn btn-primary">Học bài khác</Link>
           </div>
         )}
       </div>
@@ -272,7 +293,7 @@ export default function Quiz() {
         {mode === 'LISTENING' ? (
           <div className="quiz-listen">
             <button type="button" className="listen-btn" onClick={() => playAudio(q.promptAudioUrl)} aria-label="Nghe lại">
-              🔊
+              <SpeakerIcon size={40} />
             </button>
             <p className="muted">Nghe và chọn từ đúng</p>
           </div>
