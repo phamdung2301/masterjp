@@ -55,7 +55,8 @@ class WrongAnswerServiceTest {
 
     @Test
     void recordFromSession_tuSaiMoi_ghi1BanGhi() {
-        when(vocabWordRepository.findByIdAndActiveTrue("w1")).thenReturn(Optional.of(word("w1")));
+        when(vocabWordRepository.findByIdInAndActiveTrue(List.of("w1")))
+                .thenReturn(List.of(word("w1")));
         when(wrongAnswerRepository.existsByUserIdAndKindAndWordIdAndResolvedFalse(
                 "u1", "vocab", "w1")).thenReturn(false);
         when(wrongAnswerRepository.countByUserIdAndResolvedFalse("u1")).thenReturn(1L);
@@ -74,7 +75,8 @@ class WrongAnswerServiceTest {
 
     @Test
     void recordFromSession_daCoUnresolved_khongGhiTrung() {
-        when(vocabWordRepository.findByIdAndActiveTrue("w1")).thenReturn(Optional.of(word("w1")));
+        when(vocabWordRepository.findByIdInAndActiveTrue(List.of("w1")))
+                .thenReturn(List.of(word("w1")));
         when(wrongAnswerRepository.existsByUserIdAndKindAndWordIdAndResolvedFalse(
                 "u1", "vocab", "w1")).thenReturn(true);
 
@@ -87,8 +89,8 @@ class WrongAnswerServiceTest {
     @Test
     void recordFromSession_boQuaWordIdKhongPhaiTuVung() {
         // "shadow:..." (F-041) va ky tu kanji khong phai id tu vung that.
-        when(vocabWordRepository.findByIdAndActiveTrue("shadow:sh01")).thenReturn(Optional.empty());
-        when(vocabWordRepository.findByIdAndActiveTrue("日")).thenReturn(Optional.empty());
+        when(vocabWordRepository.findByIdInAndActiveTrue(List.of("shadow:sh01", "日")))
+                .thenReturn(List.of());
 
         wrongAnswerService.recordFromSession("u1", "s1", List.of(
                 new StudySession.SessionItem("shadow:sh01", false, 100L),
@@ -99,7 +101,8 @@ class WrongAnswerServiceTest {
 
     @Test
     void recordFromSession_vuot100Unresolved_xoaCuNhat() {
-        when(vocabWordRepository.findByIdAndActiveTrue("w9")).thenReturn(Optional.of(word("w9")));
+        when(vocabWordRepository.findByIdInAndActiveTrue(List.of("w9")))
+                .thenReturn(List.of(word("w9")));
         when(wrongAnswerRepository.existsByUserIdAndKindAndWordIdAndResolvedFalse(
                 "u1", "vocab", "w9")).thenReturn(false);
         when(wrongAnswerRepository.countByUserIdAndResolvedFalse("u1")).thenReturn(101L);

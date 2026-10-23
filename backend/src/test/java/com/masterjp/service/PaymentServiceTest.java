@@ -196,7 +196,7 @@ class PaymentServiceTest {
         when(invoiceRepository.findByCode("INV-ABC123")).thenReturn(Optional.of(inv));
         User u = user();
         when(userRepository.findById("u1")).thenReturn(Optional.of(u));
-        Date expiry = new Date(1_780_000_000_000L); // 2026-05-27
+        Date expiry = new Date(1_780_000_000_000L); // 2026-05-29T03:26:40+07:00
         when(fulfillmentService.fulfill(eq(inv), any(SepayTransaction.class), eq(u),
                 eq(PlanType.MONTHLY)))
                 .thenReturn(expiry);
@@ -207,7 +207,7 @@ class PaymentServiceTest {
         assertEquals("matched", r.status());
         assertEquals("INV-ABC123", r.invoiceCode());
         assertEquals("MONTHLY", r.planType());
-        assertTrue(r.planExpiresAt().startsWith("2026-05-27"),
+        assertTrue(r.planExpiresAt().startsWith("2026-05-29"),
                 "planExpiresAt phải ISO-8601 theo Asia/Ho_Chi_Minh, nhận được: " + r.planExpiresAt());
         assertTrue(r.planExpiresAt().contains("+07:00"));
         verify(fulfillmentService).fulfill(any(Invoice.class), any(SepayTransaction.class),

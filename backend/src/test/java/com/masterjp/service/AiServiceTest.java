@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -81,8 +82,10 @@ class AiServiceTest {
     @SuppressWarnings("unchecked")
     private static HttpResponse<String> httpResponse(int status, String body) {
         HttpResponse<String> r = mock(HttpResponse.class);
-        when(r.statusCode()).thenReturn(status);
-        when(r.body()).thenReturn(body);
+        // lenient: path loi (4xx) khong doc body(), path retry khong dung het stub —
+        // day la stub phong thu, behavior van duoc verify bang assert/verify().
+        lenient().when(r.statusCode()).thenReturn(status);
+        lenient().when(r.body()).thenReturn(body);
         return r;
     }
 

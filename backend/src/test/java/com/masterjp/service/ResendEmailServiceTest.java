@@ -123,7 +123,7 @@ class ResendEmailServiceTest {
             String html = (String) body.get("html");
             assertTrue(html.contains("INV-ABC123"), "phải có mã hóa đơn");
             assertTrue(html.contains("49.000đ"), "số tiền format 49.000đ, nhận: " + html);
-            assertTrue(html.contains("27/05/2026"), "hạn dd/MM/yyyy theo Asia/Ho_Chi_Minh");
+            assertTrue(html.contains("29/05/2026"), "hạn dd/MM/yyyy theo Asia/Ho_Chi_Minh");
             assertEquals(List.of("hocvien@example.com"), body.get("to"));
         }
     }

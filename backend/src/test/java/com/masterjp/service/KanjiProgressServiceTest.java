@@ -35,6 +35,8 @@ class KanjiProgressServiceTest {
     private KanjiProgressRepository kanjiProgressRepository;
     @Mock
     private KanjiRepository kanjiRepository;
+    @Mock
+    private FreemiumLimitService freemiumLimitService; // Phase D them vao service (F-045)
     @InjectMocks
     private KanjiProgressService kanjiProgressService;
 

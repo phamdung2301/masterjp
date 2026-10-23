@@ -19,7 +19,10 @@ public final class VietnameseUtils {
             return "";
         }
         String n = Normalizer.normalize(input, Normalizer.Form.NFD);
-        n = n.replaceAll("\\p{M}", ""); // bo dau to hop
+        // Chi bo dau to hop LATIN (U+0300-U+036F: sac/huyen/hoi/nga/nang/mu/ra^/mo^/a...).
+        // Khong dung \p{M} tong quat vi NFD tach dakuten tieng Nhat (べ -> へ + U+3099)
+        // va \p{M} se strip mat dakuten -> sai chu. U+3099/U+309A nam ngoai range nay nen duoc giu.
+        n = n.replaceAll("[\\u0300-\\u036f]", "");
         n = n.replace('đ', 'd').replace('Đ', 'd');
         n = n.toLowerCase(Locale.ROOT).trim();
         return n.replaceAll("\\s+", " ");

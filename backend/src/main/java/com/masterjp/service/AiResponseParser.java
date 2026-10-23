@@ -35,7 +35,8 @@ public final class AiResponseParser {
 
     /**
      * Strip markdown code fence (```json ... ```) neu AI van boc, roi cat lay
-     * doan tu '{' dau tien den '}' cuoi cung (bo preamble/epilogue rac).
+     * doan JSON tu mo ngoac dau tien den dong ngoac cuoi cung (bo preamble/epilogue rac).
+     * Ho tro ca object ({...}) va top-level array ([...]) — chon loai ngoac xuat hien truoc.
      */
     public static String stripToJson(String raw) {
         if (raw == null) {
@@ -49,8 +50,18 @@ public final class AiResponseParser {
                 s = s.substring(firstNl + 1, lastFence).trim();
             }
         }
-        int begin = s.indexOf('{');
-        int end = s.lastIndexOf('}');
+        int beginBrace = s.indexOf('{');
+        int beginBracket = s.indexOf('[');
+        int begin;
+        char close;
+        if (beginBracket >= 0 && (beginBrace < 0 || beginBracket < beginBrace)) {
+            begin = beginBracket;
+            close = ']';
+        } else {
+            begin = beginBrace;
+            close = '}';
+        }
+        int end = s.lastIndexOf(close);
         if (begin >= 0 && end > begin) {
             s = s.substring(begin, end + 1);
         }
