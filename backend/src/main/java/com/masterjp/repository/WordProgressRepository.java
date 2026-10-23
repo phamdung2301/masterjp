@@ -24,6 +24,9 @@ public interface WordProgressRepository extends MongoRepository<WordProgress, St
 
     long countByUserIdAndStatus(String userId, ProgressStatus status);
 
+    /** So tu den han — phuc vu counts cua GET /api/review/queue (F-043, khong cat limit). */
+    long countByUserIdAndNextReviewAtLessThanEqual(String userId, Date now);
+
     /** Top tu bi sai nhieu nhat cho admin (F-034). */
     List<WordProgress> findTop10ByWrongCountGreaterThanOrderByWrongCountDesc(int minWrongCount);
 }

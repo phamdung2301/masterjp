@@ -1,0 +1,91 @@
+/* shadowing.css — F-041: Shadowing trong Lesson Hub. Washi theme (Phase A). */
+
+.shadow { display: flex; flex-direction: column; gap: 18px; }
+
+.shadow-head { display: flex; gap: 14px; align-items: flex-start; }
+.shadow-head h2 { margin: 0; font-size: 1.35rem; color: var(--washi-ink); }
+.shadow-head .jp-badge { width: 46px; height: 46px; font-size: 24px; border-radius: 14px; flex: none; }
+
+.shadow-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; align-items: start; }
+@media (max-width: 900px) { .shadow-grid { grid-template-columns: 1fr; } }
+
+.shadow-video, .shadow-yt { width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; background: #101418; }
+.shadow-yt iframe { width: 100%; height: 100%; border: 0; border-radius: 14px; }
+
+.shadow-novideo {
+  border: 2px dashed var(--washi-line);
+  border-radius: 14px;
+  padding: 36px 24px;
+  text-align: center;
+  background: var(--washi-bg);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.shadow-novideo h3 { margin: 6px 0 0; color: var(--washi-ink); }
+.shadow-novideo .jp-badge { width: 52px; height: 52px; font-size: 26px; border-radius: 16px; }
+.shadow-novideo-tech { font-size: 0.78rem; }
+
+.shadow-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 12px; }
+.shadow-controls .btn svg { vertical-align: -3px; }
+
+.shadow-speed { display: inline-flex; border: 1px solid var(--washi-line); border-radius: 10px; overflow: hidden; }
+.shadow-speed-btn {
+  border: 0; background: #fff; padding: 7px 12px; font-size: 0.85rem; font-weight: 700;
+  color: var(--washi-muted); cursor: pointer;
+}
+.shadow-speed-btn + .shadow-speed-btn { border-left: 1px solid var(--washi-line); }
+.shadow-speed-btn.active { background: var(--washi-ink); color: #fff; }
+
+.shadow-ab { display: inline-flex; gap: 6px; align-items: center; }
+
+/* --- Ghi âm --- */
+.shadow-rec {
+  margin-top: 14px; border: 1px solid var(--washi-line); border-radius: 14px;
+  padding: 14px 16px; background: #fff;
+}
+.shadow-rec h3 { margin: 0 0 6px; font-size: 1rem; color: var(--washi-ink); display: flex; gap: 8px; align-items: center; }
+.shadow-rec-live { display: flex; gap: 10px; align-items: center; font-weight: 700; color: var(--washi-shu); }
+.rec-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--washi-shu); animation: rec-pulse 1.1s infinite; }
+@keyframes rec-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.shadow-rec-done { display: flex; flex-direction: column; gap: 10px; }
+.shadow-rec-plays { display: flex; gap: 10px; align-items: center; }
+.shadow-rec-label { font-weight: 700; color: var(--washi-ink); }
+.shadow-audio { width: 100%; }
+.shadow-rec-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* --- Phụ đề --- */
+.shadow-toggles { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+.shadow-subs {
+  display: flex; flex-direction: column; gap: 6px;
+  max-height: 520px; overflow-y: auto; padding-right: 4px;
+}
+.shadow-line {
+  display: flex; gap: 10px; align-items: flex-start; text-align: left;
+  border: 1px solid var(--washi-line); border-radius: 12px; background: #fff;
+  padding: 10px 12px; cursor: pointer; width: 100%; font: inherit; color: inherit;
+}
+.shadow-line:hover { border-color: var(--washi-gold); }
+.shadow-line.active { border-color: var(--washi-shu); background: #FDF3EF; }
+.shadow-line.selected { box-shadow: 0 0 0 2px var(--washi-ink) inset; }
+.shadow-line-num {
+  flex: none; width: 26px; height: 26px; border-radius: 8px;
+  background: var(--washi-line); color: var(--washi-ink);
+  font-size: 0.78rem; font-weight: 800;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.shadow-line.active .shadow-line-num { background: var(--washi-shu); color: #fff; }
+.shadow-line-text { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.shadow-ja { font-weight: 700; color: var(--washi-ink); line-height: 1.5; }
+.shadow-kana { display: block; font-weight: 400; font-size: 0.82rem; color: var(--washi-muted); }
+.shadow-vi { color: var(--washi-muted); font-size: 0.92rem; line-height: 1.5; }
+.shadow-line-time { flex: none; font-size: 0.78rem; color: var(--washi-muted); font-variant-numeric: tabular-nums; }
+
+/* --- Hoàn thành --- */
+.shadow-complete {
+  border-top: 3px solid var(--washi-line); padding-top: 16px;
+  display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
+}
+.shadow-watched { width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 6px; }
+.shadow-watched-bar { height: 10px; border-radius: 99px; background: var(--washi-line); overflow: hidden; }
+.shadow-watched-bar i { display: block; height: 100%; background: var(--washi-matcha); border-radius: 99px; transition: width 0.3s; }
+.shadow-done { display: flex; gap: 12px; align-items: flex-start; color: var(--washi-matcha); }
+.shadow-done .streak-line { display: flex; gap: 6px; align-items: center; margin-top: 6px; color: var(--washi-ink); font-weight: 700; }

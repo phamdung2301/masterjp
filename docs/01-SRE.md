@@ -69,6 +69,18 @@ repetition).
 - **FR-037** Gõ phiên âm: hiện kanji (+ nghĩa Việt) của từ, người học gõ cách
   đọc; ô nhập chấp nhận romaji và tự chuyển thành hiragana realtime; hệ thống
   chấm đúng/sai từng từ, cập nhật SM-2 và lưu phiên học như các mode quiz khác.
+- **FR-038** Sensei AI chat: hỏi-đáp ngữ pháp tiếng Nhật, AI giải thích bằng
+  tiếng Việt (chi tiết: `docs/11-phase-b-sensei-ai.md`).
+- **FR-039** AI chấm câu viết: học viên viết câu theo điểm ngữ pháp đang học,
+  AI chấm điểm/sửa lỗi/giải thích tiếng Việt.
+- **FR-040** AI sinh bài tập ngữ pháp từ một điểm ngữ pháp (trắc nghiệm/điền từ).
+- **FR-041** Shadowing: video hội thoại theo bài + phụ đề song ngữ, loop từng
+  câu, ghi âm giọng học viên để tự so sánh (ghi âm chỉ lưu local).
+  (chi tiết: `docs/12-phase-c-noi-dung-gamification.md`)
+- **FR-042** Gamification: 12 huy hiệu, bản đồ học tập 12 tuần, bảng xếp hạng
+  tuần (opt-in, chỉ hiện biệt danh).
+- **FR-043** Hàng đợi ôn tập duy nhất: trộn từ vựng SM-2 đến hạn + kanji đến
+  hạn + câu trả lời sai; hiện số lượng + thời gian ước tính.
 - **FR-024** Tạo / sửa / xóa **bộ thẻ tự chọn** (đặt tên, mô tả). Chia sẻ công
   khai xem FR-035.
 - **FR-035** Chia sẻ bộ thẻ công khai: chỉ plan/role nằm trong
