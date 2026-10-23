@@ -23,6 +23,9 @@ public final class VietnameseUtils {
         // Khong dung \p{M} tong quat vi NFD tach dakuten tieng Nhat (べ -> へ + U+3099)
         // va \p{M} se strip mat dakuten -> sai chu. U+3099/U+309A nam ngoai range nay nen duoc giu.
         n = n.replaceAll("[\\u0300-\\u036f]", "");
+        // Tái hợp NFC: đưa kana đã giữ dakuten về dạng composed (へ + U+3099 -> べ)
+        // để so sánh/tìm kiếm khớp chuỗi gốc.
+        n = Normalizer.normalize(n, Normalizer.Form.NFC);
         n = n.replace('đ', 'd').replace('Đ', 'd');
         n = n.toLowerCase(Locale.ROOT).trim();
         return n.replaceAll("\\s+", " ");
