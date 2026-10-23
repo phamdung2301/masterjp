@@ -7,11 +7,18 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Document("vocab_words")
 @CompoundIndexes({
         @CompoundIndex(name = "idx_lesson_order", def = "{'lessonId': 1, 'orderInLesson': 1}"),
         @CompoundIndex(name = "idx_lesson_section_kana", def = "{'lessonId': 1, 'section': 1, 'kana': 1}"),
-        @CompoundIndex(name = "idx_lesson_cluster", def = "{'lessonId': 1, 'cluster': 1}")
+        @CompoundIndex(name = "idx_lesson_cluster", def = "{'lessonId': 1, 'cluster': 1}"),
+        // Phase 1 (N3/N2): query bai hoc vua loc active vua sort theo order
+        @CompoundIndex(name = "idx_lesson_active_order", def = "{'lessonId': 1, 'active': 1, 'orderInLesson': 1}"),
+        // Phase 1: prefix search case-insensitive dung duoc index (khong flag "i")
+        @CompoundIndex(name = "idx_lower_search", def = "{'kanaLower': 1, 'kanjiLower': 1, 'romajiLower': 1}")
 })
 public class VocabWord {
 
@@ -20,6 +27,26 @@ public class VocabWord {
 
     @Indexed
     private String lessonId;
+
+    /**
+     * Cap do JLPT denormalized ("N5"/"N4"/"N3"/"N2") — tranh join lessons
+     * khi loc tu theo cap do. Data cu (Minna) co the null; service xu ly
+     * null nhu suy ra tu lessonId.
+     */
+    @Indexed
+    private String level;
+
+    /** Unit trong cap do (1-20 cho N3/N2 theo chu de Shin Kanzen); null cho data Minna. */
+    private Integer unit;
+
+    /** Tags chu de/ky nang, vd. ["business", "keigo"]. */
+    private List<String> tags = new ArrayList<>();
+
+    /**
+     * Trang thai audio TTS batch: PENDING / DONE / FAILED.
+     * Pipeline edge-tts dung de tracking, tranh re-generate mu.
+     */
+    private String audioStatus = "PENDING";
 
     private WordSection section; // VOCAB / REFERENCE / PHRASE
 
@@ -54,6 +81,15 @@ public class VocabWord {
     @TextIndexed
     private String searchNorm;
 
+    /**
+     * Ban sao lowercase cua kana/kanji/romaji — phuc vu prefix search
+     * case-insensitive DUNG DUOC index (regex "^..." khong flag "i").
+     * Do seed script/service dien khi save; null tren data cu.
+     */
+    private String kanaLower;
+    private String kanjiLower;
+    private String romajiLower;
+
     public String getId() {
         return id;
     }
@@ -68,6 +104,62 @@ public class VocabWord {
 
     public void setLessonId(String lessonId) {
         this.lessonId = lessonId;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public Integer getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Integer unit) {
+        this.unit = unit;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public String getAudioStatus() {
+        return audioStatus;
+    }
+
+    public void setAudioStatus(String audioStatus) {
+        this.audioStatus = audioStatus;
+    }
+
+    public String getKanaLower() {
+        return kanaLower;
+    }
+
+    public void setKanaLower(String kanaLower) {
+        this.kanaLower = kanaLower;
+    }
+
+    public String getKanjiLower() {
+        return kanjiLower;
+    }
+
+    public void setKanjiLower(String kanjiLower) {
+        this.kanjiLower = kanjiLower;
+    }
+
+    public String getRomajiLower() {
+        return romajiLower;
+    }
+
+    public void setRomajiLower(String romajiLower) {
+        this.romajiLower = romajiLower;
     }
 
     public WordSection getSection() {

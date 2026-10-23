@@ -27,6 +27,8 @@ public class User {
     private Date lockedUntil; // khoa tam sau 5 lan sai mat khau
     private Date createdAt = new Date();
     // Phase C — F-042 gamification (them, khong doi field cu)
+    // Phase 1: partial index — chi index users opt-in, tranh COLLSCAN toan collection
+    @Indexed(partialFilter = "{ 'leaderboardOptIn': true }")
     private boolean leaderboardOptIn = false; // mac dinh KHONG hien tren bang xep hang
     private String nickname; // biet danh tu dat (1-20 ky tu); null -> "Tanu-" + 4 ky tu cuoi id
     // Phase D — F-046 email nhac on tap (them, khong doi field cu)

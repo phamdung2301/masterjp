@@ -2,6 +2,8 @@ package com.masterjp.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.ArrayList;
@@ -10,6 +12,10 @@ import java.util.List;
 
 /** Lich su phien hoc — items nhung truc tiep trong document. */
 @Document("study_sessions")
+@CompoundIndexes({
+        // Phase 1: leaderboard + lich su hoc theo user (tranh scan range finishedAt)
+        @CompoundIndex(name = "idx_user_finished", def = "{'userId': 1, 'finishedAt': -1}")
+})
 public class StudySession {
 
     @Id
