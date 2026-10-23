@@ -1,6 +1,8 @@
 package com.masterjp.exception;
 
 import com.masterjp.dto.CommonDtos;
+import com.masterjp.dto.AiDtos;
+import com.masterjp.dto.PaymentDtos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,29 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CommonDtos.ErrorResponse> handleApi(ApiException e) {
         return ResponseEntity.status(e.getStatus())
                 .body(new CommonDtos.ErrorResponse(e.getCode(), e.getMessage()));
+    }
+
+    /**
+     * Phase B — 429 DAILY_LIMIT: shape mo rong {code, message, resetAt}.
+     * Handler cu the nay thang handler ApiException chung (Spring chon handler
+     * theo exception type gan nhat).
+     */
+    @ExceptionHandler(QuotaExceededException.class)
+    public ResponseEntity<AiDtos.QuotaExceededResponse> handleQuota(QuotaExceededException e) {
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                .body(new AiDtos.QuotaExceededResponse(e.getCode(), e.getMessage(), e.getResetAt()));
+    }
+
+    /**
+     * Phase D — F-045: 429 FREEMIUM_LIMIT — shape mo rong {code, message, limit, resetAt}.
+     * Handler cu the nay thang handler ApiException chung (Spring chon handler
+     * theo exception type gan nhat).
+     */
+    @ExceptionHandler(FreemiumLimitException.class)
+    public ResponseEntity<PaymentDtos.FreemiumLimitResponse> handleFreemium(FreemiumLimitException e) {
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                .body(new PaymentDtos.FreemiumLimitResponse(e.getCode(), e.getMessage(),
+                        e.getLimit(), e.getResetAt()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

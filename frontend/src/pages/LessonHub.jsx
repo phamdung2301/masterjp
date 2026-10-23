@@ -8,6 +8,9 @@ import { getErrorMessage } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import GrammarPointCard from '../components/GrammarPointCard.jsx';
 import GrammarRelatedModal from '../components/GrammarRelatedModal.jsx';
+import SentencePractice from '../components/SentencePractice.jsx';
+import AiExercises from '../components/AiExercises.jsx';
+import SenseiQuota from '../components/SenseiQuota.jsx';
 import AudioButton from '../components/AudioButton.jsx';
 import LoginPrompt from '../components/LoginPrompt.jsx';
 import AddToSetModal from '../components/AddToSetModal.jsx';
@@ -16,6 +19,7 @@ import Quiz from './Quiz.jsx';
 import Typing from './Typing.jsx';
 import KanjiFlashcard from './KanjiFlashcard.jsx';
 import KanjiQuiz from './KanjiQuiz.jsx';
+import Shadowing from './Shadowing.jsx';
 import { PencilIcon, SpeakerIcon } from '../components/icons.jsx';
 import { SECTION_TABS, clusterLabel } from '../utils.js';
 import './pages.css';
@@ -40,17 +44,20 @@ const KANJI_QUIZ_MODES = [
   { value: 'MEANING_KANJI', label: 'Nghĩa → Chữ' },
   { value: 'KANJI_TYPING', label: 'Gõ cách đọc' },
 ];
-const PRACTICE_TITLES = {
-  flashcard: 'Flashcard 3D',
-  quiz: 'Quiz',
-  listening: 'Luyện nghe',
-  typing: 'Gõ từ',
-  'quick-flashcard': 'Flashcard — từ đã chọn',
-  'quick-quiz': 'Quiz — từ đã chọn',
-  'quick-typing': 'Gõ từ — từ đã chọn',
-  'kanji-flash': 'Flashcard kanji',
-  'kanji-quiz': 'Quiz kanji',
-};
+
+// F-041: danh mục video shadowing (static JSON) — fetch 1 lần, cache trong memory;
+// tab Shadowing chỉ render khi bài hiện tại có video trong index.
+let shadowingIndexCache = null; // null = chưa fetch; [] = không có video nào
+function getShadowingIndex() {
+  if (shadowingIndexCache) return Promise.resolve(shadowingIndexCache);
+  return fetch(`${import.meta.env.BASE_URL}data/shadowing/index.json`)
+    .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+    .then((d) => {
+      shadowingIndexCache = Array.isArray(d?.videos) ? d.videos : [];
+      return shadowingIndexCache;
+    })
+    .catch(() => { shadowingIndexCache = []; return shadowingIndexCache; });
+}
 
 export default function LessonHub() {
   const { id } = useParams();
@@ -62,7 +69,7 @@ export default function LessonHub() {
   const [error, setError] = useState('');
   const [lessonProgress, setLessonProgress] = useState(null); // { total, mastered }
 
-  const [tab, setTab] = useState('vocab'); // 'vocab' | 'cluster' | 'grammar' | 'kanji'
+  const [tab, setTab] = useState('vocab'); // 'vocab' | 'cluster' | 'grammar' | 'kanji' | 'shadowing'
   const [section, setSection] = useState('VOCAB');
   const [words, setWords] = useState([]);
   const [wordsLoading, setWordsLoading] = useState(false);
@@ -76,6 +83,8 @@ export default function LessonHub() {
   const [grammarError, setGrammarError] = useState('');
   const [grammarRetry, setGrammarRetry] = useState(0);
   const [relatedId, setRelatedId] = useState(null);
+  // F-040: điểm ngữ pháp đang luyện bài tập AI (null = xem danh sách ngữ pháp).
+  const [aiExercisePoint, setAiExercisePoint] = useState(null);
 
   const [kanjiItems, setKanjiItems] = useState(null);
   const [kanjiLoading, setKanjiLoading] = useState(false);
@@ -91,6 +100,7 @@ export default function LessonHub() {
 
   const [loginPrompt, setLoginPrompt] = useState('');
   const [addSetOpen, setAddSetOpen] = useState(false);
+  const [shadowVideo, setShadowVideo] = useState(null); // F-041: entry index.json cho bài này (null = không có video)
 
   // --- Tải bài học (reset state theo bài) ---
   useEffect(() => {
@@ -108,6 +118,8 @@ export default function LessonHub() {
     setWords([]);
     setPracticeMode(null);
     setRelatedId(null);
+    setAiExercisePoint(null);
+    setShadowVideo(null);
     fetchLesson(id)
       .then((l) => setLesson(l))
       .catch((e) => setError(getErrorMessage(e, 'Không tải được bài học.')))
@@ -124,6 +136,18 @@ export default function LessonHub() {
       })
       .catch(() => setLessonProgress(null));
   }, [id, isLoggedIn]);
+
+  // F-041: tab Shadowing chỉ hiện khi index.json có video cho lessonNo của bài này.
+  useEffect(() => {
+    if (!lesson) return;
+    let alive = true;
+    getShadowingIndex().then((videos) => {
+      if (!alive) return;
+      const found = videos.find((v) => Number(v.lessonNo) === Number(lesson.lessonNo));
+      setShadowVideo(found || null);
+    });
+    return () => { alive = false; };
+  }, [lesson]);
 
   // --- Tải dữ liệu theo tab ---
   useEffect(() => {
@@ -292,6 +316,8 @@ export default function LessonHub() {
     { value: 'cluster', label: 'Cụm chủ đề', count: clusters.length || null },
     { value: 'grammar', label: 'Ngữ pháp', count: grammarItems ? grammarItems.length : null },
     { value: 'kanji', label: 'Kanji', count: kanjiItems ? kanjiItems.length : null },
+    // F-041: tab thứ 5 — chỉ render khi bài có dữ liệu shadowing.
+    ...(shadowVideo ? [{ value: 'shadowing', label: 'Shadowing', count: null }] : []),
   ];
 
   return (
@@ -324,7 +350,7 @@ export default function LessonHub() {
             role="tab"
             aria-selected={tab === t.value}
             className={`hub-tab${tab === t.value ? ' active' : ''}`}
-            onClick={() => setTab(t.value)}
+            onClick={() => { setTab(t.value); if (t.value !== 'grammar') setAiExercisePoint(null); }}
           >
             {t.label}
             {t.count != null && <span className="n">{t.count}</span>}
@@ -458,6 +484,9 @@ export default function LessonHub() {
               </>
             ) : !grammarItems || grammarItems.length === 0 ? (
               <p className="muted">Bài này chưa có dữ liệu ngữ pháp.</p>
+            ) : aiExercisePoint ? (
+              /* F-040: bài tập AI cho điểm ngữ pháp đã chọn — thay danh sách khi đang luyện. */
+              <AiExercises grammarPoint={aiExercisePoint} onExit={() => setAiExercisePoint(null)} />
             ) : (
               <div className="grammar-list">
                 {grammarItems.map((p) => (
@@ -466,13 +495,14 @@ export default function LessonHub() {
                       point={p}
                       relatedTitles={grammarTitles}
                       onRelated={(gid) => setRelatedId(gid)}
+                      lessonNo={lesson.lessonNo}
                     />
                     <div className="hub-toolbar" style={{ marginTop: 10 }}>
+                      {/* F-040: "Luyện ngay" → Sensei AI sinh bài tập (xóa fallback quiz từ vựng cũ). */}
                       <button type="button" className="btn btn-primary btn-sm"
-                        onClick={() => startPractice('quiz')}>
+                        onClick={() => requireLogin('Đăng nhập để luyện bài tập do Sensei AI tạo.', () => setAiExercisePoint(p))}>
                         Luyện ngay
                       </button>
-                      <span className="muted" style={{ fontSize: '0.82rem' }}>Làm quiz từ vựng bài {lesson.lessonNo} để ghi nhớ mẫu câu</span>
                     </div>
                   </div>
                 ))}
@@ -529,12 +559,23 @@ export default function LessonHub() {
             )}
           </>
         )}
+
+        {tab === 'shadowing' && shadowVideo && (
+          <Shadowing
+            key={shadowVideo.id}
+            videoId={shadowVideo.id}
+            lessonId={id}
+            durationSec={shadowVideo.durationSec || 0}
+          />
+        )}
       </div>
 
       {/* --- Khối Luyện tập: mode picker trong bài (A3) --- */}
       <div className="hub-practice" ref={practiceRef}>
         <div className="hub-practice-head">
           <h2>Luyện tập bài {lesson.lessonNo}</h2>
+          {/* Quota chỉ fetch khi đã đăng nhập — guest gọi API 401 sẽ bị interceptor đá về /dang-nhap. */}
+          {isLoggedIn && <SenseiQuota />}
           {practiceMode && (
             <button type="button" className="btn btn-outline btn-sm" onClick={exitPractice}>
               ← Thoát luyện tập
@@ -566,6 +607,8 @@ export default function LessonHub() {
               desc: 'Nghe phát âm và chọn từ đúng — rèn phản xạ nghe hiểu.' },
             { mode: 'typing', badge: <PencilIcon size={22} />, title: 'Gõ từ',
               desc: 'Gõ phiên âm bằng romaji (tự chuyển hiragana), chấm ngay từng từ.' },
+            { mode: 'sentence', badge: <span className="jp-badge">文</span>, title: 'Viết câu',
+              desc: 'Tự viết một câu tiếng Nhật dùng ngữ pháp bài này — Sensei AI chấm điểm, sửa lỗi và giải thích chi tiết.' },
           ].map((m) => (
             <div
               key={m.mode}
@@ -596,6 +639,9 @@ export default function LessonHub() {
             )}
             {practiceMode === 'typing' && (
               <Typing embedded scopeType="LESSON" scopeId={id} onExit={exitPractice} />
+            )}
+            {practiceMode === 'sentence' && (
+              <SentencePractice lessonNo={lesson.lessonNo} onExit={exitPractice} />
             )}
             {practiceMode === 'quick-flashcard' && (
               <Flashcard embedded scopeType="QUICK" scopeId="quick"
