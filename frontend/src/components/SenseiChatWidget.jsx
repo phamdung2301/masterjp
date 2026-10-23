@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { chatSensei, isDailyLimit } from '../api/ai.js';
+import { chatSensei, isDailyLimit, isTechnicalError } from '../api/ai.js';
 import { getErrorMessage } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { ChatIcon, CrossIcon, SendIcon } from './icons.jsx';
@@ -169,12 +169,16 @@ export default function SenseiChatWidget() {
     } catch (e) {
       // F-045: hết quota AI (429 DAILY_LIMIT) → interceptor đã mở PaywallModal;
       // bubble trong chat chỉ báo ngắn gọn, không lặp lại message thô.
+      // Lỗi kỹ thuật (404/502/network) → message thân thiện, không hiện raw backend message.
       const quotaOut = isDailyLimit(e);
+      const technical = !quotaOut && isTechnicalError(e);
       pushMsg({
         role: 'error',
         text: quotaOut
           ? 'Hết lượt hỏi Sensei AI hôm nay rồi — Tanu-chan vừa mở bảng nâng cấp, bạn xem thử nhé!'
-          : getErrorMessage(e, 'Sensei AI đang bận, vui lòng thử lại sau.'),
+          : technical
+            ? 'Tanu-chan đang bận một chút, bạn thử hỏi lại sau vài giây nhé!'
+            : getErrorMessage(e, 'Sensei AI đang bận, vui lòng thử lại sau.'),
         retryable: !quotaOut,
         payload,
       });

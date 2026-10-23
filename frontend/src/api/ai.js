@@ -50,6 +50,16 @@ export function isDailyLimit(error) {
   return error?.response?.status === 429 || error?.response?.data?.code === 'DAILY_LIMIT';
 }
 
+/**
+ * Lỗi kỹ thuật (404 NOT_FOUND, 502 AI_UNAVAILABLE do backend, network...) →
+ * true để UI hiện message thân thiện thay vì raw message backend.
+ */
+export function isTechnicalError(error) {
+  const status = error?.response?.status;
+  if (!status) return true; // network error / timeout: không có response
+  return status === 404 || status === 502 || status >= 500;
+}
+
 export function getDailyLimitResetAt(error) {
   const v = error?.response?.data?.resetAt;
   return typeof v === 'string' && v ? v : null;

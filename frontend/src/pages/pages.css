@@ -136,6 +136,14 @@
 .empty-icon { font-size: 3rem; margin-bottom: 12px; }
 .empty-state p { color: var(--muted); max-width: 420px; margin: 0 auto 16px; }
 
+/* EmptyState / ErrorState thân thiện (Tanu-chan) */
+.empty-state-friendly { background: linear-gradient(180deg, #fffdf8 0%, #faf6ee 100%); border: 1px solid #f0e6d2; }
+.empty-mascot img { width: 96px; height: 96px; object-fit: contain; margin-bottom: 8px; }
+.empty-mascot .empty-badge-fallback { font-size: 2rem; width: 72px; height: 72px; align-items: center; justify-content: center; margin-bottom: 8px; }
+.empty-title { font-size: 1.25rem; font-weight: 700; color: #1f3a5f; margin: 4px 0 8px; }
+.error-state .empty-title { color: #b3402a; }
+.error-technical { font-size: 0.8rem; color: #b0a58c; max-width: 480px; margin: 0 auto 16px; word-break: break-word; }
+
 /* Dashboard */
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin: 16px 0; }
 .stat-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; }

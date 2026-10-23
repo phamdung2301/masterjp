@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import WordCard from '../components/WordCard.jsx';
 import LoginPrompt from '../components/LoginPrompt.jsx';
 import AddToSetModal from '../components/AddToSetModal.jsx';
+import EmptyState from '../components/EmptyState.jsx';
 import { SECTION_LABELS } from '../utils.js';
 import './pages.css';
 
@@ -70,8 +71,15 @@ export default function Dictionary() {
         {loading && <span className="search-loading">Đang tìm…</span>}
       </div>
       {error && <div className="alert alert-error">{error}</div>}
-      {searched && !loading && (
-        <p className="muted">{results.length > 0 ? `Tìm thấy ${results.length} từ:` : 'Không tìm thấy từ nào. Thử từ khóa khác nhé.'}</p>
+      {searched && !loading && results.length > 0 && (
+        <p className="muted">Tìm thấy {results.length} từ:</p>
+      )}
+      {searched && !loading && results.length === 0 && !error && (
+        <EmptyState
+          badge="辞"
+          title="Tanu-chan tìm mãi không thấy…"
+          message={`Không có từ nào khớp với "${q}". Thử gõ kana, romaji hoặc nghĩa tiếng Việt khác nhé — gõ không dấu vẫn được.`}
+        />
       )}
       <div className="word-list">
         {results.map((w) => (
