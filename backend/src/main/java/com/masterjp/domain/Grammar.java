@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,13 @@ import java.util.List;
 /**
  * Feature: Ngu phap — v1 read-only, public GET (giong kanji v1).
  * id on dinh dang "g{lessonNo}-NN" (vd. "g01-01") de seed idempotent.
- * "level" luu dang String ("N5"/"N4"), khong dung enum (theo cach jlpt cua Kanji).
+ * "level" luu dang String ("N5"/"N4"/"N3"/"N2"), khong dung enum (theo cach jlpt cua Kanji).
  */
 @Document("grammar")
 @CompoundIndexes({
-        @CompoundIndex(name = "idx_grammar_lesson", def = "{'lessonNo': 1, 'orderInLesson': 1}")
+        @CompoundIndex(name = "idx_grammar_lesson", def = "{'lessonNo': 1, 'orderInLesson': 1}"),
+        // Phase 1 (N3/N2): loc ngu phap theo cap do + bai
+        @CompoundIndex(name = "idx_grammar_level_lesson", def = "{'level': 1, 'lessonNo': 1, 'orderInLesson': 1}")
 })
 public class Grammar {
 
@@ -45,7 +48,9 @@ public class Grammar {
     private boolean active = true;
 
     /** Chuoi tim kiem da chuan hoa (title + titleVi bo dau + pattern + meaningVi),
-     *  phuc vu search "go khong dau van ra". */
+     *  phuc vu search "go khong dau van ra". Phase 1: danh text index de
+     *  GrammarService.search dung $text thay vi regex (tranh COLLSCAN khi scale). */
+    @TextIndexed
     private String searchNorm;
 
     /** Vi du su dung — nested POJO, Mongo map duoc binh thuong. */
@@ -53,6 +58,8 @@ public class Grammar {
         private String ja;
         private String kana;
         private String vi;
+        /** URL audio cau vi du (R2 object storage); null neu chua generate. */
+        private String audioUrl;
 
         public String getJa() {
             return ja;
@@ -76,6 +83,14 @@ public class Grammar {
 
         public void setVi(String vi) {
             this.vi = vi;
+        }
+
+        public String getAudioUrl() {
+            return audioUrl;
+        }
+
+        public void setAudioUrl(String audioUrl) {
+            this.audioUrl = audioUrl;
         }
     }
 

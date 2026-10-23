@@ -11,8 +11,13 @@ public class Lesson {
     @Id
     private String id;
 
-    private Level level; // N5 / N4
-    private int lessonNo; // 1-25 (N5), 26-50 (N4)
+    private Level level; // N5 / N4 / N3 / N2
+    private int lessonNo; // 1-25 (N5), 26-50 (N4), 51-70 (N3), 71-90 (N2)
+    /**
+     * Giao trinh nguon: "MINNA" (bai 1-50) / "SHINKANZEN" (bai 51+).
+     * Default "MINNA" cho data cu.
+     */
+    private String source = "MINNA";
     private String titleJa; // vd. 第1課
     /**
      * R1 contract: titleVi KHÔNG chứa prefix "Bài N — " — chỉ là tên bài,
@@ -37,6 +42,14 @@ public class Lesson {
 
     public void setLevel(Level level) {
         this.level = level;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public int getLessonNo() {

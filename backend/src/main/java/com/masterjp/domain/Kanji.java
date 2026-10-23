@@ -19,7 +19,9 @@ import java.util.List;
 @CompoundIndexes({
         @CompoundIndex(name = "idx_kanji_lesson", def = "{'lessonNos': 1}"),
         @CompoundIndex(name = "idx_kanji_jlpt", def = "{'jlpt': 1}"),
-        @CompoundIndex(name = "idx_kanji_topic", def = "{'topic': 1}")
+        @CompoundIndex(name = "idx_kanji_topic", def = "{'topic': 1}"),
+        // Phase 1 (N3/N2): filter ket hop cap do + chu de
+        @CompoundIndex(name = "idx_kanji_jlpt_topic", def = "{'jlpt': 1, 'topic': 1}")
 })
 public class Kanji {
 
@@ -31,9 +33,11 @@ public class Kanji {
     private List<String> kunYomi = new ArrayList<>(); // vd. ["わたし", "わたくし"]
     private String meaningVi; // nghia tieng Viet
     private int strokes; // so net
-    private String jlpt; // "N5" / "N4"
+    private String jlpt; // "N5" / "N4" / "N3" / "N2"
     private List<Integer> lessonNos = new ArrayList<>(); // cac bai co tu chua chu nay
     private String topic; // ma chu de (vd. "thoi_gian") — xem KanjiService.TOPIC_LABELS
+    /** URL audio doc chu kanji (R2 object storage); null neu chua generate. */
+    private String audioUrl;
 
     public String getId() {
         return id;
@@ -105,5 +109,13 @@ public class Kanji {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public String getAudioUrl() {
+        return audioUrl;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
     }
 }

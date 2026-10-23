@@ -20,7 +20,10 @@ import java.util.Date;
 @Document("wrong_answers")
 @CompoundIndexes({
         @CompoundIndex(name = "idx_user_resolved_created",
-                def = "{'userId': 1, 'resolved': 1, 'createdAt': -1}")
+                def = "{'userId': 1, 'resolved': 1, 'createdAt': -1}"),
+        // Phase 1: retention delete (resolved=true, theo resolvedAt) chay moi lan mo tab
+        @CompoundIndex(name = "idx_user_resolved_resolvedAt",
+                def = "{'userId': 1, 'resolved': 1, 'resolvedAt': 1}")
         // LUU Y: KHONG unique index cho (userId, kind, wordId) — mot tu co the
         // sai lai sau khi da resolve. Dedupe unresolved lam o service (existsBy...).
 })
