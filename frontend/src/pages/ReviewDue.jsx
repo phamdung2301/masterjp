@@ -4,6 +4,8 @@ import { answerProgress, fetchProgressSummary, fetchReviewQueue, recordSession, 
 import { getErrorMessage } from '../api/client.js';
 import AudioButton from '../components/AudioButton.jsx';
 import Confetti from '../components/Confetti.jsx';
+import EmptyState from '../components/EmptyState.jsx';
+import ErrorState from '../components/ErrorState.jsx';
 import { CheckIcon, CrossIcon, FlameIcon, PencilIcon } from '../components/icons.jsx';
 import './pages.css';
 
@@ -165,7 +167,14 @@ export default function ReviewDue() {
   };
 
   if (loading) return <div className="page"><p className="muted">Đang tải hàng đợi ôn tập…</p></div>;
-  if (error) return <div className="page"><div className="alert alert-error">{error}</div></div>;
+  if (error) {
+    return (
+      <ErrorState
+        technical={error}
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
 
   if (finished && result) {
     return (
@@ -191,11 +200,13 @@ export default function ReviewDue() {
     return (
       <div className="page">
         <h1>Ôn tập đến hạn</h1>
-        <div className="empty-state">
-          <div className="empty-icon"><span className="jp-badge matcha">復</span></div>
-          <p>Không có gì đến hạn hôm nay. Tanu-chan thấy bạn đang theo kịp tiến độ — tuyệt vời!</p>
-          <Link to="/hoc" className="btn btn-primary">Học từ mới</Link>
-        </div>
+        <EmptyState
+          badge="復"
+          title="Hôm nay nhẹ nhàng rồi!"
+          message="Không có gì đến hạn ôn tập. Tanu-chan thấy bạn đang theo kịp tiến độ — tuyệt vời! Học thêm từ mới để mai có cái ôn nhé."
+          actionTo="/hoc"
+          actionLabel="Học từ mới"
+        />
       </div>
     );
   }

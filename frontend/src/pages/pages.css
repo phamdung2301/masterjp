@@ -136,6 +136,79 @@
 .empty-icon { font-size: 3rem; margin-bottom: 12px; }
 .empty-state p { color: var(--muted); max-width: 420px; margin: 0 auto 16px; }
 
+/* EmptyState / ErrorState thân thiện (Tanu-chan) */
+.empty-state-friendly { background: linear-gradient(180deg, #fffdf8 0%, #faf6ee 100%); border: 1px solid #f0e6d2; }
+.empty-mascot img { width: 96px; height: 96px; object-fit: contain; margin-bottom: 8px; }
+.empty-mascot .empty-badge-fallback { font-size: 2rem; width: 72px; height: 72px; align-items: center; justify-content: center; margin-bottom: 8px; }
+.empty-title { font-size: 1.25rem; font-weight: 700; color: #1f3a5f; margin: 4px 0 8px; }
+.error-state .empty-title { color: #b3402a; }
+.error-technical { font-size: 0.8rem; color: #b0a58c; max-width: 480px; margin: 0 auto 16px; word-break: break-word; }
+
+/* ---- EmptyState concept washi: "chưa có dữ liệu" (khác với ErrorState: "bị lỗi") ---- */
+.empty-washi {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 56px 24px 48px;
+  margin-top: 16px;
+  border-radius: var(--radius);
+  background-color: var(--washi-bg);
+  /* Họa tiết sóng seigaiha mờ bằng radial-gradient */
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(228, 72, 43, 0.05) 0 28px, transparent 29px),
+    radial-gradient(circle at 75% 15%, rgba(31, 58, 95, 0.05) 0 34px, transparent 35px),
+    radial-gradient(circle at 50% 85%, rgba(232, 169, 61, 0.06) 0 40px, transparent 41px),
+    radial-gradient(circle at 10% 70%, rgba(122, 155, 87, 0.05) 0 30px, transparent 31px),
+    radial-gradient(circle at 90% 75%, rgba(228, 72, 43, 0.04) 0 26px, transparent 27px);
+  border: 1px solid var(--washi-line);
+  box-shadow: var(--shadow);
+}
+.empty-washi-art { display: flex; justify-content: center; margin-bottom: 20px; }
+/* Vòng tròn "mặt trời mọc": viền đỏ shu-iro, nền kem */
+.empty-sun {
+  position: relative;
+  width: 132px; height: 132px;
+  border-radius: 50%;
+  background: #fffdf8;
+  border: 5px solid var(--washi-shu);
+  box-shadow: 0 6px 20px rgba(228, 72, 43, 0.18), inset 0 0 0 3px #fffdf8;
+  display: flex; align-items: center; justify-content: center;
+  overflow: visible;
+}
+.empty-sun img { width: 104px; height: 104px; object-fit: contain; border-radius: 50%; }
+/* Con dấu hanko đỏ góc dưới — trang trí khi có badge; phóng to giữa khi ảnh mascot lỗi */
+.empty-hanko {
+  position: absolute; right: -10px; bottom: -6px;
+  width: 44px; height: 44px;
+  display: none; align-items: center; justify-content: center;
+  background: var(--washi-shu); color: #fffdf8;
+  font-size: 1.4rem; font-weight: 700;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(228, 72, 43, 0.35);
+  transform: rotate(-8deg);
+}
+.empty-hanko.show {
+  display: inline-flex;
+  position: static; transform: none;
+  width: 72px; height: 72px; font-size: 2rem;
+}
+/* Luôn hiện hanko trang trí khi có badge */
+.empty-sun .empty-hanko:not(.show) { display: inline-flex; }
+.empty-washi-title { font-size: 1.35rem; font-weight: 800; color: var(--washi-ink); margin: 0 0 10px; letter-spacing: 0.01em; }
+.empty-washi-msg { color: #6b7a90; max-width: 440px; margin: 0 auto 22px; line-height: 1.65; }
+.empty-washi-cta { box-shadow: 0 4px 14px rgba(228, 72, 43, 0.3); }
+
+/* ---- ErrorState: cùng họ washi nhưng mood "trục trặc" để phân biệt với empty ---- */
+.error-washi {
+  background-color: #fdf6f3;
+  background-image:
+    radial-gradient(circle at 20% 25%, rgba(228, 72, 43, 0.07) 0 30px, transparent 31px),
+    radial-gradient(circle at 80% 70%, rgba(228, 72, 43, 0.06) 0 36px, transparent 37px);
+  border: 1px solid #f3ddd6;
+}
+.error-sun { border-color: #c9502f; box-shadow: 0 6px 20px rgba(201, 80, 47, 0.2), inset 0 0 0 3px #fffdf8; }
+.error-washi-title { color: #b3402a; }
+
 /* Dashboard */
 .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin: 16px 0; }
 .stat-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; }

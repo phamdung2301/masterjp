@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { createSet, deleteSet, fetchMySets } from '../api/sets.js';
 import { getErrorMessage } from '../api/client.js';
 import { formatDate } from '../utils.js';
+import EmptyState from '../components/EmptyState.jsx';
 import './pages.css';
 
 // US-007 (F-024): bộ thẻ của tôi — CRUD.
@@ -75,10 +76,11 @@ export default function Sets() {
       {loading ? (
         <p className="muted">Đang tải…</p>
       ) : sets.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-icon"><span className="jp-badge">札</span></div>
-          <p>Bạn chưa có bộ thẻ nào. Tạo bộ đầu tiên, hoặc từ trang bài học / từ điển bấm "＋ Bộ thẻ" để thêm từ vào.</p>
-        </div>
+        <EmptyState
+          badge="札"
+          title="Chưa có bộ thẻ nào"
+          message="Tạo bộ thẻ đầu tiên của bạn, hoặc từ trang bài học / từ điển bấm ＋ Bộ thẻ để thêm từ vào."
+        />
       ) : (
         <div className="set-grid">
           {sets.map((s) => (
