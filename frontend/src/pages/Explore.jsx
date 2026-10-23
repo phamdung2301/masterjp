@@ -4,6 +4,7 @@ import { fetchPublicSets, forkSet } from '../api/sets.js';
 import { getErrorMessage } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import LoginPrompt from '../components/LoginPrompt.jsx';
+import EmptyState from '../components/EmptyState.jsx';
 import './pages.css';
 import { UsersIcon } from '../components/icons.jsx';
 
@@ -63,10 +64,15 @@ export default function Explore() {
       {loading ? (
         <p className="muted">Đang tải…</p>
       ) : sets.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-icon"><UsersIcon size={44} /></div>
-          <p>Chưa có bộ thẻ công khai nào{ q.trim() ? ' khớp tìm kiếm' : '' }.</p>
-        </div>
+        <EmptyState
+          badge="集"
+          title={q.trim() ? 'Không tìm thấy bộ thẻ nào' : 'Chưa có bộ thẻ công khai'}
+          message={
+            q.trim()
+              ? `Không có bộ thẻ công khai nào khớp với "${q.trim()}". Thử từ khóa khác nhé.`
+              : 'Cộng đồng chưa chia sẻ bộ thẻ nào. Bạn có thể là người đầu tiên!'
+          }
+        />
       ) : (
         <div className="set-grid">
           {sets.map((s) => (

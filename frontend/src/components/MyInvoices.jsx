@@ -4,6 +4,8 @@ import { fetchMyInvoices } from '../api/payments.js';
 import { getErrorMessage } from '../api/client.js';
 import { formatDateTime } from '../utils.js';
 import { CrownIcon } from './icons.jsx';
+import EmptyState from './EmptyState.jsx';
+import ErrorState from './ErrorState.jsx';
 import '../pages/nangcap.css';
 
 // F-044 — "Hóa đơn của tôi" trong tab Cá nhân: badge trạng thái + số tiền + ngày tạo.
@@ -58,16 +60,18 @@ export default function MyInvoices() {
   }, [load]);
 
   if (invoices === null && !error) return <p className="muted">Đang tải hóa đơn…</p>;
-  if (error) return <div className="alert alert-error">{error}</div>;
+  if (error) {
+    return <ErrorState technical={error} onRetry={load} title="Không tải được hóa đơn!" />;
+  }
   if (invoices.length === 0) {
     return (
-      <div className="inv-empty">
-        <p className="muted">Bạn chưa có hóa đơn nào.</p>
-        <p className="muted">Khi nâng cấp Premium, hóa đơn sẽ hiện ở đây để bạn theo dõi trạng thái thanh toán.</p>
-        <Link to="/ca-nhan/nang-cap" className="btn btn-outline btn-sm">
-          <CrownIcon size={16} /> Xem các gói Premium
-        </Link>
-      </div>
+      <EmptyState
+        badge="請"
+        title="Chưa có hóa đơn nào"
+        message="Khi bạn nâng cấp Premium, hóa đơn sẽ hiện ở đây để theo dõi trạng thái thanh toán."
+        actionTo="/ca-nhan/nang-cap"
+        actionLabel="Xem các gói Premium"
+      />
     );
   }
 
