@@ -1,8 +1,6 @@
 package com.masterjp.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +10,8 @@ import java.util.Map;
  * Contract tien trinh:
  * - PATCH /api/progress/answer {wordId,correct,timeMs}
  *   -> {status,nextReviewAt,easeFactor,intervalDays,repetitions}
+ * - PATCH /api/progress/answer {kind:"kanji",character,correct,timeMs} (F-043)
+ *   -> cung shape AnswerResponse, ghi vao kanji_progress
  * - GET /api/progress/due?limit=50 -> [{word..., overdueDays}]
  * - GET /api/progress/summary -> {byLevel:{N5:{total,new,learning,mastered},N4:{...}},
  *   lessons:[{lessonId,lessonNo,level,titleJa,titleVi,total,mastered}], streakDays, recentSessions:[...]}
@@ -21,10 +21,18 @@ public final class ProgressDtos {
     private ProgressDtos() {
     }
 
+    /**
+     * F-043: them kind + character (tuy chon).
+     * - kind null/"vocab" -> wordId bat buoc (nhu cu).
+     * - kind "kanji" -> character bat buoc (dung 1 ky tu), wordId khong can.
+     * Validate dieu kien o ProgressController (400 VALIDATION_ERROR).
+     */
     public record AnswerRequest(
-            @NotBlank(message = "wordId không được để trống.") String wordId,
-            @NotNull(message = "correct không được để trống.") Boolean correct,
-            Long timeMs
+            String wordId,
+            Boolean correct,
+            Long timeMs,
+            String kind,
+            String character
     ) {
     }
 

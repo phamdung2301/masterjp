@@ -15,7 +15,7 @@ import java.util.Date;
         @CompoundIndex(name = "uq_user_word", def = "{'userId': 1, 'wordId': 1}", unique = true),
         @CompoundIndex(name = "idx_user_next", def = "{'userId': 1, 'nextReviewAt': 1}")
 })
-public class WordProgress {
+public class WordProgress implements Sm2Progress {
 
     @Id
     private String id;
@@ -60,6 +60,7 @@ public class WordProgress {
         return status;
     }
 
+    @Override
     public void setStatus(ProgressStatus status) {
         this.status = status;
     }
@@ -68,6 +69,7 @@ public class WordProgress {
         return easeFactor;
     }
 
+    @Override
     public void setEaseFactor(double easeFactor) {
         this.easeFactor = easeFactor;
     }
@@ -76,6 +78,7 @@ public class WordProgress {
         return intervalDays;
     }
 
+    @Override
     public void setIntervalDays(int intervalDays) {
         this.intervalDays = intervalDays;
     }
@@ -84,6 +87,7 @@ public class WordProgress {
         return repetitions;
     }
 
+    @Override
     public void setRepetitions(int repetitions) {
         this.repetitions = repetitions;
     }
@@ -92,6 +96,7 @@ public class WordProgress {
         return lapses;
     }
 
+    @Override
     public void setLapses(int lapses) {
         this.lapses = lapses;
     }
@@ -108,6 +113,7 @@ public class WordProgress {
         return lastReviewedAt;
     }
 
+    @Override
     public void setLastReviewedAt(Date lastReviewedAt) {
         this.lastReviewedAt = lastReviewedAt;
     }
@@ -116,6 +122,7 @@ public class WordProgress {
         return correctCount;
     }
 
+    @Override
     public void setCorrectCount(int correctCount) {
         this.correctCount = correctCount;
     }
@@ -124,6 +131,7 @@ public class WordProgress {
         return wrongCount;
     }
 
+    @Override
     public void setWrongCount(int wrongCount) {
         this.wrongCount = wrongCount;
     }

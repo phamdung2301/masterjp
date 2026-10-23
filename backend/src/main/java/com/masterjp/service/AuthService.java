@@ -30,15 +30,17 @@ public class AuthService {
     private final PlanExpiryService planExpiryService;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final ResendEmailService resendEmailService;
 
     public AuthService(UserRepository userRepository, OtpService otpService,
                        PlanExpiryService planExpiryService, PasswordEncoder passwordEncoder,
-                       JwtUtil jwtUtil) {
+                       JwtUtil jwtUtil, ResendEmailService resendEmailService) {
         this.userRepository = userRepository;
         this.otpService = otpService;
         this.planExpiryService = planExpiryService;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
+        this.resendEmailService = resendEmailService;
     }
 
     public void requestOtp(String email, String purposeStr) {
@@ -62,6 +64,8 @@ public class AuthService {
         user.setPlan(Plan.FREE);
         user.setEmailVerified(true);
         userRepository.save(user);
+        // Phase D — F-046: email chao mung sau khi verify OTP dang ky xong (best-effort).
+        resendEmailService.sendWelcomeEmail(user);
         return toAuthResponse(user);
     }
 
@@ -122,7 +126,8 @@ public class AuthService {
         }
         return new AuthDtos.MeResponse(user.getId(), user.getEmail(), user.getName(),
                 user.getRole().name(), user.getPlan().name(),
-                user.getPlanExpiresAt(), user.getStreakDays());
+                user.getPlanExpiresAt(), user.getStreakDays(),
+                user.isEmailReminderOptIn());
     }
 
     private AuthDtos.AuthResponse toAuthResponse(User user) {

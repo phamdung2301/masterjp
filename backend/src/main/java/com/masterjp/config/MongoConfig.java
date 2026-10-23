@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Bai hoc xuong mau: MongoDB driver LANG LE dung database "test" khi URI
@@ -19,6 +21,7 @@ import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
  * KHONG BAO GIO roi ve "test" mot cach im lang.
  */
 @Configuration
+@EnableTransactionManagement // Phase D — F-044: @Transactional cho fulfill (multi-document)
 public class MongoConfig {
 
     @Value("${spring.data.mongodb.uri:}")
@@ -47,6 +50,16 @@ public class MongoConfig {
     public MongoDatabaseFactory mongoDatabaseFactory(MongoClient mongoClient) {
         String database = resolveDatabaseName();
         return new SimpleMongoClientDatabaseFactory(mongoClient, database);
+    }
+
+    /**
+     * Phase D — F-044: transaction manager cho @Transactional trong
+     * PaymentFulfillmentService.fulfill (multi-document: invoice + sepay_transactions
+     * + users + audit_logs). Yeu cau MongoDB replica set (Atlas dat) moi chay duoc.
+     */
+    @Bean
+    public MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
+        return new MongoTransactionManager(dbFactory);
     }
 
     private String resolveDatabaseName() {

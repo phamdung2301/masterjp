@@ -21,6 +21,19 @@ client.interceptors.request.use((config) => {
 client.interceptors.response.use(
   (res) => res,
   (error) => {
+    // F-045: backend trả 429 FREEMIUM_LIMIT (vượt 20 từ mới/ngày) hoặc DAILY_LIMIT
+    // (hết quota AI) → mở PaywallModal washi thay vì toast lỗi thô.
+    // PaywallModalHost (đặt trong App.jsx) lắng nghe event này và render modal.
+    if (error.response && error.response.status === 429) {
+      const data = error.response.data || {};
+      if (data.code === 'FREEMIUM_LIMIT' || data.code === 'DAILY_LIMIT') {
+        window.dispatchEvent(
+          new CustomEvent('mjp:open-paywall', {
+            detail: { code: data.code, limit: data.limit, resetAt: data.resetAt },
+          })
+        );
+      }
+    }
     if (error.response && error.response.status === 401) {
       localStorage.removeItem(TOKEN_KEY);
       if (!window.location.pathname.startsWith('/dang-nhap')) {

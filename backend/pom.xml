@@ -45,6 +45,14 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
+        <!-- Jackson databind: code Phase B/C/D import trực tiếp
+             com.fasterxml.jackson.databind (ObjectMapper/JsonNode).
+             Khai báo explicit để không phụ thuộc vào transitive deps. -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
         <!-- JWT (jjwt 0.12.x API) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

@@ -27,12 +27,17 @@ public class SessionService {
     private final StudySessionRepository studySessionRepository;
     private final UserRepository userRepository;
     private final AppTime appTime;
+    private final BadgeService badgeService;
+    private final WrongAnswerService wrongAnswerService;
 
     public SessionService(StudySessionRepository studySessionRepository,
-                          UserRepository userRepository, AppTime appTime) {
+                          UserRepository userRepository, AppTime appTime,
+                          BadgeService badgeService, WrongAnswerService wrongAnswerService) {
         this.studySessionRepository = studySessionRepository;
         this.userRepository = userRepository;
         this.appTime = appTime;
+        this.badgeService = badgeService;
+        this.wrongAnswerService = wrongAnswerService;
     }
 
     public SessionDtos.SessionResponse create(String userId, SessionDtos.CreateSessionRequest req) {
@@ -57,8 +62,16 @@ public class SessionService {
         session.setFinishedAt(req.finishedAt() != null ? req.finishedAt() : new Date());
         studySessionRepository.save(session);
 
+        // Phase C — F-043: ghi cau sai vao wrong_answers (dedupe + retention nam trong service).
+        wrongAnswerService.recordFromSession(userId, session.getId(), session.getItems());
+
         int streakDays = updateStreak(userId);
-        return new SessionDtos.SessionResponse(session.getId(), streakDays);
+
+        // Phase C — F-042: trao huy hieu SAU khi streak da cap nhat (badge streak
+        // doc streakDays moi nhat tu DB — hook chay truoc updateStreak se trao tre 1 phien).
+        List<String> newBadges = badgeService.onSessionCompleted(session);
+
+        return new SessionDtos.SessionResponse(session.getId(), streakDays, newBadges);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.masterjp.service;
 
 import com.masterjp.domain.ProgressStatus;
+import com.masterjp.domain.Sm2Progress;
 import com.masterjp.domain.WordProgress;
 
 import java.time.Instant;
@@ -16,13 +17,22 @@ import java.util.Date;
  * - Sai: repetitions=0, interval=1 ngay, lapses+1, easeFactor = max(1.3, ef-0.2).
  *
  * Ham thuan (khong DB) de unit-test duoc.
+ *
+ * F-043: them overload nhan Sm2Progress de kanji (KanjiProgress) dung CHUNG
+ * cong thuc nay — khong duplicate. Overload cu (WordProgress) giu nguyen
+ * de khong vo code hien co.
  */
 public final class Sm2Calculator {
 
     private Sm2Calculator() {
     }
 
+    /** Giu cho tuong thich nguoc (F-026/F-027) — uy thac sang ban interface. */
     public static void apply(WordProgress progress, boolean correct) {
+        apply((Sm2Progress) progress, correct);
+    }
+
+    public static void apply(Sm2Progress progress, boolean correct) {
         if (correct) {
             int repetitions = progress.getRepetitions() + 1;
             progress.setRepetitions(repetitions);
