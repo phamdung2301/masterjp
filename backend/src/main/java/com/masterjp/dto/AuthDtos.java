@@ -58,6 +58,8 @@ public final class AuthDtos {
     }
 
     public record MeResponse(String id, String email, String name, String role, String plan,
-                             Date planExpiresAt, int streakDays) {
+                             Date planExpiresAt, int streakDays,
+                             // Phase D — F-046: opt-in email nhac on tap (null = true)
+                             boolean emailReminderOptIn) {
     }
 }

@@ -62,6 +62,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         // Public: auth + noi dung read-only cho GUEST
                         .requestMatchers("/api/auth/**").permitAll()
+                        // Phase D — F-044: webhook SePay public (verify bang X-Webhook-Secret
+                        // trong service, khong qua JWT filter). Dat truoc rule /api/admin/**
+                        // va /api/** de khong bi chan.
+                        .requestMatchers(HttpMethod.POST, "/api/payments/sepay/webhook").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/lessons", "/api/lessons/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/words/search").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/kanji", "/api/kanji/**").permitAll() // F-B

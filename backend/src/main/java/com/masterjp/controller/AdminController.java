@@ -3,10 +3,12 @@ package com.masterjp.controller;
 import com.masterjp.dto.AdminDtos;
 import com.masterjp.dto.CommonDtos;
 import com.masterjp.dto.LessonDtos;
+import com.masterjp.dto.PaymentDtos;
 import com.masterjp.dto.WordDtos;
 import com.masterjp.security.UserPrincipal;
 import com.masterjp.service.AdminService;
 import com.masterjp.service.AudioJobService;
+import com.masterjp.service.PaymentService;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,10 +32,13 @@ public class AdminController {
 
     private final AdminService adminService;
     private final AudioJobService audioJobService;
+    private final PaymentService paymentService;
 
-    public AdminController(AdminService adminService, AudioJobService audioJobService) {
+    public AdminController(AdminService adminService, AudioJobService audioJobService,
+                           PaymentService paymentService) {
         this.adminService = adminService;
         this.audioJobService = audioJobService;
+        this.paymentService = paymentService;
     }
 
     // ---------- Lessons ----------
@@ -147,5 +152,26 @@ public class AdminController {
     public CommonDtos.PageResponse<AdminDtos.AuditLogDto> auditLogs(
             @RequestParam(defaultValue = "0") int page) {
         return adminService.listAuditLogs(page);
+    }
+
+    // ---------- Payments (Phase D — F-044, read-only) ----------
+
+    /** Xem hoa don (filter tuy chon), moi nhat truoc. */
+    @GetMapping("/payments/invoices")
+    public CommonDtos.PageResponse<PaymentDtos.AdminInvoiceDto> listInvoices(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return paymentService.listInvoicesAdmin(status, userId, page, size);
+    }
+
+    /** Xem giao dich SePay (filter tuy chon), moi nhat truoc. */
+    @GetMapping("/payments/sepay/transactions")
+    public CommonDtos.PageResponse<PaymentDtos.AdminSepayTransactionDto> listSepayTransactions(
+            @RequestParam(required = false) String status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return paymentService.listTransactionsAdmin(status, page, size);
     }
 }
