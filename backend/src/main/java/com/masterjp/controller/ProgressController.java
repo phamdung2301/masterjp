@@ -1,9 +1,11 @@
 package com.masterjp.controller;
 
 import com.masterjp.dto.ProgressDtos;
+import com.masterjp.exception.ApiException;
 import com.masterjp.security.UserPrincipal;
+import com.masterjp.service.KanjiProgressService;
 import com.masterjp.service.ProgressService;
-import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,18 +21,44 @@ import java.util.List;
 public class ProgressController {
 
     private final ProgressService progressService;
+    private final KanjiProgressService kanjiProgressService;
 
-    public ProgressController(ProgressService progressService) {
+    public ProgressController(ProgressService progressService,
+                              KanjiProgressService kanjiProgressService) {
         this.progressService = progressService;
+        this.kanjiProgressService = kanjiProgressService;
     }
 
     /**
      * Cap nhat tien trinh SAU MOI CAU TRA LOI (F-027) — khong batch cuoi phien.
      * SM-2 chay o backend.
+     * F-043: mo rong them kind="kanji" + character (tuy chon) — kanji co SM-2
+     * rieng (kanji_progress) nhung tra cung shape AnswerResponse.
      */
     @PatchMapping("/answer")
-    public ProgressDtos.AnswerResponse answer(@Valid @RequestBody ProgressDtos.AnswerRequest req,
+    public ProgressDtos.AnswerResponse answer(@RequestBody ProgressDtos.AnswerRequest req,
                                              @AuthenticationPrincipal UserPrincipal principal) {
+        String kind = req.kind() == null ? "vocab" : req.kind().trim().toLowerCase();
+        if (!"vocab".equals(kind) && !"kanji".equals(kind)) {
+            throw new ApiException("VALIDATION_ERROR",
+                    "kind chỉ nhận \"vocab\" hoặc \"kanji\".", HttpStatus.BAD_REQUEST);
+        }
+        if (req.correct() == null) {
+            throw new ApiException("VALIDATION_ERROR",
+                    "correct không được để trống.", HttpStatus.BAD_REQUEST);
+        }
+        if ("kanji".equals(kind)) {
+            String character = req.character() == null ? null : req.character().trim();
+            if (character == null || character.length() != 1) {
+                throw new ApiException("VALIDATION_ERROR",
+                        "character phải là 1 ký tự kanji.", HttpStatus.BAD_REQUEST);
+            }
+            return kanjiProgressService.answerKanji(principal.getId(), character, req.correct());
+        }
+        if (req.wordId() == null || req.wordId().isBlank()) {
+            throw new ApiException("VALIDATION_ERROR",
+                    "wordId không được để trống.", HttpStatus.BAD_REQUEST);
+        }
         return progressService.answer(principal.getId(), req.wordId(), req.correct());
     }
 

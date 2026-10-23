@@ -16,4 +16,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     /** User PREMIUM da het han goi (job moi gio + check luc login). */
     List<User> findByPlanAndPlanExpiresAtLessThan(Plan plan, Date now);
+
+    /** Phase C — F-042: user dong y xuat hien tren bang xep hang tuan. */
+    List<User> findByLeaderboardOptInTrue();
 }

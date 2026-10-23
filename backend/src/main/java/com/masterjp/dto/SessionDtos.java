@@ -32,6 +32,11 @@ public final class SessionDtos {
     public record SessionItemDto(String wordId, Boolean correct, Long timeMs) {
     }
 
-    public record SessionResponse(String id, int streakDays) {
+    public record SessionResponse(String id, int streakDays, List<String> newBadges) {
+        // Phase C — F-042: newBadges = code huy hieu vua dat trong phien nay (co the rong).
+        // Constructor cu van tuong thich: new SessionResponse(id, streakDays) -> newBadges = [].
+        public SessionResponse(String id, int streakDays) {
+            this(id, streakDays, List.of());
+        }
     }
 }

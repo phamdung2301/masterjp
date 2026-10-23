@@ -26,6 +26,11 @@ public class User {
     private int failedLoginAttempts;
     private Date lockedUntil; // khoa tam sau 5 lan sai mat khau
     private Date createdAt = new Date();
+    // Phase C — F-042 gamification (them, khong doi field cu)
+    private boolean leaderboardOptIn = false; // mac dinh KHONG hien tren bang xep hang
+    private String nickname; // biet danh tu dat (1-20 ky tu); null -> "Tanu-" + 4 ky tu cuoi id
+    // Phase D — F-046 email nhac on tap (them, khong doi field cu)
+    private Boolean emailReminderOptIn = true; // mac dinh opt-in; user cu (null) duoc coi nhu true
 
     public String getId() {
         return id;
@@ -129,5 +134,36 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    // Phase C — F-042 (additive)
+    public boolean isLeaderboardOptIn() {
+        return leaderboardOptIn;
+    }
+
+    public void setLeaderboardOptIn(boolean leaderboardOptIn) {
+        this.leaderboardOptIn = leaderboardOptIn;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    // Phase D — F-046 (additive)
+    public Boolean getEmailReminderOptIn() {
+        return emailReminderOptIn;
+    }
+
+    public void setEmailReminderOptIn(Boolean emailReminderOptIn) {
+        this.emailReminderOptIn = emailReminderOptIn;
+    }
+
+    /** User hien co (null) duoc coi nhu opt-in — khong can migration script. */
+    public boolean isEmailReminderOptIn() {
+        return !Boolean.FALSE.equals(emailReminderOptIn);
     }
 }

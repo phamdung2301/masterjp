@@ -231,11 +231,17 @@
 | FR-002 | F-002 | users, otp_codes |
 | FR-003/004 | F-003/F-004 | users, otp_codes |
 | FR-005 | (bootstrap, không qua API) | users |
-| FR-010/011 | F-010/F-011 | lessons, vocab_words, word_progress |
+| FR-010/011 | F-010/F-011 | lessons, vocab_words |
 | FR-012/013 | F-012/F-013 | vocab_words (+ file audio) |
 | FR-020 | F-020, F-027 | vocab_words, custom_sets, word_progress, study_sessions |
 | FR-021/022/023 | F-021/F-022/F-023, F-027 | vocab_words, word_progress, study_sessions |
 | FR-037 | F-037, F-027 | vocab_words, word_progress, study_sessions |
+| FR-038 | F-038 | (AI provider ngoài; không collection mới) |
+| FR-039 | F-039 | ai_grades, wrong_answers |
+| FR-040 | F-040 | (AI provider ngoài; không collection mới) |
+| FR-041 | F-041 | study_sessions (mode=SHADOWING; seed JSON tĩnh) |
+| FR-042 | F-042 | user_badges, users, study_sessions |
+| FR-043 | F-043 | word_progress, kanji_progress, wrong_answers |
 | FR-024/025 | F-024/F-025 | custom_sets, vocab_words |
 | FR-035 | F-035 | custom_sets |
 | FR-036 | F-036 | users, audit_logs |

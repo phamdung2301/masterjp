@@ -806,3 +806,53 @@
 .settings-card { background: #fff; border-radius: 16px; border: 2px solid var(--washi-line); padding: 24px; margin-top: 16px; }
 .settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--washi-line); flex-wrap: wrap; }
 .settings-row:last-child { border-bottom: none; }
+
+/* F-043 review queue — hàng đợi ôn tập thống nhất */
+.review-kind-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.review-kind-row .jp-badge { width: 34px; height: 34px; font-size: 17px; border-radius: 10px; }
+.flash-kanji-big { font-size: 5rem; line-height: 1.2; }
+.flash-yomi { margin-top: 10px; font-size: 1.05rem; display: grid; gap: 4px; }
+.ai-review-card { background: #fff; border: 2px solid var(--washi-line); border-radius: 18px; padding: 22px; max-width: 640px; margin: 0 auto; }
+.ai-review-block { margin-bottom: 14px; }
+.ai-review-label { font-size: 0.8rem; color: var(--washi-muted); margin-bottom: 4px; }
+.ai-sentence { font-size: 1.25rem; font-weight: 700; }
+.ai-sentence.corrected { color: #3d6b35; }
+.ai-errors { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 8px; }
+.ai-errors li { background: #FDECE8; border-radius: 10px; padding: 10px 12px; font-size: 0.95rem; }
+.rewrite-row { display: flex; gap: 10px; margin-bottom: 8px; }
+.rewrite-input { flex: 1; border: 2px solid var(--washi-line); border-radius: 12px; padding: 10px 14px; font-size: 1rem; }
+.rewrite-input:focus { outline: none; border-color: var(--washi-shu); }
+.ai-feedback { font-size: 0.95rem; color: #92400e; margin: 4px 0 0; }
+
+/* F-042 gamification — huy hieu that, heatmap, bang xep hang tuan */
+.achieve-wrap > section { margin-top: 30px; }
+.ach-date { display: block; margin-top: 4px; font-style: italic; }
+.heatmap-wrap { margin-top: 30px; }
+.heatmap-grid { display: flex; gap: 4px; margin-top: 12px; overflow-x: auto; padding-bottom: 6px; }
+.heatmap-labels { display: grid; grid-template-rows: repeat(7, 13px); gap: 4px; margin-right: 6px; }
+.heatmap-labels span { font-size: 10px; line-height: 13px; color: var(--washi-muted); }
+.heatmap-col { display: grid; grid-template-rows: repeat(7, 13px); gap: 4px; }
+.heatmap-cell { width: 13px; height: 13px; border-radius: 3px; background: #EDE6D3; display: inline-block; }
+.heatmap-cell.pad { background: transparent; }
+.heatmap-cell.l1 { background: #F0D79A; }
+.heatmap-cell.l2 { background: #E0A93F; }
+.heatmap-cell.l3 { background: var(--washi-shu); }
+.heatmap-legend { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 0.8rem; color: var(--washi-muted); }
+.leaderboard-wrap { margin-top: 30px; }
+.lb-nav { display: flex; align-items: center; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+.lb-table-wrap { overflow-x: auto; }
+.lb-table { width: 100%; border-collapse: collapse; margin-top: 8px; background: #fff; border-radius: 12px; overflow: hidden; }
+.lb-table th, .lb-table td { padding: 9px 12px; border-bottom: 1px solid var(--washi-line); text-align: left; font-size: 0.9rem; }
+.lb-table thead th { background: var(--washi-ink); color: #fff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.lb-table tbody tr:last-child td { border-bottom: none; }
+.lb-table tr.me td { font-weight: 800; background: #FFF7E3; }
+.lb-myrank { background: #FFF7E3; border: 1px solid var(--washi-gold); border-radius: 10px; padding: 8px 12px; }
+.lb-profile { margin-top: 20px; border: 2px solid var(--washi-line); border-radius: 14px; padding: 14px 16px; background: #FFFDF6; max-width: 520px; }
+.lb-profile h4 { margin: 0 0 10px; }
+.lb-optin { display: flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer; }
+.lb-nick-row { display: flex; gap: 8px; margin-top: 10px; }
+.lb-nick-row input { flex: 1; padding: 8px 12px; border: 2px solid var(--washi-line); border-radius: 10px; font-size: 0.95rem; }
+.lb-nick-row input:focus { outline: none; border-color: var(--washi-shu); }
+.badge-toast { position: fixed; bottom: 24px; right: 24px; z-index: 1000; display: flex; gap: 12px; align-items: center; background: #FFFDF6; border: 2px solid var(--washi-gold); border-radius: 14px; padding: 12px 16px; box-shadow: 0 12px 32px rgba(31, 58, 95, 0.25); max-width: min(360px, calc(100vw - 48px)); }
+.badge-toast p { margin: 2px 0 0; color: var(--washi-muted); font-size: 0.85rem; }
+@media (max-width: 600px) { .badge-toast { bottom: 16px; right: 16px; } }
