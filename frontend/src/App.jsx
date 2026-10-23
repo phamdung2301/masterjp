@@ -25,10 +25,15 @@ import ForgotPassword from './pages/ForgotPassword.jsx';
 import AdminOverview from './pages/admin/AdminOverview.jsx';
 import AdminLessons from './pages/admin/AdminLessons.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import SenseiChatWidget from './components/SenseiChatWidget.jsx';
+import NewBadgeToast from './components/gamification/NewBadgeToast.jsx';
+import { PaywallModalHost } from './components/PaywallModal.jsx';
 import AdminWords from './pages/admin/AdminWords.jsx';
 import AdminImport from './pages/admin/AdminImport.jsx';
 import AdminUsers from './pages/admin/AdminUsers.jsx';
 import AdminAudit from './pages/admin/AdminAudit.jsx';
+import AdminPayments from './pages/admin/AdminPayments.jsx';
+import NangCap from './pages/NangCap.jsx';
 import './index.css';
 
 // DOC-10 §4: redirect giữ bookmark cũ — /bai-hoc/:id → /hoc/bai/:id.
@@ -76,6 +81,8 @@ export default function App() {
               <Route path="/on-tap" element={<ErrorBoundary><ProtectedRoute><ReviewDue /></ProtectedRoute></ErrorBoundary>} />
               <Route path="/ca-nhan" element={<ErrorBoundary><ProtectedRoute><CaNhan /></ProtectedRoute></ErrorBoundary>} />
               <Route path="/ca-nhan/bo-the/:id" element={<ErrorBoundary><ProtectedRoute><CaNhan initialTab="bo-the" /></ProtectedRoute></ErrorBoundary>} />
+              {/* F-044: nâng cấp Premium — flow tạo invoice + hướng dẫn chuyển khoản */}
+              <Route path="/ca-nhan/nang-cap" element={<ErrorBoundary><ProtectedRoute><NangCap /></ProtectedRoute></ErrorBoundary>} />
 
               {/* Luyện tập theo IA mới (A3):
                   - Trong bài: LessonHub nhúng component (không qua route).
@@ -107,6 +114,7 @@ export default function App() {
                 <Route path="tu-vung" element={<AdminWords />} />
                 <Route path="import" element={<AdminImport />} />
                 <Route path="nguoi-dung" element={<AdminUsers />} />
+                <Route path="thanh-toan" element={<AdminPayments />} />
                 <Route path="nhat-ky" element={<AdminAudit />} />
               </Route>
 
@@ -115,6 +123,14 @@ export default function App() {
             </ErrorBoundary>
           </main>
           <Footer />
+          {/* F-038: Sensei AI chat — floating trên MỌI trang. ErrorBoundary riêng để
+              widget lỗi không ảnh hưởng trang đang xem. */}
+          <ErrorBoundary><SenseiChatWidget /></ErrorBoundary>
+          {/* F-042: toast chúc mừng huy hiệu mới — nghe event mjp:new-badges từ recordSession. */}
+          <ErrorBoundary><NewBadgeToast /></ErrorBoundary>
+          {/* F-045: paywall washi — mở bởi interceptor axios khi backend trả 429
+              FREEMIUM_LIMIT / DAILY_LIMIT (event mjp:open-paywall). */}
+          <ErrorBoundary><PaywallModalHost /></ErrorBoundary>
         </div>
       </AuthProvider>
     </BrowserRouter>

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { fetchGrammarDetail } from '../api/grammar.js';
 import { getErrorMessage } from '../api/client.js';
+import { openSenseiChat } from './SenseiChatWidget.jsx';
+import { ChatIcon, WarnIcon } from './icons.jsx';
 import '../pages/pages.css';
+import './sensei.css';
 
 // GrammarPointCard — component dùng chung cho trang Ngữ pháp và tab Ngữ pháp trong bài học.
 // Props:
@@ -10,7 +13,8 @@ import '../pages/pages.css';
 // - relatedTitles: map id → title để hiển thị tên điểm liên quan trên chip (optional)
 // - showLesson: hiện nhãn "Bài {lessonNo}" trên card (optional, dùng cho kết quả tìm kiếm)
 // - defaultOpen: card mở rộng ngay từ đầu (optional, dùng trong modal xem điểm liên quan)
-export default function GrammarPointCard({ point, onRelated, relatedTitles, showLesson, defaultOpen }) {
+// - lessonNo: số bài hiện tại (optional, dùng khi card mở từ Lesson Hub — truyền vào ngữ cảnh Sensei chat)
+export default function GrammarPointCard({ point, onRelated, relatedTitles, showLesson, defaultOpen, lessonNo }) {
   const [open, setOpen] = useState(!!defaultOpen);
   const [detail, setDetail] = useState(null);
   const [detailLoading, setDetailLoading] = useState(false);
@@ -67,6 +71,17 @@ export default function GrammarPointCard({ point, onRelated, relatedTitles, show
         )}
       </div>
 
+      {/* F-038: mở Sensei chat với ngữ cảnh điểm ngữ pháp này. */}
+      <div className="grammar-card-actions">
+        <button
+          type="button"
+          className="btn btn-outline btn-sm"
+          onClick={() => openSenseiChat({ grammarPointId: point.id, title: point.title, lessonNo: lessonNo ?? point.lessonNo })}
+        >
+          <ChatIcon size={16} /> Hỏi Sensei AI
+        </button>
+      </div>
+
       {open && (
         <div className="grammar-detail">
           {detailLoading && <p className="muted">Đang tải chi tiết…</p>}
@@ -98,7 +113,7 @@ export default function GrammarPointCard({ point, onRelated, relatedTitles, show
               )}
               {detail.notes && (
                 <div className="grammar-notes">
-                  <span className="grammar-notes-icon">⚠️</span>
+                  <span className="grammar-notes-icon"><WarnIcon size={18} /></span>
                   <span>{detail.notes}</span>
                 </div>
               )}

@@ -130,3 +130,99 @@ export function UsersIcon({ size }) {
     </Svg>
   );
 }
+
+export function ChatIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <path d="M4 6.5A3.5 3.5 0 0 1 7.5 3h9A3.5 3.5 0 0 1 20 6.5v7a3.5 3.5 0 0 1-3.5 3.5H9l-5 4V6.5z" />
+      <path d="M8.5 8.5h7M8.5 11.5h4.5" />
+    </Svg>
+  );
+}
+
+export function SendIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <path d="M20 4L10.5 13.5" />
+      <path d="M20 4l-6.5 16-3-6.5L4 10.5 20 4z" />
+    </Svg>
+  );
+}
+
+export function WarnIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <path d="M12 3.5L22 20H2L12 3.5z" />
+      <path d="M12 9.5v4.5" />
+      <path d="M12 17.2v.3" />
+    </Svg>
+  );
+}
+
+// F-044: nút sao chép số tài khoản / nội dung chuyển khoản.
+export function CopyIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <rect x="9" y="9" width="11" height="11" rx="2" />
+      <path d="M5 15V6a2 2 0 0 1 2-2h9" />
+    </Svg>
+  );
+}
+
+// F-044: huy hiệu trạng thái hóa đơn (premium).
+export function CrownIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <path d="M4 8l3.5 3L12 5.5 16.5 11 20 8l-1.5 10h-13L4 8z" />
+      <path d="M5.5 18h13" />
+    </Svg>
+  );
+}
+
+// F-041 shadowing: play/pause/ghi âm/tải/lặp — cùng style stroke với các icon trên.
+export function PlayIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <path d="M8 5.5v13l11-6.5-11-6.5z" />
+    </Svg>
+  );
+}
+
+export function PauseIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <path d="M8.5 5.5v13M15.5 5.5v13" />
+    </Svg>
+  );
+}
+
+export function MicIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <rect x="9" y="3" width="6" height="11" rx="3" />
+      <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0" />
+      <path d="M12 18v3" />
+    </Svg>
+  );
+}
+
+export function DownloadIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <path d="M12 4v11" />
+      <path d="M7.5 11l4.5 4.5L16.5 11" />
+      <path d="M4.5 19.5h15" />
+    </Svg>
+  );
+}
+
+export function RepeatIcon({ size }) {
+  return (
+    <Svg size={size}>
+      <path d="M17 3.5l3.5 3.5L17 10.5" />
+      <path d="M20.5 7H8a4.5 4.5 0 0 0-4.5 4.5" />
+      <path d="M7 20.5L3.5 17 7 13.5" />
+      <path d="M3.5 17H16a4.5 4.5 0 0 0 4.5-4.5" />
+    </Svg>
+  );
+}
