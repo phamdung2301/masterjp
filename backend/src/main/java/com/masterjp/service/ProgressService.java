@@ -38,17 +38,20 @@ public class ProgressService {
     private final LessonRepository lessonRepository;
     private final StudySessionRepository studySessionRepository;
     private final UserRepository userRepository;
+    private final FreemiumLimitService freemiumLimitService;
 
     public ProgressService(WordProgressRepository wordProgressRepository,
                            VocabWordRepository vocabWordRepository,
                            LessonRepository lessonRepository,
                            StudySessionRepository studySessionRepository,
-                           UserRepository userRepository) {
+                           UserRepository userRepository,
+                           FreemiumLimitService freemiumLimitService) {
         this.wordProgressRepository = wordProgressRepository;
         this.vocabWordRepository = vocabWordRepository;
         this.lessonRepository = lessonRepository;
         this.studySessionRepository = studySessionRepository;
         this.userRepository = userRepository;
+        this.freemiumLimitService = freemiumLimitService;
     }
 
     /** PATCH /api/progress/answer — upsert theo unique(userId, wordId). */
@@ -58,12 +61,17 @@ public class ProgressService {
                         "Từ vựng không tồn tại.", HttpStatus.NOT_FOUND));
 
         WordProgress progress = wordProgressRepository.findByUserIdAndWordId(userId, wordId)
-                .orElseGet(() -> {
-                    WordProgress np = new WordProgress();
-                    np.setUserId(userId);
-                    np.setWordId(wordId);
-                    return np;
-                });
+                .orElse(null);
+        if (progress == null) {
+            // Phase D — F-045: "tu moi" = lan dau tao word_progress. Dem TRUOC KHI tao
+            // (atomic inc-truoc-check-sau); FREE vuot 20 tu/ngay -> 429 FREEMIUM_LIMIT,
+            // tu khong duoc danh dau da hoc. On tap tu cu (update) khong di qua day.
+            freemiumLimitService.consumeNewWord(userId);
+            WordProgress np = new WordProgress();
+            np.setUserId(userId);
+            np.setWordId(wordId);
+            progress = np;
+        }
 
         Sm2Calculator.apply(progress, correct);
         wordProgressRepository.save(progress);

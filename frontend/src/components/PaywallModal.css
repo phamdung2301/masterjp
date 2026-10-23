@@ -1,0 +1,117 @@
+/* F-045 — PaywallModal washi: giấy kem + mực chàm + nhấn đỏ shu-iro. */
+
+.paywall-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(31, 58, 95, 0.55);
+  backdrop-filter: blur(3px);
+  animation: paywall-fade 0.18s ease-out;
+}
+
+@keyframes paywall-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.paywall-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: var(--washi-bg);
+  border: 2px solid var(--washi-line);
+  border-top: 6px solid var(--washi-shu);
+  border-radius: 18px;
+  padding: 28px 28px 20px;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(31, 58, 95, 0.35);
+  animation: paywall-pop 0.22s ease-out;
+}
+
+@keyframes paywall-pop {
+  from { transform: translateY(14px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.paywall-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  color: var(--washi-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+}
+.paywall-close:hover { color: var(--washi-ink); background: var(--washi-line); }
+
+.paywall-mascot { margin-bottom: 10px; display: flex; justify-content: center; }
+
+.paywall-title {
+  font-size: 1.35rem;
+  color: var(--washi-ink);
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.paywall-body {
+  color: var(--washi-ink);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0 0 18px;
+}
+
+.paywall-plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.paywall-plan {
+  position: relative;
+  border: 2px solid var(--washi-line);
+  border-radius: 12px;
+  padding: 12px 8px;
+  background: #fff;
+}
+.paywall-plan.hot {
+  border-color: var(--washi-shu);
+  background: #FFF8F4;
+}
+.paywall-plan-tag {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: var(--washi-shu);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+.paywall-plan-name { font-weight: 700; color: var(--washi-ink); font-size: 0.9rem; margin-bottom: 4px; }
+.paywall-plan-price { font-size: 1.25rem; font-weight: 900; color: var(--washi-shu); }
+.paywall-plan-price span { font-size: 0.75rem; font-weight: 600; color: var(--washi-muted); }
+.paywall-plan-note { font-size: 0.72rem; color: var(--washi-muted); margin-top: 6px; line-height: 1.4; }
+
+.paywall-fineprint {
+  font-size: 0.72rem;
+  color: var(--washi-muted);
+  line-height: 1.5;
+  margin: 14px 0 0;
+}
+
+@media (max-width: 420px) {
+  .paywall-plans { grid-template-columns: 1fr; }
+  .paywall-card { padding: 22px 18px 16px; }
+}

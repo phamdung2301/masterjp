@@ -25,3 +25,11 @@ export async function fetchMe() {
   const { data } = await client.get('/auth/me');
   return data; // { id, email, name, role, plan, planExpiresAt, streakDays }
 }
+
+// F-046 — toggle nhận email nhắc ôn tập (DOC-13 §5.6 field users.emailReminderOptIn).
+// Contract (DOC-13 §9): PATCH /api/users/me, request { emailReminderOptIn: boolean },
+// response { id, email, name, role, plan, planExpiresAt, streakDays, emailReminderOptIn }.
+export async function updateMySettings(payload) {
+  const { data } = await client.patch('/users/me', payload);
+  return data;
+}

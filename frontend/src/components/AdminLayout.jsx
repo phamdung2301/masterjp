@@ -13,6 +13,7 @@ export default function AdminLayout() {
           <NavLink to="/admin/tu-vung">Từ vựng</NavLink>
           <NavLink to="/admin/import">Import Excel</NavLink>
           <NavLink to="/admin/nguoi-dung">Người dùng</NavLink>
+          <NavLink to="/admin/thanh-toan">Thanh toán</NavLink>
           <NavLink to="/admin/nhat-ky">Nhật ký</NavLink>
         </aside>
         <div className="admin-content">
